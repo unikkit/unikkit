@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/unikkTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="content">
+		<h:form id="studentDetailsForm">
+			<h:inputHidden value="#{studentDetailsBean.id}" />
+			<h:outputLabel
+				value="Student Details - #{studentDetailsBean.rollNumber} / #{studentDetailsBean.name}"
+				styleClass="pageHeader" />
+			<br />
+			<br />
+			<h:panelGrid columns="2" styleClass="panelGrid" rowClasses="alignTop"
+				columnClasses="width60">
+				<p:fieldset id="studentDetailsFS" legend="Student Details">
+					<h:panelGrid columns="2" style="width:90%;">
+						<h:outputLabel value="Roll #"></h:outputLabel>
+						<h:outputLabel id="rollNumberTxt"
+							value="#{studentDetailsBean.rollNumber}"></h:outputLabel>
+
+						<h:outputLabel for="regNumberTxt" value="Registration #"></h:outputLabel>
+						<p:inputText id="regNumberTxt"
+							value="#{studentDetailsBean.registrationNumber}" size="15" maxlength="11"></p:inputText>
+
+						<h:outputLabel for="batchTxt" value="Batch"></h:outputLabel>
+						<p:inputText id="batchTxt"
+							value="#{studentDetailsBean.batch}"></p:inputText>
+
+						<h:outputLabel for="studentNameTxt" value="Student Name"></h:outputLabel>
+						<p:inputText id="studentNameTxt"
+							value="#{studentDetailsBean.name}" size="35"></p:inputText>
+
+						<h:outputLabel value="Gender"></h:outputLabel>
+						<p:selectOneButton id="genderBtn"
+							value="#{studentDetailsBean.gender}">
+							<f:selectItem itemLabel="Male" itemValue="M" />
+							<f:selectItem itemLabel="Female" itemValue="F" />
+						</p:selectOneButton>
+
+						<h:outputLabel for="dobDT" value="D.O.B"></h:outputLabel>
+						<p:inputText id="dobDT" value="#{studentDetailsBean.dob}" />
+
+						<h:outputLabel for="collegeDD" value="College"></h:outputLabel>
+						<p:selectOneListbox id="collegeDD"
+							value="#{studentDetailsBean.college}">
+							<f:selectItem itemLabel="M.A.M.C.E" itemValue="MAMCE" />
+							<f:selectItem itemLabel="M.A.M.C.E.T" itemValue="MAMCET" />
+						</p:selectOneListbox>
+
+						<h:outputLabel value="Department"></h:outputLabel>
+						<p:selectOneButton id="departmentBtn"
+							value="#{studentDetailsBean.department}">
+							<f:selectItem itemLabel="IT" itemValue="IT" />
+							<f:selectItem itemLabel="CSE" itemValue="CSE" />
+							<f:selectItem itemLabel="EEE" itemValue="EEE" />
+							<f:selectItem itemLabel="EI" itemValue="EI" />
+						</p:selectOneButton>
+
+						<h:outputLabel for="emailTxt" value="Email"></h:outputLabel>
+						<p:inputText id="emailTxt"
+							value="#{studentDetailsBean.email}" size="35"></p:inputText>
+
+						<h:outputLabel for="address1Txt" value="Address 1"></h:outputLabel>
+						<p:inputText id="address1Txt"
+							value="#{studentDetailsBean.address1}" size="35"></p:inputText>
+
+						<h:outputLabel for="address2Txt" value="Address 2"></h:outputLabel>
+						<p:inputText id="address2Txt"
+							value="#{studentDetailsBean.address2}" size="35"></p:inputText>
+
+						<h:outputLabel for="cityTxt" value="City"></h:outputLabel>
+						<p:inputText id="cityTxt"
+							value="#{studentDetailsBean.city}"></p:inputText>
+
+						<h:outputLabel for="stateTxt" value="State"></h:outputLabel>
+						<p:inputText id="stateTxt"
+							value="#{studentDetailsBean.state}"></p:inputText>
+
+						<h:outputLabel for="countryTxt" value="Country"></h:outputLabel>
+						<p:inputText id="countryTxt"
+							value="#{studentDetailsBean.country}"></p:inputText>
+
+					</h:panelGrid>
+				</p:fieldset>
+				<h:panelGrid columns="1" styleClass="panelGrid">
+					<p:fieldset id="idFS" legend="ID" style="200px;">
+						<h:panelGrid columns="2" styleClass="panelGrid"
+							columnClasses="width40,width60" rowClasses="alignTop">
+							<p:graphicImage url="/images/pp.jpg" width="120px;"></p:graphicImage>
+							<h:panelGrid>
+								<h:outputLabel
+									value="#{studentDetailsBean.rollNumber}" />
+								<h:outputLabel
+									value="#{studentDetailsBean.name}" />
+								<h:outputLabel value="#{studentDetailsBean.dob}" />
+								<h:outputLabel value="#{studentDetailsBean.batch}" />
+								<h:outputLabel
+									value="#{studentDetailsBean.phoneNumber}" />
+							</h:panelGrid>
+						</h:panelGrid>
+					</p:fieldset>
+					<p:fieldset id="currentAcademicsFS" legend="Current Academics">
+						<h:panelGrid columns="2" styleClass="panelGrid"
+							columnClasses="width40">
+							<h:outputLabel value="iHealth"></h:outputLabel>
+							<div class="progressbar progressbar-green">
+								<div class="progressbar-inner"></div>
+							</div>
+							<h:outputLabel value="Arrears"></h:outputLabel>
+							<h:outputLabel
+								value="#{studentDetailsBean.arrears}"></h:outputLabel>
+
+							<h:outputLabel value="Arrears History"></h:outputLabel>
+							<h:outputLabel
+								value="#{studentDetailsBean.arrearsHistory}"></h:outputLabel>
+						</h:panelGrid>
+					</p:fieldset>
+
+					<p:fieldset id="educationDetailsFS" legend="Education Details"
+						toggleable="true" toggleSpeed="500">
+						<h:panelGrid columns="3" styleClass="panelGrid"
+							columnClasses="width33,width33,width33">
+							<h:outputLabel value="10th"></h:outputLabel>
+							<h:outputLabel value="12th"></h:outputLabel>
+							<h:outputLabel value="Diplamo"></h:outputLabel>
+
+							<p:inplace id="percent10thIL" emptyLabel="%%">
+								<p:inputText
+									value="#{studentDetailsBean.tenthGpa}"
+									maxlength="6" size="5" />
+							</p:inplace>
+							<p:inplace id="percent12thIL" emptyLabel="%%">
+								<p:inputText
+									value="#{studentDetailsBean.twelthGpa}"
+									maxlength="6" size="5" />
+							</p:inplace>
+							<p:inplace id="diplamoPercentIL" emptyLabel="%%">
+								<p:inputText
+									value="#{studentDetailsBean.diplamoGpa}"
+									maxlength="6" size="5" />
+							</p:inplace>
+						</h:panelGrid>
+					</p:fieldset>
+				</h:panelGrid>
+			</h:panelGrid>
+			
+			<!-- Begin: Student Results -->
+			<p:fieldset id="resultsFS" legend="Results"
+						toggleable="true" toggleSpeed="500">
+			<!-- <ui:include src="studentResults.xhtml"></ui:include> -->
+			<!-- End: Student Results -->
+			</p:fieldset>
+			<h:panelGroup>
+				<p:commandButton id="saveBtn" value="Save" action="#{studentDetailsBean.saveStudentDetails}" ></p:commandButton>
+				<p:spacer width="4" />
+				<p:commandButton id="cancelBtn" value="Cancel"></p:commandButton>
+			</h:panelGroup>
+		</h:form>
+	</ui:define>
+</ui:composition>

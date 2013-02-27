@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="org.mamce.unikkit.model.MenuItem" table="tbl_menu_item" 
+		catalog="unikkit">
+        <id name="id" type="long">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        
+        <property name="menuText" type="string">
+            <column name="menu_text" not-null="true" />
+        </property>
+        <property name="active" type="boolean">
+            <column name="active" default="true"/>
+        </property>
+        <property name="createdDate" type="timestamp">
+			<column name="created_date" />
+		</property>
+		<property name="updatedDate" type="timestamp">
+			<column name="updated_date" />
+		</property>
+		<property name="updateBy" type="long">
+			<column name="updated_by" />
+		</property>
+		
+		<many-to-one name="parent" class="org.mamce.unikkit.model.Menu" fetch="select">
+            <column name="menu_id" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

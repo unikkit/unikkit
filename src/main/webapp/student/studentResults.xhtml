@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:panelGrid columns="7" columnClasses="legends,bc-green,bc-blue,bc-orange,bc-yellow,bc-brown,bc-red">
+		<h:outputText value="Legends" />
+		<h:outputText value="S: 90 - 100" styleClass="legend"/>
+		<h:outputText value="A: 80 - 90" styleClass="legend"/>
+		<h:outputText value="B: 70 - 80" styleClass="legend"/>
+		<h:outputText value="C: 60 - 70" styleClass="legend"/>
+		<h:outputText value="D: 50 - 40" styleClass="legend"/>
+		<h:outputText value="X: less than 40" styleClass="legend"/>
+	</p:panelGrid>
+	<p:tabView id="studentResultsTabView" var="grade"
+		value="#{studentCentralBean.grades}">
+
+		<p:tab id="semesterTab" title="Sem # #{semester.code}">
+			<p:dataTable var="subject"
+				value="#{result.subjects}" id="subjectDT"
+				editable="true" styleClass="width50">
+
+				<!-- <p:ajax event="rowEdit" listener="#{tableBean.onEdit}"
+							update=":form:messages" />
+						<p:ajax event="rowEditCancel" listener="#{tableBean.onCancel}"
+							update=":form:messages" /> -->
+
+				<p:column headerText="Code" style="width:2%;">
+					<h:outputText value="#{subject.code}" />
+				</p:column>
+				
+				<p:column headerText="Code" styleClass="width50">
+					<h:outputText value="#{subject.name}" />
+				</p:column>
+				
+				<p:column headerText="Grade" styleClass="width10">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{subject.grade}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{subject.grade}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column style="width:2%">
+					<p:rowEditor />
+				</p:column>
+
+			</p:dataTable>
+
+		</p:tab>
+
+	</p:tabView>
+
+</ui:composition>

@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>unikkIT - Student / Staff</title>
+	<!-- <link href="css/templatemo_style.css" rel="stylesheet" type="text/css" />
+	<link href="css/" rel="stylesheet" type="text/css" /> -->
+	<h:outputStylesheet library="css" name="unikkStyle.css"  />
+	<h:outputStylesheet library="css" name="templatemo_style.css"  />
+</h:head>
+<h:body>
+
+	<h:body>
+		<!--<div id="header">
+			<ui:include src="includes/header.xhtml"></ui:include>
+		</div>
+		<div id="menu">
+			<ui:include src="includes/menu.xhtml"></ui:include>
+		</div>
+		<div id="content">
+			<ui:insert name="content">Default content</ui:insert>
+		</div>
+		<div id="footer">
+			<ui:include src="includes/footer.xhtml"></ui:include>
+		</div> -->
+
+		<div id="templatemo_wrapper">
+			<div id="templatemo_header">
+
+				<div id="site_title">
+					<h1>
+						<a href="/unikkit/home/dashboard.jsf">unikkIT!</a>
+					</h1>
+				</div>
+
+				<div id="twitter">
+					<h:form id="profileForm">
+					<p:growl id="messages" showDetail="true" redisplay="true"/>
+					<p:commandButton id="dynaButton" type="button" icon="ui-icon-gear"/>
+						<p:menu overlay="true" trigger="dynaButton" my="left top"
+							at="left bottom">
+							<p:menuitem value="Profile" 
+								icon="ui-icon-person" />
+							<p:menuitem value="Change Password" 
+								icon="ui-icon-key" />
+							<p:menuitem value="Logout" 
+								icon="ui-icon-power" />
+						</p:menu>
+					</h:form>
+				</div>
+
+				<div class="cleaner"></div>
+			</div>
+			<!-- end of templatemo header -->
+
+			<div id="templatemo_menu">
+				<ui:include src="includes/menu.xhtml"></ui:include>
+
+				<div class="cleaner"></div>
+			</div>
+			<!-- end of templatemo_menu -->
+
+			
+			<!-- end of middle -->
+
+			<div id="templatemo_main_top"></div>
+			<div id="templatemo_main">
+				<p:ajaxStatus style="position:fixed;right:200px;bottom:365px">  
+				    <f:facet name="start">  
+				        <p:graphicImage value="/images/loading.gif" />  
+				    </f:facet>  
+				  
+				    <f:facet name="complete">  
+				        <h:outputText value="" />  
+				    </f:facet>  
+				</p:ajaxStatus>
+				<!-- <div class="col_w960"> -->
+				<ui:insert name="content">Default content</ui:insert>
+					
+
+					<div class="cleaner"></div>
+				<!-- </div> -->
+
+				<div class="col_w960 col_last">
+					
+					<div class="cleaner"></div>
+				</div>
+
+			</div>
+			<!-- end of main -->
+			<div id="templatemo_main_bottom"></div>
+
+			<div id="templatemo_footer">
+				<ui:include src="includes/footer.xhtml"></ui:include>
+			</div>
+			<!-- end of templatemo_footer -->
+
+		</div>
+		<!-- end of templatemo wrapper -->
+	</h:body>
+</h:body>
+</html>

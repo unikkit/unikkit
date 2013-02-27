@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:dataTable var="interest"
+		value="#{staffCentralBean.staffDetails.interests}" id="interestsDT"
+		editable="true" styleClass="width40">
+
+		<!-- <p:ajax event="rowEdit" listener="#{tableBean.onEdit}"
+							update=":form:messages" />
+						<p:ajax event="rowEditCancel" listener="#{tableBean.onCancel}"
+							update=":form:messages" /> -->
+
+		<p:column headerText="" style="width:1%;">
+			<p:commandButton icon="ui-icon-closethick" />
+		</p:column>
+
+		<p:column headerText="Interest" styleClass="width10">
+			<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{interest.title}" />
+				</f:facet>
+				<f:facet name="input">
+					<p:inputText value="#{interest.title}" style="width:100%" />
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+
+		<p:column style="width:2%">
+			<p:rowEditor />
+		</p:column>
+
+	</p:dataTable>
+</ui:composition>

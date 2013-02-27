@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/unikkTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="content">
+		<h:form id="dashboardForm">
+			<p:growl id="growl" showDetail="true" />
+
+			<p:dashboard id="board" model="#{dashboardBean.model}" >
+				<p:ajax event="reorder" listener="#{dashboardBean.handleReorder}"
+					update="growl" />
+				<p:panel id="quotesOfTheDay" header="Quote of the day!" style="width:350px;">
+					<h:outputText value="Leadership and learning are indispensable to each other." />
+					<br/>
+					<h:outputText value="-John F. Kennedy"></h:outputText>
+				</p:panel>
+				
+				<p:panel id="studentStatistics" header="Student Statistics">
+					<h:panelGrid columns="2" styleClass="panelGrid">
+						<h:outputText value="Batch 2013 - "></h:outputText>
+						<h:outputText value="120"></h:outputText>
+						<h:outputText value="Batch 2014 - "></h:outputText>
+						<h:outputText value="120"></h:outputText>
+						<h:outputText value="Batch 2015 - "></h:outputText>
+						<h:outputText value="120"></h:outputText>
+						<h:outputText value="Batch 2016 - "></h:outputText>
+						<h:outputText value="120"></h:outputText>
+						<h:outputText value="Batch 2017 - "></h:outputText>
+						<h:outputText value="120"></h:outputText>
+					</h:panelGrid>
+				</p:panel>
+
+				<p:panel id="staffStatistics" header="Staff Statistics" style="width:350px;">
+					<h:outputText value="Lifestyle Content" />
+				</p:panel>
+
+				<p:panel id="events" header="Events">
+					<h:outputText value="Weather Content" />
+				</p:panel>
+			
+			</p:dashboard>
+		</h:form>
+	</ui:define>
+</ui:composition>

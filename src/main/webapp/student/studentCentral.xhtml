@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="/WEB-INF/templates/unikkTemplate.xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+		<h:form id="studentCentralForm">
+			<h1>Student Central - Add / Edit Student Details</h1>
+			<h:panelGrid columns="4" styleClass="panelGrid">
+				<h:outputLabel for="rollNumber" value="Roll #"></h:outputLabel>
+				<p:inputText id="rollNumber"
+					value="#{studentCentralBean.searchCriteria.rollNumber}"></p:inputText>
+				<h:outputLabel for="yop" value="Batch"></h:outputLabel>
+				<p:inputText id="yop"
+					value="#{studentCentralBean.searchCriteria.yop}"></p:inputText>
+				<h:outputLabel for="studentNameTxt" value="Student Name"></h:outputLabel>
+				<p:inputText id="studentNameTxt"
+					value="#{studentCentralBean.searchCriteria.studentName}"></p:inputText>
+				<h:outputLabel for="genderBtn" value="Gender"></h:outputLabel>
+				<p:selectOneButton id="genderBtn"
+					value="#{studentCentralBean.searchCriteria.gender}">
+					<f:selectItem itemLabel="Male" itemValue="M" />
+					<f:selectItem itemLabel="Female" itemValue="F" />
+					<f:selectItem itemLabel="Both" itemValue="" />
+				</p:selectOneButton>
+			</h:panelGrid>
+			<h:panelGrid columns="1" styleClass="panelGrid">
+				<h:panelGroup>
+					<div align="center">
+						<p:commandButton id="searchBtn" value="Search" />
+						<p:commandButton id="clearBtn" value="Clear" />
+					</div>
+				</h:panelGroup>
+			</h:panelGrid>
+			<hr />
+			<p:dataTable id="studentDT" var="student" indexVar="index"
+				value="#{studentCentralBean.students}">
+				<p:column headerText="Roll #">
+					<p:commandButton id="detailsBtn-#{index}"
+						value="#{student.rollNumber}"
+						action="#{studentDetailsBean.studentDetails}" >
+						<f:setPropertyActionListener value="#{student}" target="#{studentDetailsBean.selectedStudent}" />  
+					</p:commandButton>
+				</p:column>
+
+				<p:column headerText="Batch">
+					<h:outputText value="#{student.batch}" />
+				</p:column>
+
+				<p:column headerText="Name">
+					<h:outputText value="#{student.name}" />
+				</p:column>
+
+				<p:column headerText="Gender">
+					<h:outputText value="#{student.gender}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

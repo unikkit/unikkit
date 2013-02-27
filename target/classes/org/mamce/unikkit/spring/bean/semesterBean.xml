@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+ 
+   	<bean id="semesterManager" 
+         class="org.mamce.unikkit.student.semester.manager.SemesterManagerImpl" >
+   		<property name="semesterDao" ref="semesterDao" />
+   	</bean>
+ 
+   	<bean id="semesterDao" 
+         class="org.mamce.unikkit.student.semester.dao.SemesterDaoImpl" >
+   		<property name="sessionFactory" ref="sessionFactory"></property>
+   	</bean>
+ 
+</beans>
