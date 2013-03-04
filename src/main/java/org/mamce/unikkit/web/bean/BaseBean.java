@@ -17,4 +17,6 @@ public class BaseBean implements Serializable {
 	protected static final String MP_SEMESTER_MANAGER = "#{semesterManager}";
 	protected static final String MP_MENU_MANAGER = "#{menuManager}";
 	protected static final String MP_USER_MANAGER = "#{userManager}";
+	protected static final String MP_STAFF_MANAGER = "#{staffManager}";
+	
 }
