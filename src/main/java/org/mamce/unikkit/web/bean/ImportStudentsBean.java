@@ -9,6 +9,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
+import org.apache.log4j.Logger;
 import org.mamce.unikkit.exception.UnikkImporterException;
 import org.mamce.unikkit.exception.UnikkResourceException;
 import org.mamce.unikkit.model.student.Student;
@@ -25,7 +26,8 @@ public class ImportStudentsBean extends BaseBean {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	public static final Logger LOGGER = Logger.getLogger(ImportStudentsBean.class);
+	
 	@ManagedProperty(value=MP_STUDENT_MANAGER)
 	private StudentManager studentManager;
 	
@@ -46,31 +48,24 @@ public class ImportStudentsBean extends BaseBean {
 
 
 	public void handleStudentXlsUploadEvent(FileUploadEvent event) {  
-		System.out.println("Upload started");
+		LOGGER.info("Student import started...");
 		UploadedFile uploadedFile = event.getFile();
 		StudentImporter studentImporter = new StudentImporter();
 		
 		try {
 			File xlsxFile = studentImporter.createACopyInServer(uploadedFile);
 			List<Student> students = studentImporter.importData(xlsxFile);
-			// TODO: RK: Import the students in to the database
 			
 			if(students != null && !students.isEmpty()) {
-//				for (Student student : students) {
-//					System.out.println(student.getRegistrationNumber());
-//				}
 				studentManager.saveAllStudent(students);
 			}
 			System.out.println();
 		} catch (UnikkImporterException | UnikkResourceException e) {
-			// TODO: RK: Implement logger
-			e.printStackTrace();
-			FacesMessage msg = new FacesMessage(e.getMessage());
-			FacesContext.getCurrentInstance().addMessage(null, msg); 
+			LOGGER.error("Error while importing student data.", e);
 		}
 		
 		FacesMessage msg = new FacesMessage("Student Data Imported successfully!");
 		FacesContext.getCurrentInstance().addMessage(null, msg); 
-		System.out.println("Upload ended");
+		LOGGER.info("Imported successfully!");
 	}
 }
