@@ -10,7 +10,7 @@ body {
 	font-size: 11px;
 	line-height: 1.7em;
 	background-color: #666;
-	/*background-image: url(../images/templatemo_body.jpg);*/
+	/* background-image: url(../images/templatemo_body.jpg); */
 	background-repeat: no-repeat;
 	background-position: top center;
 }
@@ -49,7 +49,7 @@ a.more:hover { text-decoration: none; color: #000; text-shadow: 1px 1px 1px #fff
 .image_fr { float: right; margin: 3px 0 0 15px }
 
 .tmo_list { margin: 20px 0 20px 20px; padding: 0; list-style: none }
-.tmo_list li { color:#e98236; margin: 0; padding: 0 0 0 20px; background: url(images/templatemo_list.jpg) no-repeat scroll 0 7px  }
+.tmo_list li { color:#e98236; margin: 0; padding: 0 0 0 20px; background: url(../images/templatemo_list.jpg) no-repeat scroll 0 7px  }
 .tmo_list li a { color: #e98236; font-weight: normal }
 .tmo_list li a:hover { color: #e98236 }
 
@@ -67,7 +67,7 @@ a.more:hover { text-decoration: none; color: #000; text-shadow: 1px 1px 1px #fff
 
 #site_title { float: left; display: block; width: 225px; height: 87px; margin-left: 35px; }
 #site_title h1 { margin: 0; padding: 0 }
-#site_title h1 a { display: block; width: 170px; height: 64px; margin: 35px 0 0 37px; color: #fff; text-indent: -10000px; background: url(../images/unikkITLogo.png)  no-repeat }
+#site_title h1 a { display: block; width: 170px; height: 64px; margin: 35px 0 0 37px; color: #fff; text-indent: -10000px; background: url('../images/unikkITLogo.png')  no-repeat }
 
 #twitter { float: right; font-weight: normal; display: block; padding: 2px 4px 2px 0; margin: 15px 2px 0 0; color: #278ff0; font-size: 12px; no-repeat right center }
 
