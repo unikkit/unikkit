@@ -1,17 +1,14 @@
 package org.mamce.unikkit.web.bean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 
-import org.mamce.unikkit.web.dto.AchivementDto;
-import org.mamce.unikkit.web.dto.EducationDto;
-import org.mamce.unikkit.web.dto.ExperienceDto;
-import org.mamce.unikkit.web.dto.InterestDto;
-import org.mamce.unikkit.web.dto.MembershipDto;
-import org.mamce.unikkit.web.dto.PublicationDto;
+import org.apache.log4j.Logger;
+import org.mamce.unikkit.model.staff.Staff;
+import org.mamce.unikkit.staff.manager.StaffManager;
 import org.mamce.unikkit.web.dto.StaffDto;
 
 @ManagedBean
@@ -22,10 +19,14 @@ public class StaffCentralBean extends BaseBean {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	public static final Logger LOGGER = Logger.getLogger(StaffCentralBean.class);
+	
+	@ManagedProperty(value=MP_STAFF_MANAGER)
+	private StaffManager staffManager;
+	
 	private StaffDto searchCriteria;
 	private StaffDto staffDetails;
-
+	
 	public StaffCentralBean() {
 		searchCriteria = new StaffDto();
 	}
@@ -59,100 +60,25 @@ public class StaffCentralBean extends BaseBean {
 		this.staffDetails = staffDetails;
 	}
 
-	public List<StaffDto> getStaffs() {
-		List<StaffDto> staffs = new ArrayList<>();
-		StaffDto staff = new StaffDto();
-		staff.setStaffName("Mohamadi Begum");
-		staff.setStaffId("S001");
-		staff.setDesignation("Head Of Department");
-		staff.setCollege("MAMCE");
-		staff.setDepartment("IT");
-		staff.setEmail("test@test.com");
-		staff.setAddress1("Address 1");
-		staff.setAddress2("Address 2");
-		staff.setCity("City");
-		staff.setState("State");
-		staff.setCountry("India");
-		staff.setGender("F");
-		staffs.add(staff);
-		
-		staff = new StaffDto();
-		staff.setStaffName("ShamsheerKhan A");
-		staff.setStaffId("S002");
-		staff.setDesignation("Asst. Proffesor");
-		staff.setCollege("MAMCE");
-		staff.setDepartment("IT");
-		staff.setEmail("test@test.com");
-		staff.setAddress1("Address 1");
-		staff.setAddress2("Address 2");
-		staff.setCity("City");
-		staff.setState("State");
-		staff.setCountry("India");
-		staff.setGender("M");
-		staffs.add(staff);
-		
-		staff = new StaffDto();
-		staff.setStaffName("Mahalakshm");
-		staff.setStaffId("S003");
-		staff.setDesignation("Asst. Proffesor");
-		staff.setCollege("MAMCE");
-		staff.setDepartment("IT");
-		staff.setEmail("test@test.com");
-		staff.setAddress1("Address 1");
-		staff.setAddress2("Address 2");
-		staff.setCity("City");
-		staff.setState("State");
-		staff.setCountry("India");
-		staff.setGender("M");
-		staffs.add(staff);
-		
-		staff = new StaffDto();
-		staff.setStaffName("Anbazhagan A");
-		staff.setStaffId("S004");
-		staff.setDesignation("Asst. Proffesor");
-		staff.setCollege("MAMCE");
-		staff.setDepartment("IT");
-		staff.setEmail("test@test.com");
-		staff.setAddress1("Address 1");
-		staff.setAddress2("Address 2");
-		staff.setCity("City");
-		staff.setState("State");
-		staff.setCountry("India");
-		staff.setGender("M");
-		staffs.add(staff);
-
-		return staffs;
+	/**
+	 * @return the staffManager
+	 */
+	public StaffManager getStaffManager() {
+		return staffManager;
 	}
 
-	public String staffDetails() {
-		System.out.println("Get Staff Details");
-		StaffDto staff = new StaffDto();
-		staff.setStaffName("Mohamadi Begum");
-		staff.setStaffId("S001");
-		staff.setDesignation("Head Of Department");
-		staff.setCollege("MAMCE");
-		staff.setDepartment("IT");
-		staff.setEmail("test@test.com");
-		staff.setAddress1("Address 1");
-		staff.setAddress2("Address 2");
-		staff.setCity("City");
-		staff.setState("State");
-		staff.setCountry("India");
-		staff.setGender("M");
+	/**
+	 * @param staffManager the staffManager to set
+	 */
+	public void setStaffManager(StaffManager staffManager) {
+		this.staffManager = staffManager;
+	}
 
-		staff.setWorkExperience(getSampleWorkExp());
-		staff.setEducation(getSampleEducation());
-		staff.setInterests(getSampleInterests());
-		staff.setAchievements(getSampleAchivementDto());
-		staff.setMembership(getSampleMemership());
-		staff.setPublications(getSamplePulications());
-		
-		setStaffDetails(staff);
-		
-		return "staffDetails";
+	public List<Staff> getStaffs() {
+		return staffManager.findAllStaffs();
 	}
 	
-	private List<ExperienceDto> getSampleWorkExp() {
+	/*private List<ExperienceDto> getSampleWorkExp() {
 		List<ExperienceDto> workExperience = new ArrayList<>();
 
 		ExperienceDto exp = new ExperienceDto();
@@ -285,5 +211,5 @@ public class StaffCentralBean extends BaseBean {
 		publications.add(pub);
 		
 		return publications;
-	}
+	}*/
 }
