@@ -30,6 +30,11 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 				<value>org/mamce/unikkit/model/menu.hbm.xml</value>
 				<value>org/mamce/unikkit/model/menuitem.hbm.xml</value>
 				<value>org/mamce/unikkit/model/user.hbm.xml</value>
+				<value>org/mamce/unikkit/model/staff.hbm.xml</value>
+				<value>org/mamce/unikkit/model/staffinterest.hbm.xml</value>
+				<value>org/mamce/unikkit/model/staffpublication.hbm.xml</value>
+				<value>org/mamce/unikkit/model/staffachievement.hbm.xml</value>
+				<value>org/mamce/unikkit/model/staffmembership.hbm.xml</value>
 			</list>
 		</property>
 
