@@ -4,8 +4,40 @@ import org.mamce.unikkit.model.BaseModel;
 
 public class Membership extends BaseModel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Staff staff;
+	private int year;
 	private String type;
 	private String description;
+	
+	/**
+	 * @return the staff
+	 */
+	public Staff getStaff() {
+		return staff;
+	}
+	/**
+	 * @param staff the staff to set
+	 */
+	public void setStaff(Staff staff) {
+		this.staff = staff;
+	}
+	
+	/**
+	 * @return the year
+	 */
+	public int getYear() {
+		return year;
+	}
+	/**
+	 * @param year the year to set
+	 */
+	public void setYear(int year) {
+		this.year = year;
+	}
 	/**
 	 * @return the type
 	 */

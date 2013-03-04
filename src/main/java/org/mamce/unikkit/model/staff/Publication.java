@@ -4,8 +4,26 @@ import org.mamce.unikkit.model.BaseModel;
 
 public class Publication extends BaseModel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Staff staff;
 	private String type;
 	private String description;
+	
+	/**
+	 * @return the staff
+	 */
+	public Staff getStaff() {
+		return staff;
+	}
+	/**
+	 * @param staff the staff to set
+	 */
+	public void setStaff(Staff staff) {
+		this.staff = staff;
+	}
 	/**
 	 * @return the type
 	 */

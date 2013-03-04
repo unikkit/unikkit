@@ -1,6 +1,7 @@
 package org.mamce.unikkit.model.staff;
 
-import java.util.List;
+import java.util.Date;
+import java.util.Set;
 
 import org.mamce.unikkit.model.BaseModel;
 
@@ -10,10 +11,15 @@ import org.mamce.unikkit.model.BaseModel;
  */
 public class Staff extends BaseModel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private String staffId;
-	private String staffName;
-	private String dob;
-	private String doj;
+	private String name;
+	private Date dob;
+	private Date doj;
 	private String department;
 	private String email;
 	private String designation;
@@ -25,12 +31,14 @@ public class Staff extends BaseModel {
 	private String country;
 	private String phoneNumber;
 	private String gender;
-	private List<Education> education;
-	private List<Experience> workExperience;
-	private List<Interest> interests;
-	private List<Membership> membership;
-	private List<Achivement> achievements;
-	private List<Publication> publications;
+	private String avatar;
+	private Set<StaffInterest> interests;
+	private Set<Publication> publications;
+	private Set<Education> education;
+	private Set<Experience> workExperience;
+	private Set<Membership> memberships;
+	private Set<Achievement> achievements;
+	
 	
 	/**
 	 * @return the staffId
@@ -44,42 +52,42 @@ public class Staff extends BaseModel {
 	public void setStaffId(String staffId) {
 		this.staffId = staffId;
 	}
-	/**
-	 * @return the staffName
-	 */
-	public String getStaffName() {
-		return staffName;
-	}
-	/**
-	 * @param staffName the staffName to set
-	 */
-	public void setStaffName(String staffName) {
-		this.staffName = staffName;
-	}
 	
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
 	/**
 	 * @return the dob
 	 */
-	public String getDob() {
+	public Date getDob() {
 		return dob;
 	}
 	/**
 	 * @param dob the dob to set
 	 */
-	public void setDob(String dob) {
+	public void setDob(Date dob) {
 		this.dob = dob;
 	}
 	
 	/**
 	 * @return the doj
 	 */
-	public String getDoj() {
+	public Date getDoj() {
 		return doj;
 	}
 	/**
 	 * @param doj the doj to set
 	 */
-	public void setDoj(String doj) {
+	public void setDoj(Date doj) {
 		this.doj = doj;
 	}
 	/**
@@ -142,6 +150,18 @@ public class Staff extends BaseModel {
 	 */
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
+	/**
+	 * @return the avatar
+	 */
+	public String getAvatar() {
+		return avatar;
+	}
+	/**
+	 * @param avatar the avatar to set
+	 */
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
 	}
 	/**
 	 * @return the college
@@ -219,73 +239,73 @@ public class Staff extends BaseModel {
 	/**
 	 * @return the education
 	 */
-	public List<Education> getEducation() {
+	public Set<Education> getEducation() {
 		return education;
 	}
 	/**
 	 * @param education the education to set
 	 */
-	public void setEducation(List<Education> education) {
+	public void setEducation(Set<Education> education) {
 		this.education = education;
 	}
 	/**
 	 * @return the workExperience
 	 */
-	public List<Experience> getWorkExperience() {
+	public Set<Experience> getWorkExperience() {
 		return workExperience;
 	}
 	/**
 	 * @param workExperience the workExperience to set
 	 */
-	public void setWorkExperience(List<Experience> workExperience) {
+	public void setWorkExperience(Set<Experience> workExperience) {
 		this.workExperience = workExperience;
 	}
 	/**
 	 * @return the interests
 	 */
-	public List<Interest> getInterests() {
+	public Set<StaffInterest> getInterests() {
 		return interests;
 	}
 	/**
 	 * @param interests the interests to set
 	 */
-	public void setInterests(List<Interest> interests) {
+	public void setInterests(Set<StaffInterest> interests) {
 		this.interests = interests;
 	}
 	/**
-	 * @return the membership
+	 * @return the memberships
 	 */
-	public List<Membership> getMembership() {
-		return membership;
+	public Set<Membership> getMemberships() {
+		return memberships;
 	}
 	/**
-	 * @param membership the membership to set
+	 * @param memberships the memberships to set
 	 */
-	public void setMembership(List<Membership> membership) {
-		this.membership = membership;
+	public void setMemberships(Set<Membership> memberships) {
+		this.memberships = memberships;
 	}
 	/**
 	 * @return the achievements
 	 */
-	public List<Achivement> getAchievements() {
+	public Set<Achievement> getAchievements() {
 		return achievements;
 	}
 	/**
 	 * @param achievements the achievements to set
 	 */
-	public void setAchievements(List<Achivement> achievements) {
+	public void setAchievements(Set<Achievement> achievements) {
 		this.achievements = achievements;
 	}
 	/**
 	 * @return the publications
 	 */
-	public List<Publication> getPublications() {
+	public Set<Publication> getPublications() {
 		return publications;
 	}
 	/**
 	 * @param publications the publications to set
 	 */
-	public void setPublications(List<Publication> publications) {
+	public void setPublications(Set<Publication> publications) {
 		this.publications = publications;
 	}
 	
