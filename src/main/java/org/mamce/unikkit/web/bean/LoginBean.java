@@ -4,6 +4,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 
+import org.apache.log4j.Logger;
+import org.mamce.unikkit.common.util.Constants;
+import org.mamce.unikkit.common.util.FacesUtils;
 import org.mamce.unikkit.common.util.UnikkUtils;
 import org.mamce.unikkit.model.user.User;
 import org.mamce.unikkit.user.manager.UserManager;
@@ -21,6 +24,7 @@ public class LoginBean extends BaseBean {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	public static final Logger LOGGER = Logger.getLogger(LoginBean.class);
 	
 	// Dependency Injection from Spring
 	@ManagedProperty(value = MP_USER_MANAGER)
@@ -75,16 +79,14 @@ public class LoginBean extends BaseBean {
 	}
 
 	public String login() {
-		System.out.println("Test login...");
-		
 		User user = userManager.findUser(getUsername(), UnikkUtils.hashIt(getPassword()));
 		
 		if(user == null) {
-			System.out.println("Invalid username / password. Try again.");
+			LOGGER.info("Invalid username / password. Try again.");
 			return "login";
 		}
 		
-		// TODO: RK set user in session
+		FacesUtils.setSessionAttribute(Constants.USER_SESSION_KEY, user);
 		
 		return "/home/dashboard";
 	}
