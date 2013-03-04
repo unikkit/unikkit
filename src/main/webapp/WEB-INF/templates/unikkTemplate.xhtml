@@ -7,10 +7,9 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 	<title>unikkIT - Student / Staff</title>
-	<!-- <link href="css/templatemo_style.css" rel="stylesheet" type="text/css" />
-	<link href="css/" rel="stylesheet" type="text/css" /> -->
 	<h:outputStylesheet library="css" name="unikkStyle.css"  />
-	<h:outputStylesheet library="css" name="templatemo_style.css"  />
+	<!-- <link href="#{facesContext.externalContext.requestContextPath}/resources/css/unikkStyle.css" rel="stylesheet" type="text/css" /> -->
+	<link href="#{facesContext.externalContext.requestContextPath}/resources/css/templatemo_style.css" rel="stylesheet" type="text/css" />
 </h:head>
 <h:body>
 
@@ -71,7 +70,7 @@
 			<div id="templatemo_main">
 				<p:ajaxStatus style="position:fixed;right:200px;bottom:365px">  
 				    <f:facet name="start">  
-				        <p:graphicImage value="/images/loading.gif" />  
+				        <p:graphicImage value="/resources/images/loading.gif" />  
 				    </f:facet>  
 				  
 				    <f:facet name="complete">  
