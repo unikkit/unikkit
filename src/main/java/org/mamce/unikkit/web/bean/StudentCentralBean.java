@@ -6,6 +6,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 
+import org.apache.log4j.Logger;
 import org.mamce.unikkit.model.student.Student;
 import org.mamce.unikkit.student.manager.StudentManager;
 import org.mamce.unikkit.web.dto.StudentDto;
@@ -22,6 +23,7 @@ public class StudentCentralBean extends BaseBean {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	public static final Logger LOGGER = Logger.getLogger(StudentCentralBean.class);
 	
 	private StudentDto searchCriteria;
 	private StudentDto studentDetails;
