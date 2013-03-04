@@ -8,6 +8,10 @@ import java.util.Set;
  */
 public class Menu extends BaseModel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String menuText;
 	private boolean defaultMenu;
 	private Set<MenuItem> menuItems;

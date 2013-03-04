@@ -3,6 +3,10 @@ package org.mamce.unikkit.model;
 
 public class MenuItem extends BaseModel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String menuText;
 	private Menu parent;
 	

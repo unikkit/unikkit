@@ -6,6 +6,10 @@ package org.mamce.unikkit.model;
  */
 public class Department extends BaseModel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String code;
 	private String name;
 	/**

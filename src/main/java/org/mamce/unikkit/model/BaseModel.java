@@ -1,9 +1,14 @@
 package org.mamce.unikkit.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class BaseModel {
+public class BaseModel implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private long id;
 	private boolean active;
 	private Date createdDate;
@@ -69,6 +74,32 @@ public class BaseModel {
 	 */
 	public void setUpdateBy(String updateBy) {
 		this.updateBy = updateBy;
+	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		return result;
+	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		BaseModel other = (BaseModel) obj;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 	
 }
