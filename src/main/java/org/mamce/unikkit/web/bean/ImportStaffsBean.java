@@ -5,12 +5,14 @@ import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
 import org.mamce.unikkit.exception.UnikkImporterException;
 import org.mamce.unikkit.exception.UnikkResourceException;
 import org.mamce.unikkit.model.staff.Staff;
+import org.mamce.unikkit.staff.manager.StaffManager;
 import org.mamce.unikkit.xls.StaffImporter;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
@@ -27,6 +29,25 @@ public class ImportStaffsBean extends BaseBean {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@ManagedProperty(value=MP_STAFF_MANAGER)
+	private StaffManager staffManager;
+	
+	/**
+	 * @return the staffManager
+	 */
+	public StaffManager getStaffManager() {
+		return staffManager;
+	}
+
+
+	/**
+	 * @param staffManager the staffManager to set
+	 */
+	public void setStaffManager(StaffManager staffManager) {
+		this.staffManager = staffManager;
+	}
+
 
 	public void handleStaffXlsUploadEvent(FileUploadEvent event) {  
 		System.out.println("Upload started");
@@ -36,14 +57,11 @@ public class ImportStaffsBean extends BaseBean {
 		try {
 			File xlsxFile = staffImporter.createACopyInServer(uploadedFile);
 			List<Staff> staffs = staffImporter.importData(xlsxFile);
-			// TODO: RK: Import the staffs in to the database
 			
 			if(staffs != null && !staffs.isEmpty()) {
-				for (Staff staff : staffs) {
-					System.out.println(staff.getStaffId());
-				}
+				staffManager.saveAllStaff(staffs);
 			}
-			System.out.println();
+			
 		} catch (UnikkImporterException | UnikkResourceException e) {
 			// TODO: RK: Implement logger
 			e.printStackTrace();
@@ -53,7 +71,6 @@ public class ImportStaffsBean extends BaseBean {
 		FacesContext.getCurrentInstance().addMessage(null, msg); 
 		System.out.println("Upload ended");
 	}
-
 	
 }
 
