@@ -155,7 +155,7 @@
 			<!-- End: Student Results -->
 			</p:fieldset>
 			<h:panelGroup>
-				<p:commandButton id="saveBtn" value="Save" action="#{studentDetailsBean.saveStudentDetails}" ></p:commandButton>
+				<p:commandButton id="saveBtn" value="Save" action="#{studentDetailsBean.saveStudentDetails}" update="@form"></p:commandButton>
 				<p:spacer width="4" />
 				<p:commandButton id="cancelBtn" value="Cancel"></p:commandButton>
 			</h:panelGroup>
