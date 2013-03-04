@@ -19,6 +19,30 @@
 	</listener-class>
   </listener>
   
+  <context-param>
+	<param-name>contextConfigLocation</param-name>
+	<param-value>/WEB-INF/applicationContext.xml</param-value>
+  </context-param>
+  
+  <context-param>
+    <param-name>javax.faces.PARTIAL_STATE_SAVING</param-name>
+    <param-value>false</param-value>
+</context-param>
+
+  <!-- Session config -->
+ 	 <session-config>
+    	<session-timeout>30</session-timeout>
+	</session-config>
+
+	<filter>
+	    <filter-name>userSessionFilter</filter-name>
+	    <filter-class>org.mamce.unikkit.web.filter.SessionFilter</filter-class>
+	</filter>
+	<filter-mapping>
+	    <filter-name>userSessionFilter</filter-name>
+	    <url-pattern>*.xhtml</url-pattern>
+	</filter-mapping>
+
 	<!-- Change to "Production" when you are ready to deploy -->
 	<context-param>
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
@@ -27,7 +51,7 @@
 
 	<!-- Welcome page -->
 	<welcome-file-list>
-		<welcome-file>faces/index.xhtml</welcome-file>
+		<welcome-file>faces/login.xhtml</welcome-file>
 	</welcome-file-list>
 
 	<!-- JSF mapping -->

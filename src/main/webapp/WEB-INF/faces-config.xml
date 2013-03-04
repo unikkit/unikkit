@@ -11,19 +11,9 @@
     		org.springframework.web.jsf.el.SpringBeanFacesELResolver
     	</el-resolver>
   	</application>
- 	
-	<managed-bean>
-		<managed-bean-name>customer</managed-bean-name>
-		<managed-bean-class>com.mkyong.CustomerBean</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-		<managed-property>
-			<property-name>customerBo</property-name>
-			<property-class>com.mkyong.customer.bo.CustomerBo</property-class>
-			<value>#{customerBo}</value>
-		</managed-property>
-	</managed-bean>
+	
 	<navigation-rule>
-		<from-view-id>/login.xhtml</from-view-id>
+		<from-view-id>login.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>success</from-outcome>
 			<to-view-id>home/dashboard.xhtml</to-view-id>
@@ -32,18 +22,6 @@
 			
 			<from-outcome>failed</from-outcome>
 			<to-view-id>login.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<from-view-id>/student/studentCentral.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>studentDetails</from-outcome>
-			<to-view-id>student/studentDetails.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			
-			<from-outcome>failed</from-outcome>
-			<to-view-id>student/studentCentral.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 </faces-config>
