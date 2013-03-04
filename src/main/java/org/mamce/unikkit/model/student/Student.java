@@ -1,12 +1,15 @@
 package org.mamce.unikkit.model.student;
 
-import java.util.List;
 import java.util.Set;
 
 import org.mamce.unikkit.model.BaseModel;
 
 public class Student extends BaseModel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String name;
 	private String address1;
 	private String address2;
@@ -28,6 +31,7 @@ public class Student extends BaseModel {
 	private String tenthGpa;
 	private String twelthGpa;
 	private String diplamoGpa;
+	private String avatar;
 	private Set<Grade> grades;
 	
 	/**
@@ -281,6 +285,18 @@ public class Student extends BaseModel {
 	 */
 	public void setDiplamoGpa(String diplamoGpa) {
 		this.diplamoGpa = diplamoGpa;
+	}
+	/**
+	 * @return the avatar
+	 */
+	public String getAvatar() {
+		return avatar;
+	}
+	/**
+	 * @param avatar the avatar to set
+	 */
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
 	}
 	/**
 	 * @return the grades
