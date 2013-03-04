@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="org.mamce.unikkit.model.staff.Staff" table="tbl_staff"
+		catalog="unikkit">
+
+		<id name="id" type="long">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="staffId" type="string">
+			<column name="staff_id" length="10" not-null="true" />
+		</property>
+		<property name="name" type="string">
+			<column name="name" length="255" not-null="true" />
+		</property>
+		<property name="designation" type="string">
+			<column name="designation" length="100" />
+		</property>
+		<property name="address1" type="string">
+			<column name="address_1" length="255" not-null="true" />
+		</property>
+		<property name="address2" type="string">
+			<column name="address_2" length="255" />
+		</property>
+		<property name="gender" type="string">
+			<column name="gender" length="6" />
+		</property>
+		<property name="doj" type="java.util.Date">
+			<column name="doj" />
+		</property>
+		<property name="dob" type="java.util.Date">
+			<column name="dob" />
+		</property>
+		<property name="college" type="string">
+			<column name="college" length="100"/>
+		</property>
+		<property name="department" type="string">
+			<column name="department" length="30" />
+		</property>
+		<property name="email" type="string">
+			<column name="email" length="255" />
+		</property>
+		<property name="city" type="string">
+			<column name="city" length="100" />
+		</property>
+		<property name="state" type="string">
+			<column name="state" length="100" />
+		</property>
+		<property name="country" type="string">
+			<column name="country" length="100" />
+		</property>
+		<property name="phoneNumber" type="int">
+			<column name="phone_number" />
+		</property>
+		<property name="avatar" type="string">
+			<column name="avatar" />
+		</property>
+		<property name="createdDate" type="timestamp">
+			<column name="created_date" />
+		</property>
+		<property name="updatedDate" type="timestamp">
+			<column name="updated_date" />
+		</property>
+		<property name="updateBy" type="long">
+			<column name="updated_by" />
+		</property>
+		
+		<set name="interests" table="tbl_staff_interest" order-by="interest"
+				inverse="true" lazy="false" fetch="select" cascade="save-update,delete-orphan">
+            <key>
+                <column name="staff_id" not-null="true" />
+            </key>
+            <one-to-many class="org.mamce.unikkit.model.staff.StaffInterest" />
+        </set>
+        
+        <set name="publications" table="tbl_staff_publication" order-by="description"
+				inverse="true" lazy="false" fetch="select" cascade="save-update,delete-orphan">
+            <key>
+                <column name="staff_id" not-null="true" />
+            </key>
+            <one-to-many class="org.mamce.unikkit.model.staff.Publication" />
+        </set>
+        
+        <set name="achievements" table="tbl_staff_achievement" order-by="description"
+				inverse="true" lazy="false" fetch="select" cascade="save-update,delete-orphan">
+            <key>
+                <column name="staff_id" not-null="true" />
+            </key>
+            <one-to-many class="org.mamce.unikkit.model.staff.Achievement" />
+        </set>
+        
+        <set name="memberships" table="tbl_staff_membership" order-by="description"
+				inverse="true" lazy="false" fetch="select" cascade="save-update,delete-orphan">
+            <key>
+                <column name="staff_id" not-null="true" />
+            </key>
+            <one-to-many class="org.mamce.unikkit.model.staff.Membership" />
+        </set>
+	</class>
+</hibernate-mapping>
