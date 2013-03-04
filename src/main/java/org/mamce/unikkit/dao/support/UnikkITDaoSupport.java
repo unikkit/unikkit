@@ -7,6 +7,11 @@ import java.util.List;
 import org.mamce.unikkit.model.BaseModel;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+/**
+ * @author Ramesh
+ *
+ * @param <T>
+ */
 public class UnikkITDaoSupport<T extends BaseModel> extends HibernateDaoSupport {
 
 	private Date currentDate = new Date();
