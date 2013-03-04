@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
+import org.apache.log4j.Logger;
 import org.mamce.unikkit.model.student.Semester;
 import org.mamce.unikkit.model.student.Student;
 import org.mamce.unikkit.student.manager.StudentManager;
@@ -21,6 +22,7 @@ public class StudentDetailsBean extends BaseBean {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	public static final Logger LOGGER = Logger.getLogger(StudentDetailsBean.class);
 	
 	@ManagedProperty(value=MP_STUDENT_MANAGER)
 	private StudentManager studentManager;
@@ -434,58 +436,61 @@ public class StudentDetailsBean extends BaseBean {
 	}
 
 	public String studentDetails() {
-		System.out.println("Get Student Details");
-		populateForm();
-		//setResults(getSampleResults());
-		
+		if(selectedStudent == null) {
+			// TODO: RK: Add error message here
+			
+			return "studentDetails";
+		}
+		populateForm(selectedStudent);
 		return "studentDetails";
 	}
 	
-	public String saveStudentDetails() {
+	public String cancelStudentDetails() {
+		return "studentCentral";
+	}
+	
+	public void saveStudentDetails() {
 		try {
 			Student student = studentManager.findStudentById(getId());
 			
 			if(student == null) {
 				FacesMessage msg = new FacesMessage("Student Information not found. Could not update.");
 				FacesContext.getCurrentInstance().addMessage(null, msg); 
-				return "saveFailed";
 			}
 			populateModel(student);
 			studentManager.saveStudent(student);
+			populateForm(student);
 			FacesMessage msg = new FacesMessage("Student information saved successfully!");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		} catch (Exception e) {
-			e.printStackTrace();
-			return "saveFailed";
+			LOGGER.error("Error while saving student details", e);
 		}
-		
-		return "saveCompleted";
 	}
 	
-	private void populateForm() {
-		setAddress1(selectedStudent.getAddress1());
-		setAddress2(selectedStudent.getAddress2());
-		setArrears(selectedStudent.getArrears());
-		setArrearsHistory(selectedStudent.getArrearsHistory());
-		setBatch(selectedStudent.getBatch());
-		setCity(selectedStudent.getCity());
-		setCollege(selectedStudent.getCollege());
-		setCountry(selectedStudent.getCountry());
-		setDepartment(selectedStudent.getDepartment());
-		setDiplamoGpa(selectedStudent.getDiplamoGpa());
-		//setDob(selectedStudent.getDob());
-		setEmail(selectedStudent.getEmail());
-		setGender(selectedStudent.getGender());
-		setId(selectedStudent.getId());
-		setName(selectedStudent.getName());
-		setParentName(selectedStudent.getParentName());
-		setPhoneNumber(selectedStudent.getPhoneNumber());
-		setRegistrationNumber(selectedStudent.getRegistrationNumber());
-		setRollNumber(selectedStudent.getRollNumber());
-		setState(selectedStudent.getState());
-		setTenthGpa(selectedStudent.getTenthGpa());
-		setTwelthGpa(selectedStudent.getTwelthGpa());
-		setUpdatedBy(selectedStudent.getUpdateBy());
+	private void populateForm(Student student) {
+		setAddress1(student.getAddress1());
+		setAddress2(student.getAddress2());
+		setArrears(student.getArrears());
+		setArrearsHistory(student.getArrearsHistory());
+		setBatch(student.getBatch());
+		setCity(student.getCity());
+		setCollege(student.getCollege());
+		setCountry(student.getCountry());
+		setDepartment(student.getDepartment());
+		setDiplamoGpa(student.getDiplamoGpa());
+		//setDob(student.getDob());
+		setEmail(student.getEmail());
+		setGender(student.getGender());
+		setId(student.getId());
+		setName(student.getName());
+		setParentName(student.getParentName());
+		setPhoneNumber(student.getPhoneNumber());
+		setRegistrationNumber(student.getRegistrationNumber());
+		setRollNumber(student.getRollNumber());
+		setState(student.getState());
+		setTenthGpa(student.getTenthGpa());
+		setTwelthGpa(student.getTwelthGpa());
+		setUpdatedBy(student.getUpdateBy());
 		
 		setSemesters(semesterManager.findAllSemesters());
 		
