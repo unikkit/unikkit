@@ -6,35 +6,29 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-	<p:dataTable var="publication"
-		value="#{staffCentralBean.staffDetails.publications}"
-		id="publicationDT" editable="true" styleClass="width100"
-		columnClasses="width40,width60,width40">
+	<p:dataTable id="publicationDT" var="publication"
+		value="#{staffDetailsBean.publications}"
+		editable="true" styleClass="width100"
+		columnClasses="width40,width60,width40"
+		paginator="true" rows="10"  
+        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+        rowsPerPageTemplate="5,10,15">
 
-		<!-- <p:ajax event="rowEdit" listener="#{tableBean.onEdit}"
-							update=":form:messages" />
-						<p:ajax event="rowEditCancel" listener="#{tableBean.onCancel}"
-							update=":form:messages" /> -->
+		<p:ajax event="rowEdit" listener="#{staffDetailsBean.onPublicationsRowEdit}"
+							update="publicationDT"/>
+		<p:ajax event="rowEditCancel" listener="#{staffDetailsBean.onPublicationsRowEditCancel}"
+			/>
 
 		<p:column headerText="" style="width:1%;">
-			<p:commandButton icon="ui-icon-closethick" />
-		</p:column>
-
-		<p:column headerText="Type" styleClass="width10">
-			<p:cellEditor>
-				<f:facet name="output">
-					<h:outputText value="#{publication.type}" />
-				</f:facet>
-				<f:facet name="input">
-					<p:inputText value="#{publication.type}" style="width:100%" />
-				</f:facet>
-			</p:cellEditor>
+			<p:commandButton icon="ui-icon-closethick" action="#{staffDetailsBean.deletePublication}" update="publicationDT" >
+				<f:setPropertyActionListener value="#{publication}" target="#{staffDetailsBean.selectedPublication}" />
+			</p:commandButton>
 		</p:column>
 
 		<p:column headerText="Description" styleClass="width20">
 			<p:cellEditor>
 				<f:facet name="output">
-									#{publication.description}"
+									#{publication.description}
 								</f:facet>
 				<f:facet name="input">
 					<p:inputText value="#{publication.description}" style="width:100%"
@@ -43,6 +37,22 @@
 			</p:cellEditor>
 		</p:column>
 
+		<p:column headerText="Type" styleClass="width10">
+			<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{publication.type}" />
+				</f:facet>
+				<f:facet name="input">
+					<p:selectOneMenu id="newPubTypeDD" value="#{publication.type}" style="width:200px;">
+							<f:selectItem itemLabel="International Journal"
+								itemValue="International Journal" />
+							<f:selectItem itemLabel="International Conference"
+								itemValue="International Conference" />
+						</p:selectOneMenu>
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+		
 		<p:column style="width:2%">
 			<p:rowEditor />
 		</p:column>

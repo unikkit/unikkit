@@ -7,30 +7,25 @@
 	xmlns:p="http://primefaces.org/ui">
 
 
-	<p:dataTable var="achievement"
-		value="#{staffCentralBean.staffDetails.achievements}"
-		id="achievementsDT" editable="true" styleClass="width100">
+	<p:dataTable id="achievementsDT" 
+		var="achievement"
+		value="#{staffDetailsBean.achievements}"
+		editable="true" styleClass="width100"
+		paginator="true" rows="10"  
+        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+        rowsPerPageTemplate="5,10,15">
 
-		<!-- <p:ajax event="rowEdit" listener="#{tableBean.onEdit}"
-							update=":form:messages" />
-						<p:ajax event="rowEditCancel" listener="#{tableBean.onCancel}"
-							update=":form:messages" /> -->
+		<p:ajax event="rowEdit" listener="#{staffDetailsBean.onAchievementsRowEdit}"
+							update="achievementsDT" />
+		<p:ajax event="rowEditCancel" listener="#{staffDetailsBean.onAchievementsRowEditCancel}"
+			/>
 
 		<p:column headerText="" style="width:1%;">
-			<p:commandButton icon="ui-icon-closethick" />
+			<p:commandButton icon="ui-icon-closethick" action="#{staffDetailsBean.deleteAchievement}" update="achievementsDT">
+				<f:setPropertyActionListener value="#{achievement}" target="#{staffDetailsBean.selectedAchievement}" />
+			</p:commandButton>
 		</p:column>
-
-		<p:column headerText="Type" styleClass="width10">
-			<p:cellEditor>
-				<f:facet name="output">
-					<h:outputText value="#{achievement.type}" />
-				</f:facet>
-				<f:facet name="input">
-					<p:inputText value="#{achievement.type}" style="width:100%" />
-				</f:facet>
-			</p:cellEditor>
-		</p:column>
-
+		
 		<p:column headerText="Description" styleClass="width20">
 			<p:cellEditor>
 				<f:facet name="output">
@@ -38,6 +33,22 @@
 				</f:facet>
 				<f:facet name="input">
 					<p:inputText value="#{achievement.description}" style="width:100%" />
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+		
+		<p:column headerText="Type" styleClass="width10">
+			<p:cellEditor>
+				<f:facet name="output">
+					<p:outputLabel value="#{achievement.type}" />
+				</f:facet>
+				<f:facet name="input">
+					<p:selectOneMenu id="newAchTypeDD" value="#{achievement.type}" style="width:200px;">
+						<f:selectItem itemLabel="Select Type" itemValue="" />
+						<f:selectItem itemLabel="Personal" itemValue="Personal" />
+						<f:selectItem itemLabel="Attended" itemValue="Attended" />
+						<f:selectItem itemLabel="Organized" itemValue="Organized" />
+					</p:selectOneMenu>
 				</f:facet>
 			</p:cellEditor>
 		</p:column>

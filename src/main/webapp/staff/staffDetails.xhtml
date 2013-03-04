@@ -8,8 +8,9 @@
 	xmlns:p="http://primefaces.org/ui">
 	<ui:define name="content">
 		<h:form id="staffDetailsForm">
+			<h:inputHidden id="hdId" value="#{staffDetailsBean.id}" />
 			<h:outputLabel
-				value="Staff Details - #{staffCentralBean.staffDetails.staffId} / #{staffCentralBean.staffDetails.staffName}"
+				value="Staff Details - #{staffDetailsBean.staffId} / #{staffDetailsBean.name}"
 				styleClass="pageHeader" />
 			<br />
 			<br />
@@ -18,38 +19,36 @@
 				<p:fieldset id="staffDetailsFS" legend="Staff Details">
 					<h:panelGrid columns="2" style="width:90%;">
 						<h:outputLabel value="Staff #"></h:outputLabel>
-						<h:outputLabel id="staffId"
-							value="#{staffCentralBean.staffDetails.staffId}"></h:outputLabel>
+						<h:outputLabel id="staffId" value="#{staffDetailsBean.staffId}"></h:outputLabel>
 
-						<h:outputLabel for="dojTxt" value="D.O.J"></h:outputLabel>
-						<p:inputText id="dojTxt"
-							value="#{staffCentralBean.staffDetails.doj}"></p:inputText>
+						<h:outputLabel for="dojDT" value="D.O.J"></h:outputLabel>
+						<p:calendar id="dojDT" effect="slideDown"
+							value="#{staffDetailsBean.doj}" />
 
 						<h:outputLabel for="staffNameTxt" value="Staff Name"></h:outputLabel>
-						<p:inputText id="staffNameTxt"
-							value="#{staffCentralBean.staffDetails.staffName}"></p:inputText>
+						<p:inputText id="staffNameTxt" value="#{staffDetailsBean.name}"></p:inputText>
 
 						<h:outputLabel for="genderBtn" value="Gender"></h:outputLabel>
 						<p:selectOneButton id="genderBtn"
-							value="#{staffCentralBean.staffDetails.gender}">
+							value="#{staffDetailsBean.gender}">
 							<f:selectItem itemLabel="Male" itemValue="M" />
 							<f:selectItem itemLabel="Female" itemValue="F" />
 						</p:selectOneButton>
 
 						<h:outputLabel for="dobDT" value="D.O.B"></h:outputLabel>
 						<p:calendar id="dobDT" effect="slideDown"
-							value="#{staffCentralBean.staffDetails.dob}" />
+							value="#{staffDetailsBean.dob}" />
 
 						<h:outputLabel for="collegeDD" value="College"></h:outputLabel>
 						<p:selectOneListbox id="collegeDD"
-							value="#{staffCentralBean.staffDetails.college}">
+							value="#{staffDetailsBean.college}">
 							<f:selectItem itemLabel="M.A.M.C.E" itemValue="MAMCE" />
 							<f:selectItem itemLabel="M.A.M.C.E.T" itemValue="MAMCET" />
 						</p:selectOneListbox>
 
 						<h:outputLabel for="departmentBtn" value="Department"></h:outputLabel>
 						<p:selectOneButton id="departmentBtn"
-							value="#{staffCentralBean.staffDetails.department}">
+							value="#{staffDetailsBean.department}">
 							<f:selectItem itemLabel="IT" itemValue="IT" />
 							<f:selectItem itemLabel="CSE" itemValue="CSE" />
 							<f:selectItem itemLabel="EEE" itemValue="EEE" />
@@ -57,28 +56,22 @@
 						</p:selectOneButton>
 
 						<h:outputLabel for="emailTxt" value="Email"></h:outputLabel>
-						<p:inputText id="emailTxt"
-							value="#{staffCentralBean.staffDetails.email}"></p:inputText>
+						<p:inputText id="emailTxt" value="#{staffDetailsBean.email}"></p:inputText>
 
 						<h:outputLabel for="address1Txt" value="Address 1"></h:outputLabel>
-						<p:inputText id="address1Txt"
-							value="#{staffCentralBean.staffDetails.address1}"></p:inputText>
+						<p:inputText id="address1Txt" value="#{staffDetailsBean.address1}"></p:inputText>
 
 						<h:outputLabel for="address2Txt" value="Address 2"></h:outputLabel>
-						<p:inputText id="address2Txt"
-							value="#{staffCentralBean.staffDetails.address2}"></p:inputText>
+						<p:inputText id="address2Txt" value="#{staffDetailsBean.address2}"></p:inputText>
 
 						<h:outputLabel for="cityTxt" value="City"></h:outputLabel>
-						<p:inputText id="cityTxt"
-							value="#{staffCentralBean.staffDetails.city}"></p:inputText>
+						<p:inputText id="cityTxt" value="#{staffDetailsBean.city}"></p:inputText>
 
 						<h:outputLabel for="stateTxt" value="State"></h:outputLabel>
-						<p:inputText id="stateTxt"
-							value="#{staffCentralBean.staffDetails.state}"></p:inputText>
+						<p:inputText id="stateTxt" value="#{staffDetailsBean.state}"></p:inputText>
 
 						<h:outputLabel for="countryTxt" value="Country"></h:outputLabel>
-						<p:inputText id="countryTxt"
-							value="#{staffCentralBean.staffDetails.country}"></p:inputText>
+						<p:inputText id="countryTxt" value="#{staffDetailsBean.country}"></p:inputText>
 
 					</h:panelGrid>
 				</p:fieldset>
@@ -88,51 +81,51 @@
 							columnClasses="width40,width60" rowClasses="alignTop">
 							<p:graphicImage url="/images/hod.jpg" width="120px;"></p:graphicImage>
 							<h:panelGrid>
-								<h:outputLabel value="#{staffCentralBean.staffDetails.staffId}" />
-								<h:outputLabel
-									value="#{staffCentralBean.staffDetails.staffName}" />
-								<h:outputLabel
-									value="#{staffCentralBean.staffDetails.designation}" />
-								<h:outputLabel value="#{staffCentralBean.staffDetails.dob}" />
-								<h:outputLabel value="#{staffCentralBean.staffDetails.doj}" />
-								<h:outputLabel
-									value="#{staffCentralBean.staffDetails.phoneNumber}" />
+								<h:outputLabel value="#{staffDetailsBean.staffId}" />
+								<h:outputLabel value="#{staffDetailsBean.name}" />
+								<h:outputLabel value="#{staffDetailsBean.designation}" />
+								<h:outputLabel value="#{staffDetailsBean.dob}" />
+								<h:outputLabel value="#{staffDetailsBean.doj}" />
+								<h:outputLabel value="#{staffDetailsBean.phoneNumber}" />
 							</h:panelGrid>
 						</h:panelGrid>
 					</p:fieldset>
 					<p:fieldset id="workExperienceFS" legend="Work Experience">
 						<h:panelGrid columns="2" styleClass="panelGrid"
 							columnClasses="width40">
-							<p:dataList
-								value="#{staffCentralBean.staffDetails.workExperience}"
-								var="exp" id="workExperienceDT" paginator="true" rows="5"
-								effectSpeed="fast"
-								paginatorTemplate="{PreviousPageLink} {CurrentPageReport} {NextPageLink} {RowsPerPageDropdown}"
-								rowsPerPageTemplate="5,10,15" type="none">
 
-								<!-- <f:facet name="header">  
-					                Cars  
-					            </f:facet> -->
-								<h:panelGrid columns="2" columnClasses="width20">
-									<h:outputText
-										value="#{exp.beginMonth} #{exp.beginYear} - #{exp.endMonth} #{exp.endYear}" />
-									<h:outputText value="#{exp.description}"></h:outputText>
-								</h:panelGrid>
-							</p:dataList>
 						</h:panelGrid>
 					</p:fieldset>
 				</h:panelGrid>
 			</h:panelGrid>
-			<p:tabView id="staffTabView">
+			<h:panelGroup>
+				<p:commandButton id="saveBtn" value="Save"
+					action="#{staffDetailsBean.saveStaffDetails}" update="@form"></p:commandButton>
+				<p:spacer width="4" />
+				<p:commandButton id="cancelBtn" value="Cancel"
+					action="#{staffDetailsBean.cancelStaffDetails}" immediate="true"></p:commandButton>
+			</h:panelGroup>
+		<!-- </h:form> -->
+		
+		
+		<!-- <h:form id="otherStaffDetailsForm"> -->
+		<!-- <h:inputText value="#{staffDetailsBean.id}" /> -->
+		<p:tabView id="staffTabView" dynamic="true">
 
 				<!-- <p:ajax event="tabChange" listener="#{tabBean.onTabChange}"
 						update=":form:growl" /> -->
 
 				<p:tab title="Interest" id="researchTab">
 					<p:panelGrid columns="2">
-						<p:inputText id="addNewInterest" value=""></p:inputText>
+						<h:panelGroup>
+							<p:inputTextarea id="addNewInterest" rows="1" cols="76" counter="intTxtCounter" value="#{staffDetailsBean.newInterest}" maxlength="400"       
+	    							counterTemplate="{0}" autoResize="true"/>
+	    					<p:watermark for="addNewInterest" value="Type interest here..." />
+	    					<p:spacer width="10"/>
+	    					<h:outputLabel id="intTxtCounter" />
+    					</h:panelGroup>
 						<p:commandButton id="addNewInterestBtn" icon="ui-icon-plusthick"
-							value="Add"></p:commandButton>
+							value="Add" action="#{staffDetailsBean.addNewInterest}" update="interestsDT,addNewInterest"></p:commandButton>
 					</p:panelGrid>
 					
 					<ui:include src="staffInterestsDT.xhtml"></ui:include>
@@ -140,16 +133,22 @@
 
 				<p:tab title="Publication and Guidance" id="pubAndGuideTab">
 					<p:panelGrid columns="3">
-						<p:inputText id="addNewPublication" value=""></p:inputText>
-						<p:selectOneMenu id="pubTypeDD" value="" style="width:200px;">
+						<h:panelGroup>
+							<p:inputTextarea id="addNewPublication" rows="1" cols="106" counter="pubTxtCounter" value="#{staffDetailsBean.newPublicationDesc}" maxlength="400"       
+	    							counterTemplate="{0}" autoResize="true"/>
+	    					<p:watermark for="addNewPublication" value="Type publication description here..." />
+	    					<p:spacer width="10"/>
+	    					<h:outputLabel id="pubTxtCounter" />
+    					</h:panelGroup>
+						<p:selectOneMenu id="pubTypeDD" value="#{staffDetailsBean.newPublicationType}" style="width:200px;">
 							<f:selectItem itemLabel="Select Type" itemValue="" />
 							<f:selectItem itemLabel="International Journal"
-								itemValue="INTJRNL" />
+								itemValue="International Journal" />
 							<f:selectItem itemLabel="International Conference"
-								itemValue="INTCONF" />
+								itemValue="International Conference" />
 						</p:selectOneMenu>
 						<p:commandButton id="addNewPubBtn" icon="ui-icon-plusthick"
-							value="Add"></p:commandButton>
+							value="Add" action="#{staffDetailsBean.addNewPublication}" update="publicationDT,addNewPublication,pubTypeDD"></p:commandButton>
 						
 					</p:panelGrid>
 					<ui:include src="staffPublicationsDT.xhtml"></ui:include>
@@ -158,15 +157,21 @@
 
 				<p:tab title="Achievements" id="achievementsTab">
 					<p:panelGrid columns="3">
-						<p:inputText id="addNewAchv" value=""></p:inputText>
-						<p:selectOneMenu id="achTypeDD" value="" style="width:200px;">
+						<h:panelGroup>
+							<p:inputTextarea id="addNewAchv" rows="1" cols="106" counter="achvTxtCounter" value="#{staffDetailsBean.newAchievementDesc}" maxlength="400"       
+	    							counterTemplate="{0}" autoResize="true"/>
+	    					<p:watermark for="addNewAchv" value="Type achievement description here..." />
+	    					<p:spacer width="10"/>
+	    					<h:outputLabel id="achvTxtCounter" />
+    					</h:panelGroup>
+						<p:selectOneMenu id="achTypeDD" value="#{staffDetailsBean.newAchievementType}" style="width:200px;">
 							<f:selectItem itemLabel="Select Type" itemValue="" />
-							<f:selectItem itemLabel="Personal" itemValue="PRSNL" />
-							<f:selectItem itemLabel="Attended" itemValue="ATTND" />
-							<f:selectItem itemLabel="Organized" itemValue="ORGZD" />
+							<f:selectItem itemLabel="Personal" itemValue="Personal" />
+							<f:selectItem itemLabel="Attended" itemValue="Attended" />
+							<f:selectItem itemLabel="Organized" itemValue="Organized" />
 						</p:selectOneMenu>
 						<p:commandButton id="addNewAchvBtn" icon="ui-icon-plusthick"
-							value="Add"></p:commandButton>
+							value="Add" action="#{staffDetailsBean.addNewAchievement}" update="achievementsDT,addNewAchv,achTypeDD"></p:commandButton>
 					</p:panelGrid>
 					
 					<ui:include src="staffAchievementsDT.xhtml"></ui:include>
@@ -174,24 +179,25 @@
 
 				<p:tab title="Membership" id="membershipTab">
 					<p:panelGrid columns="3">
-						<p:inputText id="addNewMbrshp" value=""></p:inputText>
-						<p:selectOneMenu id="membershipTypeDD" value=""
+						<h:panelGroup>
+							<p:inputTextarea id="addNewMembership" rows="1" cols="106" counter="mbrshpTxtCounter" value="#{staffDetailsBean.newMembershipDesc}" maxlength="400"       
+	    							counterTemplate="{0}" autoResize="true"/>
+	    					<p:watermark for="addNewMembership" value="Type membership description here..." />
+	    					<p:spacer width="10"/>
+	    					<h:outputLabel id="mbrshpTxtCounter" />
+    					</h:panelGroup>
+						<p:selectOneMenu id="membershipTypeDD" value="#{staffDetailsBean.newMembershipType}"
 							style="width:200px;">
 							<f:selectItem itemLabel="Select Type" itemValue="" />
-							<f:selectItem itemLabel="Professional" itemValue="PRFNL" />
-							<f:selectItem itemLabel="Others" itemValue="OTHRS" />
+							<f:selectItem itemLabel="Professional" itemValue="Professional" />
+							<f:selectItem itemLabel="Others" itemValue="Others" />
 						</p:selectOneMenu>
 						<p:commandButton id="addNewMembershipBtn" icon="ui-icon-plusthick"
-							value="Add"></p:commandButton>
+							value="Add" action="#{staffDetailsBean.addNewMembership}" update="membershipDT,addNewMembership,membershipTypeDD"></p:commandButton>
 					</p:panelGrid>
 					<ui:include src="staffMembershipsDT.xhtml"></ui:include>
 				</p:tab>
 			</p:tabView>
-			<h:panelGroup>
-				<p:commandButton id="saveBtn" value="Save"></p:commandButton>
-				<p:spacer width="4" />
-				<p:commandButton id="cancelBtn" value="Cancel"></p:commandButton>
-			</h:panelGroup>
 		</h:form>
 	</ui:define>
 </ui:composition>

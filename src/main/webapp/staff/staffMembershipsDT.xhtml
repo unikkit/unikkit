@@ -5,30 +5,24 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-	<p:dataTable var="membership"
-		value="#{staffCentralBean.staffDetails.membership}" id="membershipDT"
-		editable="true" styleClass="width100">
+	<p:dataTable id="membershipDT" var="membership"
+		value="#{staffDetailsBean.memberships}" 
+		editable="true" styleClass="width100"
+		paginator="true" rows="10"  
+        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+        rowsPerPageTemplate="5,10,15">
 
-		<!-- <p:ajax event="rowEdit" listener="#{tableBean.onEdit}"
-							update=":form:messages" />
-						<p:ajax event="rowEditCancel" listener="#{tableBean.onCancel}"
-							update=":form:messages" /> -->
-
+		<p:ajax event="rowEdit" listener="#{staffDetailsBean.onMembershipsRowEdit}"
+							update="membershipDT" />
+		<p:ajax event="rowEditCancel" listener="#{staffDetailsBean.onMembershipsRowEditCancel}"
+			 />
+		
 		<p:column headerText="" style="width:1%;">
-			<p:commandButton icon="ui-icon-closethick" />
+			<p:commandButton icon="ui-icon-closethick" action="#{staffDetailsBean.deleteMembership}" update="membershipDT">
+				<f:setPropertyActionListener value="#{membership}" target="#{staffDetailsBean.selectedMembership}" />
+			</p:commandButton>
 		</p:column>
-
-		<p:column headerText="Type" styleClass="width10">
-			<p:cellEditor>
-				<f:facet name="output">
-					<h:outputText value="#{membership.type}" />
-				</f:facet>
-				<f:facet name="input">
-					<p:inputText value="#{membership.type}" style="width:100%" />
-				</f:facet>
-			</p:cellEditor>
-		</p:column>
-
+		
 		<p:column headerText="Description" styleClass="width20">
 			<p:cellEditor>
 				<f:facet name="output">
@@ -40,7 +34,23 @@
 				</f:facet>
 			</p:cellEditor>
 		</p:column>
-
+		
+		<p:column headerText="Type" styleClass="width10">
+			<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{membership.type}" />
+				</f:facet>
+				<f:facet name="input">
+					<p:selectOneMenu id="membershipTypeDD" value="#{membership.type}"
+							style="width:200px;">
+						<f:selectItem itemLabel="Select Type" itemValue="" />
+						<f:selectItem itemLabel="Professional" itemValue="Professional" />
+						<f:selectItem itemLabel="Others" itemValue="Others" />
+					</p:selectOneMenu>
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+		
 		<p:column style="width:2%">
 			<p:rowEditor />
 		</p:column>
