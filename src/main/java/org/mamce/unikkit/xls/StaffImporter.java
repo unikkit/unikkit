@@ -33,7 +33,7 @@ public class StaffImporter extends XlsImporter implements Importer<Staff> {
 	public List<Staff> importData(String filePath) throws UnikkImporterException {
 		return getStaffFromXlsxSheets(getAllXlsxSheets(filePath));
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see org.mamce.unikkit.xls.Importer#createACopyInServer(org.primefaces.model.UploadedFile)
 	 */
@@ -41,27 +41,73 @@ public class StaffImporter extends XlsImporter implements Importer<Staff> {
 		String destination = "/Users/Ramesh/Documents/unikkITXlsImportArchive/ARC_STAFF_DT.xlsx";
 		return createACopyInServer(uploadedFile, destination);
 	}
-	
+
 	private List<Staff> getStaffFromXlsxSheets(List<Sheet> sheets) {
 		List<Staff> staffs = new ArrayList<>();
 		Staff staff = null;
+		int rowCount = 0;
+
 		if(sheets != null && !sheets.isEmpty()) {
 			for (Sheet sheet : sheets) {
 				if(sheet != null) {
 					for (Row row : sheet) {
-						staff = new Staff();
-						Cell cell = row.getCell(1);
-						staff.setStaffId(getStringValue(cell));
-						// TODO: RK: Add all the columns here.
+						if(rowCount > 0) { // Skip header row.
+							staff = new Staff();
+							Cell cell = row.getCell(StaffImporterColumns.STAFF_NUMBER);
+							staff.setStaffId(getStringValue(cell));
+
+							cell = row.getCell(StaffImporterColumns.NAME);
+							staff.setName(getStringValue(cell));
+
+							cell = row.getCell(StaffImporterColumns.DOJ);
+							staff.setDoj(getDateValue(cell));
+
+							cell = row.getCell(StaffImporterColumns.GENDER);
+							staff.setGender(getStringValue(cell));
+
+							cell = row.getCell(StaffImporterColumns.DOB);
+							staff.setDob(getDateValue(cell));
+
+							cell = row.getCell(StaffImporterColumns.COLLEGE);
+							staff.setCollege(getStringValue(cell));
+							
+							cell = row.getCell(StaffImporterColumns.DESIGNATION);
+							staff.setDesignation(getStringValue(cell));
+
+							cell = row.getCell(StaffImporterColumns.DEPARTMENT);
+							staff.setDepartment(getStringValue(cell));
+
+							cell = row.getCell(StaffImporterColumns.ADDRESS1);
+							staff.setAddress1(getStringValue(cell));
+
+							cell = row.getCell(StaffImporterColumns.ADDRESS2);
+							staff.setAddress2(getStringValue(cell));
+
+							cell = row.getCell(StaffImporterColumns.EMAIL);
+							staff.setEmail(getStringValue(cell));
+
+							cell = row.getCell(StaffImporterColumns.CITY);
+							staff.setCity(getStringValue(cell));
+
+							cell = row.getCell(StaffImporterColumns.STATE);
+							staff.setState(getStringValue(cell));
+
+							cell = row.getCell(StaffImporterColumns.COUNTRY);
+							staff.setCountry(getStringValue(cell));
+
+							// RK: Add remaining columns here.
+
+							staffs.add(staff);
+						}
 						
-						staffs.add(staff);
+						rowCount++;
 					}
 				}
 			}
 		}
-		
+
 		return staffs;
 	}
-	
+
 
 }

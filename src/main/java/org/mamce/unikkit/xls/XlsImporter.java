@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -86,6 +87,11 @@ public class XlsImporter {
 		return value;
 	}
 
+	protected Date getDateValue(Cell cell) {
+		getStringValue(cell);
+		return cell.getDateCellValue();
+	}
+	
 	protected File createACopyInServer(UploadedFile uploadedFile, String destination) throws UnikkResourceException {
 		FileOutputStream fos = null;
 		File copy = null;
