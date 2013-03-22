@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="org.mamce.unikkit.model.quote.Quote" table="tbl_quote" 
+		catalog="unikkit">
+        <id name="id" type="long">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        
+        <property name="who" type="string">
+            <column name="who" />
+        </property>
+        <property name="what" type="string">
+            <column name="what" />
+        </property>
+        <property name="avatar" type="string">
+            <column name="avatar" />
+        </property>
+        <property name="featured" type="boolean">
+            <column name="featured" default="true"/>
+        </property>
+        <property name="active" type="boolean">
+            <column name="active" default="true"/>
+        </property>
+        <property name="createdDate" type="timestamp">
+			<column name="created_date" />
+		</property>
+		<property name="updatedDate" type="timestamp">
+			<column name="updated_date" />
+		</property>
+		<property name="updateBy" type="long">
+			<column name="updated_by" />
+		</property>
+		
+    </class>
+</hibernate-mapping>

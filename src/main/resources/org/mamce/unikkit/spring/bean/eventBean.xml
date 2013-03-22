@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+ 
+	<bean id="eventModel"
+         class="org.mamce.unikkit.lazy.model.EventLazyModel" >
+   		<property name="eventManager" ref="eventManager" />
+   	</bean>
+   	
+   	<bean id="eventManager"
+         class="org.mamce.unikkit.event.manager.EventManagerImpl" >
+   		<property name="eventDao" ref="eventDao" />
+   	</bean>
+ 
+   	<bean id="eventDao" 
+         class="org.mamce.unikkit.event.dao.EventDaoImpl" >
+   		<property name="sessionFactory" ref="sessionFactory"></property>
+   	</bean>
+ 
+</beans>

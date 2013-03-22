@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="org.mamce.unikkit.model.event.Event" table="tbl_event" 
+		catalog="unikkit">
+        <id name="id" type="long">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="title" type="string" not-null="true" >
+            <column name="title" />
+        </property>
+        <property name="description" type="string" >
+            <column name="description" />
+        </property>
+        <property name="startDate" type="timestamp">
+			<column name="start_date" />
+		</property>
+		<property name="endDate" type="timestamp">
+			<column name="end_date" />
+		</property>
+		<property name="allDay" type="boolean">
+			<column name="all_day" default="false"/>
+		</property>
+		<property name="location" type="string" >
+            <column name="location" />
+        </property>
+		<property name="active" type="boolean">
+			<column name="active" default="true"/>
+		</property>
+        <property name="createdDate" type="timestamp">
+			<column name="created_date" />
+		</property>
+		<property name="updatedDate" type="timestamp">
+			<column name="updated_date" />
+		</property>
+		<property name="updateBy" type="long">
+			<column name="updated_by" />
+		</property>
+    </class>
+</hibernate-mapping>
