@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.mamce.unikkit.common.util.UnikkUtils;
 import org.mamce.unikkit.exception.UnikkImporterException;
 import org.mamce.unikkit.exception.UnikkResourceException;
 import org.mamce.unikkit.model.student.Student;
@@ -32,7 +33,7 @@ public class StudentImporter extends XlsImporter implements Importer<Student> {
 	 * @see org.mamce.unikkit.xls.Importer#createACopyInServer(org.primefaces.model.UploadedFile)
 	 */
 	public File createACopyInServer(UploadedFile uploadedFile) throws UnikkResourceException {
-		String destination = "/Users/Ramesh/Documents/unikkITXlsImportArchive/ARC_STUDENT_DT.xlsx";
+		String destination = UnikkUtils.getStudentXlsUploadArcLocation(uploadedFile.getFileName());
 		return createACopyInServer(uploadedFile, destination);
 	}
 

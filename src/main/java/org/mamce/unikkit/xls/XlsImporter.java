@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -24,6 +25,8 @@ import org.primefaces.model.UploadedFile;
  */
 public class XlsImporter {
 
+	public static final Logger LOGGER = Logger.getLogger(XlsImporter.class);
+	
 	/**
 	 * @param fileName
 	 * @return
@@ -98,11 +101,14 @@ public class XlsImporter {
 		
 		if(uploadedFile == null) return null;
 		
+		LOGGER.info("Creating a copy in the server:"+uploadedFile.getFileName());
+		LOGGER.info("Destination location:"+destination);
 		try {
 			copy = new File(destination);
 			fos = new FileOutputStream(copy);
 			fos.write(uploadedFile.getContents());
 			fos.close();
+			LOGGER.info("Successfully created a copy in the server!");
 		} catch (IOException e) {
 			throw new UnikkResourceException("Error while creating copy of the uploaded file", e);
 		} finally {
