@@ -9,7 +9,6 @@ import javax.faces.bean.RequestScoped;
 import org.apache.log4j.Logger;
 import org.mamce.unikkit.model.staff.Staff;
 import org.mamce.unikkit.staff.manager.StaffManager;
-import org.mamce.unikkit.web.dto.StaffDto;
 
 @ManagedBean
 @RequestScoped
@@ -24,42 +23,8 @@ public class StaffCentralBean extends BaseBean {
 	@ManagedProperty(value=MP_STAFF_MANAGER)
 	private StaffManager staffManager;
 	
-	private StaffDto searchCriteria;
-	private StaffDto staffDetails;
+	private List<Staff> filteredStaffs;
 	
-	public StaffCentralBean() {
-		searchCriteria = new StaffDto();
-	}
-	
-	/**
-	 * @return the searchCriteria
-	 */
-	public StaffDto getSearchCriteria() {
-		return searchCriteria;
-	}
-
-	/**
-	 * @param searchCriteria
-	 *            the searchCriteria to set
-	 */
-	public void setSearchCriteria(StaffDto searchCriteria) {
-		this.searchCriteria = searchCriteria;
-	}
-
-	/**
-	 * @return the staffDetails
-	 */
-	public StaffDto getStaffDetails() {
-		return staffDetails;
-	}
-
-	/**
-	 * @param staffDetails the staffDetails to set
-	 */
-	public void setStaffDetails(StaffDto staffDetails) {
-		this.staffDetails = staffDetails;
-	}
-
 	/**
 	 * @return the staffManager
 	 */
@@ -76,6 +41,20 @@ public class StaffCentralBean extends BaseBean {
 
 	public List<Staff> getStaffs() {
 		return staffManager.findAllStaffs();
+	}
+
+	/**
+	 * @return the filteredStaffs
+	 */
+	public List<Staff> getFilteredStaffs() {
+		return filteredStaffs;
+	}
+
+	/**
+	 * @param filteredStaffs the filteredStaffs to set
+	 */
+	public void setFilteredStaffs(List<Staff> filteredStaffs) {
+		this.filteredStaffs = filteredStaffs;
 	}
 	
 	/*private List<ExperienceDto> getSampleWorkExp() {

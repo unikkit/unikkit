@@ -40,7 +40,6 @@ public class StaffDetailsBean extends BaseBean {
 	
 	private Staff selectedStaff;
 	
-	private long id;
 	private String staffId;
 	private String name;
 	private Date dob;
@@ -74,20 +73,6 @@ public class StaffDetailsBean extends BaseBean {
 	private List<Achievement> achievements = new ArrayList<>();
 	private List<Membership> memberships = new ArrayList<>();
 	
-	/**
-	 * @return the id
-	 */
-	public long getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(long id) {
-		this.id = id;
-	}
-
 	/**
 	 * @return the staffId
 	 */

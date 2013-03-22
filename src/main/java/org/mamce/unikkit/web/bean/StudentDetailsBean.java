@@ -32,7 +32,6 @@ public class StudentDetailsBean extends BaseBean {
 	
 	private Student selectedStudent;
 	
-	private long id;
 	private String name;
 	private String address1;
 	private String address2;
@@ -97,20 +96,6 @@ public class StudentDetailsBean extends BaseBean {
 	 */
 	public void setSelectedStudent(Student selectedStudent) {
 		this.selectedStudent = selectedStudent;
-	}
-
-	/**
-	 * @return the id
-	 */
-	public long getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(long id) {
-		this.id = id;
 	}
 
 	/**

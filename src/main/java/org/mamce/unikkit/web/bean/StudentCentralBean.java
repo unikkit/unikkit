@@ -9,7 +9,6 @@ import javax.faces.bean.RequestScoped;
 import org.apache.log4j.Logger;
 import org.mamce.unikkit.model.student.Student;
 import org.mamce.unikkit.student.manager.StudentManager;
-import org.mamce.unikkit.web.dto.StudentDto;
 
 /**
  * @author Ramesh
@@ -25,43 +24,24 @@ public class StudentCentralBean extends BaseBean {
 	private static final long serialVersionUID = 1L;
 	public static final Logger LOGGER = Logger.getLogger(StudentCentralBean.class);
 	
-	private StudentDto searchCriteria;
-	private StudentDto studentDetails;
+	private List<Student> filteredStudents;
 	
 	// Dependency Injection from Spring
 	@ManagedProperty(value = MP_STUDENT_MANAGER)
 	private StudentManager studentManager;
 	
-	public StudentCentralBean() {
-		searchCriteria = new StudentDto();
+	/**
+	 * @return the filteredStudents
+	 */
+	public List<Student> getFilteredStudents() {
+		return filteredStudents;
 	}
 
 	/**
-	 * @return the searchCriteria
+	 * @param filteredStudents the filteredStudents to set
 	 */
-	public StudentDto getSearchCriteria() {
-		return searchCriteria;
-	}
-
-	/**
-	 * @param searchCriteria the searchCriteria to set
-	 */
-	public void setSearchCriteria(StudentDto searchCriteria) {
-		this.searchCriteria = searchCriteria;
-	}
-
-	/**
-	 * @return the studentDetails
-	 */
-	public StudentDto getStudentDetails() {
-		return studentDetails;
-	}
-
-	/**
-	 * @param studentDetails the studentDetails to set
-	 */
-	public void setStudentDetails(StudentDto studentDetails) {
-		this.studentDetails = studentDetails;
+	public void setFilteredStudents(List<Student> filteredStudents) {
+		this.filteredStudents = filteredStudents;
 	}
 
 	/**
