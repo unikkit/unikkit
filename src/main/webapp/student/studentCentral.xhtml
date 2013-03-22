@@ -10,52 +10,41 @@
 	<ui:define name="content">
 		<h:form id="studentCentralForm">
 			<h1>Student Central - Add / Edit Student Details</h1>
-			<h:panelGrid columns="4" styleClass="panelGrid">
-				<h:outputLabel for="rollNumber" value="Roll #"></h:outputLabel>
-				<p:inputText id="rollNumber"
-					value="#{studentCentralBean.searchCriteria.rollNumber}"></p:inputText>
-				<h:outputLabel for="yop" value="Batch"></h:outputLabel>
-				<p:inputText id="yop"
-					value="#{studentCentralBean.searchCriteria.yop}"></p:inputText>
-				<h:outputLabel for="studentNameTxt" value="Student Name"></h:outputLabel>
-				<p:inputText id="studentNameTxt"
-					value="#{studentCentralBean.searchCriteria.studentName}"></p:inputText>
-				<h:outputLabel for="genderBtn" value="Gender"></h:outputLabel>
-				<p:selectOneButton id="genderBtn"
-					value="#{studentCentralBean.searchCriteria.gender}">
-					<f:selectItem itemLabel="Male" itemValue="M" />
-					<f:selectItem itemLabel="Female" itemValue="F" />
-					<f:selectItem itemLabel="Both" itemValue="" />
-				</p:selectOneButton>
-			</h:panelGrid>
-			<h:panelGrid columns="1" styleClass="panelGrid">
-				<h:panelGroup>
-					<div align="center">
-						<p:commandButton id="searchBtn" value="Search" />
-						<p:commandButton id="clearBtn" value="Clear" />
-					</div>
-				</h:panelGroup>
-			</h:panelGrid>
-			<hr />
-			<p:dataTable id="studentDT" var="student" indexVar="index"
-				value="#{studentCentralBean.students}">
-				<p:column headerText="Roll #">
+			<p:dataTable id="studentDT" var="student" widgetVar="studentDTWdgtVar" indexVar="index"
+				value="#{studentCentralBean.students}"
+				emptyMessage="No Students Found" 
+				paginatorAlwaysVisible="false"
+				paginator="true" rows="20"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="20,40,60"
+				filteredValue="#{studentCentralBean.filteredStudents}">
+
+				<f:facet name="header">
+					<p:outputPanel>
+						<h:outputText value="Search:" />
+						<p:inputText id="globalFilter"
+							style="width:150px" />
+						<p:commandButton onclick="studentDTWdgtVar.filter()" value="Search"></p:commandButton>
+					</p:outputPanel>
+				</f:facet>
+				<p:column headerText="Roll #" filterBy="#{student.rollNumber}" filterMatchMode="contains">
 					<p:commandButton id="detailsBtn-#{index}"
 						value="#{student.rollNumber}"
-						action="#{studentDetailsBean.studentDetails}" >
-						<f:setPropertyActionListener value="#{student}" target="#{studentDetailsBean.selectedStudent}" />  
+						action="#{studentDetailsBean.studentDetails}">
+						<f:setPropertyActionListener value="#{student}"
+							target="#{studentDetailsBean.selectedStudent}" />
 					</p:commandButton>
 				</p:column>
 
-				<p:column headerText="Batch">
+				<p:column headerText="Batch" filterBy="#{student.batch}" filterMatchMode="contains">
 					<h:outputText value="#{student.batch}" />
 				</p:column>
 
-				<p:column headerText="Name">
+				<p:column headerText="Name" filterBy="#{student.name}" filterMatchMode="contains">
 					<h:outputText value="#{student.name}" />
 				</p:column>
 
-				<p:column headerText="Gender">
+				<p:column headerText="Gender" filterBy="#{student.gender}" filterMatchMode="contains">
 					<h:outputText value="#{student.gender}" />
 				</p:column>
 			</p:dataTable>
