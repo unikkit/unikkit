@@ -10,37 +10,23 @@
 	<ui:define name="content">
 		<h:form id="staffCentralForm">
 			<h1>Staff Central - Add / Edit Staff Details</h1>
-			<h:panelGrid columns="4" styleClass="panelGrid">
-				<h:outputLabel for="staffIdTxt" value="Staff #"></h:outputLabel>
-				<p:inputText id="staffIdTxt"
-					value="#{staffCentralBean.searchCriteria.staffId}"></p:inputText>
-				<h:outputLabel for="departmentMenu" value="Department"></h:outputLabel>
-				<p:inputText id="departmentMenu"
-					value="#{staffCentralBean.searchCriteria.department}"></p:inputText>
-				<h:outputLabel for="staffNameTxt" value="Staff Name"></h:outputLabel>
-				<p:inputText id="staffNameTxt"
-					value="#{staffCentralBean.searchCriteria.staffName}"></p:inputText>
-				<h:outputLabel for="designationMenu" value="Designation"></h:outputLabel>
-				<p:selectOneButton id="designationMenu"
-					value="#{staffCentralBean.searchCriteria.designation}">
-					<f:selectItem itemLabel="H.O.D" itemValue="hod" />
-					<f:selectItem itemLabel="Asst. Prof." itemValue="asstprof" />
-					<f:selectItem itemLabel="Prof." itemValue="prof" />
-					<f:selectItem itemLabel="Dean" itemValue="dean" />
-				</p:selectOneButton>
-			</h:panelGrid>
-			<h:panelGrid columns="1" styleClass="panelGrid">
-				<h:panelGroup>
-					<div align="center">
-						<p:commandButton id="searchBtn" value="Search" />
-						<p:commandButton id="clearBtn" value="Clear" />
-					</div>
-				</h:panelGroup>
-			</h:panelGrid>
-			<hr />
-			<p:dataTable id="staffDT" var="staff" indexVar="index"
-				value="#{staffCentralBean.staffs}">
-				<p:column headerText="Roll #">
+			<p:dataTable id="staffDT" var="staff" widgetVar="staffDTWdgtVar" indexVar="index"
+				value="#{staffCentralBean.staffs}"
+				paginator="true" rows="20"
+				paginatorAlwaysVisible="false"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="20,40,60"
+				filteredValue="#{staffCentralBean.filteredStaffs}">
+				
+				<f:facet name="header">
+					<p:outputPanel>
+						<h:outputText value="Search:" />
+						<p:inputText id="globalFilter"
+							style="width:150px" />
+						<p:commandButton onclick="staffDTWdgtVar.filter()" value="Search"></p:commandButton>
+					</p:outputPanel>
+				</f:facet>
+				<p:column headerText="Roll #" filterBy="#{staff.staffId}" filterMatchMode="contains">
 					<p:commandButton id="detailsBtn-#{index}"
 						value="#{staff.staffId}"
 						action="#{staffDetailsBean.staffDetails}" >
@@ -48,15 +34,15 @@
 					</p:commandButton>
 				</p:column>
 
-				<p:column headerText="Firstname">
+				<p:column headerText="Firstname" filterBy="#{staff.name}" filterMatchMode="contains">
 					<h:outputText value="#{staff.name}" />
 				</p:column>
 				
-				<p:column headerText="Designation">
+				<p:column headerText="Designation" filterBy="#{staff.designation}" filterMatchMode="contains">
 					<h:outputText value="#{staff.designation}" />
 				</p:column>
 
-				<p:column headerText="Email">
+				<p:column headerText="Email" filterBy="#{staff.email}" filterMatchMode="contains">
 					<h:outputText value="#{staff.email}" />
 				</p:column>
 			</p:dataTable>
