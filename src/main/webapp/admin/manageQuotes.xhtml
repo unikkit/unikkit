@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/unikkTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+		<h:outputLabel value="Manage Quotes" styleClass="pageHeader" />
+		<br />
+		<br />
+		<h:form enctype="multipart/form-data">
+			<h:inputHidden value="#{manageQuotesBean.id}"></h:inputHidden>
+			<p:panel id="addQuotePnl" header="Add new quote" toggleable="true"
+				closable="false" toggleSpeed="500" closeSpeed="500"
+				widgetVar="addQuotePnlWdgtVar" collapsed="true">
+				<h:panelGrid columns="2" rowClasses="alignTop">
+					<p:panel id="formPnl" header="!!! Quotes !!!" toggleable="false"
+						closable="false" toggleSpeed="500" closeSpeed="500"
+						widgetVar="formPnlWdgtVar">
+						<h:panelGrid columns="2" >
+							<h:outputLabel value="" />
+							<h:panelGroup>
+								<p:selectBooleanCheckbox value="#{manageQuotesBean.active}"
+									itemLabel="Active?"></p:selectBooleanCheckbox>
+								<p:spacer width="3" />
+								<p:spacer width="3" />
+								<p:selectBooleanCheckbox value="#{manageQuotesBean.featured}"
+									itemLabel="Featured?"></p:selectBooleanCheckbox>
+							</h:panelGroup>
+							<h:outputLabel for="whoTxt" value="Who?">
+							</h:outputLabel>
+							<p:inputText id="whoTxt" required="true"
+								value="#{manageQuotesBean.who}" maxlength="50" size="56"></p:inputText>
+
+							<h:outputLabel for="whatTxt" value="What?">
+							</h:outputLabel>
+							<p:inputTextarea id="whatTxt" required="true"
+								value="#{manageQuotesBean.what}" cols="58" rows="10"></p:inputTextarea>
+
+							<h:outputLabel value=""></h:outputLabel>
+							<h:panelGroup>
+								<p:commandButton value="Quote it!" action="#{manageQuotesBean.addNewQuote}" update="@form"></p:commandButton>
+								<p:spacer width="5" />
+								<p:commandButton value="Cancel"></p:commandButton>
+							</h:panelGroup>
+						</h:panelGrid>
+					</p:panel>
+
+					<p:panel id="avatarPnl" header="See who quoted this..."
+						toggleable="true" closable="false" toggleSpeed="500"
+						closeSpeed="500" widgetVar="avatarPnlWdgtVar" style="height:254px;">
+						<h:panelGrid columns="1">
+							<p:fileUpload
+								fileUploadListener="#{manageQuotesBean.handleWhoSaidAvatar}"
+								mode="simple" sizeLimit="500"
+								allowTypes="/(\.|\/)(jpg|jpeg|png|gif)$/" />
+							<h:outputLabel value="[Image here]"></h:outputLabel>
+						</h:panelGrid>
+					</p:panel>
+				</h:panelGrid>
+			</p:panel>
+		<!-- </h:form> -->
+			<br />
+		<!-- <h:form id="tableForm"> -->
+			<p:dataTable id="quotesDT" 
+				var="quote"
+				value="#{manageQuotesBean.allQuotes}"
+				editable="true" styleClass="width100"
+				paginator="true" rows="10"  
+		        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+		        rowsPerPageTemplate="5,10,15"
+		        rowClasses="alignTop"
+		        >
+		
+				<p:ajax event="rowEdit" listener="#{manageQuotesBean.onQuotesRowEdit}"
+									update="quotesDT" />
+				<p:ajax event="rowEditCancel" listener="#{manageQuotesBean.onQuotesRowEditCancel}"
+					/>
+		
+				<p:column headerText="" style="width:1%;">
+					<p:commandButton icon="ui-icon-closethick" action="#{manageQuotesBean.deleteQuotes}" update="quotesDT">
+						<f:setPropertyActionListener value="#{quote}" target="#{manageQuotesBean.selectedQuote}" />
+					</p:commandButton>
+				</p:column>
+				
+				<p:column headerText="Who?" styleClass="width10">
+					<p:cellEditor>
+						<f:facet name="output">
+							<!-- <p:graphicImage value="/resources/images/gandhi.jpg" width="5%"></p:graphicImage> -->
+							<h:outputText value="#{quote.who}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{quote.who}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				<p:column headerText="What?" styleClass="width10">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel value="#{quote.what}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{quote.what}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				
+				<p:column style="width:2%">
+					<p:rowEditor />
+				</p:column>
+		
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
