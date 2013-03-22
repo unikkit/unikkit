@@ -29,9 +29,9 @@
 			<p:menuitem value="Manage Access" url="/access/manageAccessControl.xhtml"
 				icon="ui-icon-locked" />
 			
-			<p:menuitem value="Administration" url="/admin/administration.xhtml"
-				icon="ui-icon-locked" />
-
+			<p:submenu label="Administration" icon="ui-icon-locked">
+				<p:menuitem value="Manage Quotes" url="/admin/manageQuotes.xhtml" icon="ui-icon-note" />
+			</p:submenu>
 		</p:menubar>
 
 	</h:form>
