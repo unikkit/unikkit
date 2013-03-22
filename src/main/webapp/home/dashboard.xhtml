@@ -13,36 +13,84 @@
 			<p:dashboard id="board" model="#{dashboardBean.model}" >
 				<p:ajax event="reorder" listener="#{dashboardBean.handleReorder}"
 					update="growl" />
-				<p:panel id="quotesOfTheDay" header="Quote of the day!" style="width:350px;">
-					<h:outputText value="Leadership and learning are indispensable to each other." />
-					<br/>
-					<h:outputText value="-John F. Kennedy"></h:outputText>
-				</p:panel>
 				
-				<p:panel id="studentStatistics" header="Student Statistics">
-					<h:panelGrid columns="2" styleClass="panelGrid">
-						<h:outputText value="Batch 2013 - "></h:outputText>
-						<h:outputText value="120"></h:outputText>
-						<h:outputText value="Batch 2014 - "></h:outputText>
-						<h:outputText value="120"></h:outputText>
-						<h:outputText value="Batch 2015 - "></h:outputText>
-						<h:outputText value="120"></h:outputText>
-						<h:outputText value="Batch 2016 - "></h:outputText>
-						<h:outputText value="120"></h:outputText>
-						<h:outputText value="Batch 2017 - "></h:outputText>
-						<h:outputText value="120"></h:outputText>
+				<p:panel id="studentStatistics" header="Student Statistics" style="width:450px;">
+					<p:barChart id="basic" value="#{dashboardBean.studentsStats}" legendPosition="ne"  
+            				min="0" max="200" style="height:200px" animate="true"/>
+				</p:panel>
+
+				<p:panel id="staffStatistics" header="Staff Statistics" style="width:450px;">
+					<p:pieChart id="sample" value="#{dashboardBean.staffStats}" legendPosition="w"  
+               			style="height:200px" animate="true"/>
+				</p:panel>
+				<p:panel id="quotesOfTheDay" header="Quote of the day!" style="width:450px;">
+					<p:dataGrid var="quote" value="#{dashboardBean.featuredQuotes}" columns="1"  
+				        rows="1" paginator="true" paginatorPosition="bottom" 
+				        paginatorTemplate="{PreviousPageLink} {PageLinks} {NextPageLink} "  
+				        >  
+				  
+				        <h:panelGrid columns="2" columnClasses="alignTop,alignTop">
+						<p:graphicImage value="/resources/images/gandhi.jpg" width="80%"></p:graphicImage>
+						
+						<h:panelGroup>
+							<blockquote id="border"><p><h:outputText value="#{quote.what}" /></p></blockquote>
+							<br/>
+							<h:outputText value="#{quote.who}"></h:outputText>
+						</h:panelGroup>
 					</h:panelGrid>
+				  
+				    </p:dataGrid>
 				</p:panel>
-
-				<p:panel id="staffStatistics" header="Staff Statistics" style="width:350px;">
-					<h:outputText value="Lifestyle Content" />
+				<p:panel id="events" header="Events" style="width:450px;">
+					<p:dataTable id="dataTable" var="event" value="#{dashboardBean.currentEvents}"  
+			                 paginator="true" rows="5"
+			                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+			                 rowsPerPageTemplate="5,10,15">
+			        <p:column>  
+			            <f:facet name="header">  
+			                <h:outputText value="Title" />  
+			            </f:facet>
+			            <h:outputText value="#{event.title}" />  
+			        </p:column>  
+			  		<p:column>  
+			            <f:facet name="header">  
+			                <h:outputText value="Time" />  
+			            </f:facet>
+			            <h:outputText value="#{event.readableStartDate} #{event.startTime} to #{event.readableEndDate} #{event.endTime}" />  
+			        </p:column>
+			  
+			  		<p:column>
+			  			<f:facet name="header">  
+			            </f:facet>
+			  			<p:commandLink update=":dashboardForm:eventDetail" oncomplete="eventDialog.show()" title="View Detail">  
+		                    <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />   
+		                    <f:setPropertyActionListener value="#{event}"   
+		                            target="#{dashboardBean.selectedEvent}" />  
+		                </p:commandLink>
+			  		</p:column>
+			    </p:dataTable>
 				</p:panel>
-
-				<p:panel id="events" header="Events">
-					<h:outputText value="Weather Content" />
-				</p:panel>
-			
 			</p:dashboard>
+
+			<p:dialog header="Event Detail" widgetVar="eventDialog" modal="true" >
+				<p:panelGrid id="eventDetail" columns="2" cellpadding="5" style="width:500px;">
+					<h:outputLabel for="title" value="Title: " />
+					<h:outputText id="title"
+						value="#{dashboardBean.selectedEvent.title}" />
+
+					<h:outputLabel for="startDate" value="Start: " />
+					<h:outputText id="startDate"
+						value="#{dashboardBean.selectedEvent.readableStartDate} #{dashboardBean.selectedEvent.startTime}" />
+
+					<h:outputLabel for="endDate" value="End: " />
+					<h:outputText id="endDate"
+						value="#{dashboardBean.selectedEvent.readableEndDate} #{dashboardBean.selectedEvent.endTime}" />
+
+					<h:outputLabel for="description" value="Description: " />
+					<h:outputText id="description"
+						value="#{dashboardBean.selectedEvent.description}" />
+				</p:panelGrid>
+			</p:dialog>
 		</h:form>
 	</ui:define>
 </ui:composition>
