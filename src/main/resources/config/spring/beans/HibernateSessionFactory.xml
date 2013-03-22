@@ -16,6 +16,9 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
+				<!-- <prop key="hibernate.cache.use_query_cache">true</prop>
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop> -->
 				<!-- <prop key="hibernate.hbm2ddl.auto">create</prop> -->
 			</props>
 		</property>
@@ -35,6 +38,8 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 				<value>org/mamce/unikkit/model/staffpublication.hbm.xml</value>
 				<value>org/mamce/unikkit/model/staffachievement.hbm.xml</value>
 				<value>org/mamce/unikkit/model/staffmembership.hbm.xml</value>
+				<value>org/mamce/unikkit/model/event.hbm.xml</value>
+				<value>org/mamce/unikkit/model/quote.hbm.xml</value>
 			</list>
 		</property>
 
