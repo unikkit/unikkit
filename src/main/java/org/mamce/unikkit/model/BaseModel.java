@@ -3,6 +3,8 @@ package org.mamce.unikkit.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.mamce.unikkit.common.util.UnikkUtils;
+
 public class BaseModel implements Serializable {
 
 	/**
@@ -10,7 +12,7 @@ public class BaseModel implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private long id;
-	private boolean active;
+	private boolean active = true;
 	private Date createdDate;
 	private Date updatedDate;
 	private String updateBy;
@@ -43,6 +45,9 @@ public class BaseModel implements Serializable {
 	 * @return the createdDate
 	 */
 	public Date getCreatedDate() {
+		if(createdDate == null) {
+			createdDate = UnikkUtils.getToday();
+		}
 		return createdDate;
 	}
 	/**
