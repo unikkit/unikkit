@@ -8,10 +8,11 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	<import resource="classes/config/spring/beans/HibernateSessionFactory.xml"/>
  
 	<!-- Beans Declaration -->
-	<import resource="classes/com/mkyong/customer/spring/CustomerBean.xml"/>
  	<import resource="classes/org/mamce/unikkit/spring/bean/studentBean.xml"/>
  	<import resource="classes/org/mamce/unikkit/spring/bean/semesterBean.xml"/>
  	<import resource="classes/org/mamce/unikkit/spring/bean/menuBean.xml"/>
  	<import resource="classes/org/mamce/unikkit/spring/bean/userBean.xml"/>
  	<import resource="classes/org/mamce/unikkit/spring/bean/staffBean.xml"/>
+ 	<import resource="classes/org/mamce/unikkit/spring/bean/eventBean.xml"/>
+ 	<import resource="classes/org/mamce/unikkit/spring/bean/quoteBean.xml"/>
 </beans>
