@@ -12,8 +12,64 @@
 			<h:outputLabel value="Manage Events" styleClass="pageHeader" />
 			<br />
 			<br />
-			
-			<p:schedule value="#{manageEventsBean.eventsLazyModel}" />
+			<p:growl id="messages" showDetail="true" />
+			<p:schedule widgetVar="schedulerWdgt" value="#{manageEventsBean.eventModel}" >
+				<p:ajax event="dateSelect"
+					listener="#{manageEventsBean.onDateSelect}" update="eventDetails"
+					oncomplete="eventDialog.show()" />
+				<p:ajax event="eventSelect"
+					listener="#{manageEventsBean.onEventSelect}"
+					update="eventDetails" oncomplete="eventDialog.show()" />
+				<p:ajax event="eventMove"
+					listener="#{manageEventsBean.onEventMove}" update="messages" />
+				<p:ajax event="eventResize"
+					listener="#{manageEventsBean.onEventResize}" update="messages" />
+			</p:schedule>
+
+			<p:dialog widgetVar="eventDialog" header="Event Details"
+				showEffect="clip" hideEffect="clip" modal="true">
+				<h:panelGrid id="eventDetails" columns="2">
+					<h:outputLabel for="title" value="Title:" />
+					<p:inputText id="title" value="#{manageEventsBean.event.title}"
+						required="true" maxlength="50" size="55"/>
+
+					<h:outputLabel for="from" value="From:" />
+					<h:panelGroup>
+						<p:inputMask id="from"
+							value="#{manageEventsBean.event.startDate}" mask="99/99/9999">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</p:inputMask>
+						<p:spacer width="10"/>
+						<h:outputLabel for="to" value="To:" />
+						<p:spacer width="4"/>
+						<p:inputMask id="to" value="#{manageEventsBean.event.endDate}"
+							mask="99/99/9999">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</p:inputMask>
+					</h:panelGroup>
+					
+					<h:outputLabel for="allDay" value="All Day:" />
+					<h:selectBooleanCheckbox id="allDay"
+						value="#{manageEventsBean.event.allDay}" />
+					
+					<h:outputLabel for="locationTxt" value="Location:" />
+					<p:inputText id="locationTxt" value="#{manageEventsBean.event.location}"
+						 maxlength="50" size="55" />
+					
+					<h:outputLabel for="description" value="Description" />
+					<h:panelGroup>
+							<p:inputTextarea id="description" rows="1" cols="76" counter="descTxtCounter" value="#{manageEventsBean.event.description}" maxlength="400"       
+	    							counterTemplate="{0}" autoResize="true"/>
+	    					<p:watermark for="description" value="Type event description here..." />
+	    					<p:spacer width="10"/>
+	    					<h:outputLabel id="descTxtCounter" />
+    					</h:panelGroup>
+					<p:commandButton value="Save"
+						actionListener="#{manageEventsBean.addEvent}"
+						oncomplete="schedulerWdgt.update();eventDialog.hide();" />
+					<p:commandButton type="reset" value="Reset" />
+				</h:panelGrid>
+			</p:dialog>
 		</h:form>
 	</ui:define>
 </ui:composition>
