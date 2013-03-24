@@ -2,11 +2,10 @@ package org.mamce.unikkit.quote.dao;
 
 import java.util.List;
 
-import org.hibernate.Criteria;
+import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Expression;
 import org.hibernate.criterion.Order;
 import org.mamce.unikkit.dao.support.UnikkITDaoSupport;
-import org.mamce.unikkit.model.event.Event;
 import org.mamce.unikkit.model.quote.Quote;
 
 /**
@@ -35,12 +34,11 @@ public class QuoteDaoImpl extends UnikkITDaoSupport<Quote> implements QuoteDao {
 
 	@Override
 	public List<Quote> findFeaturedQuotes() {
-		Criteria criteria = getSession().createCriteria(Quote.class);
+		DetachedCriteria criteria = DetachedCriteria.forClass(Quote.class);
 		criteria.addOrder(Order.asc("createdDate"));
 		criteria.add(Expression.eq("active", true));
 		criteria.add(Expression.eq("featured", true));
-		
-		return criteria.list();
+		return getHibernateTemplate().findByCriteria(criteria);
 	
 	}
 
