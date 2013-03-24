@@ -47,13 +47,13 @@
 						</p:selectOneListbox>
 
 						<h:outputLabel for="departmentBtn" value="Department"></h:outputLabel>
-						<p:selectOneButton id="departmentBtn"
+						<h:selectOneMenu id="departmentBtn"
 							value="#{staffDetailsBean.department}">
 							<f:selectItem itemLabel="IT" itemValue="IT" />
 							<f:selectItem itemLabel="CSE" itemValue="CSE" />
 							<f:selectItem itemLabel="EEE" itemValue="EEE" />
 							<f:selectItem itemLabel="EI" itemValue="EI" />
-						</p:selectOneButton>
+						</h:selectOneMenu>
 
 						<h:outputLabel for="emailTxt" value="Email"></h:outputLabel>
 						<p:inputText id="emailTxt" value="#{staffDetailsBean.email}"></p:inputText>
@@ -79,7 +79,7 @@
 					<p:fieldset id="idFS" legend="ID" style="200px;">
 						<h:panelGrid columns="2" styleClass="panelGrid"
 							columnClasses="width40,width60" rowClasses="alignTop">
-							<p:graphicImage url="/resources/images/hod.jpg" width="120px;"></p:graphicImage>
+							<h:graphicImage url="#{staff.avatar}" width="120" rendered="#{staff.avatar != ''}"></h:graphicImage>
 							<h:panelGrid>
 								<h:outputLabel value="#{staffDetailsBean.staffId}" />
 								<h:outputLabel value="#{staffDetailsBean.name}" />
