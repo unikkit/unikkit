@@ -10,27 +10,27 @@
 		<h:form id="dashboardForm">
 			<p:growl id="growl" showDetail="true" />
 
-			<p:dashboard id="board" model="#{dashboardBean.model}" >
+			<p:dashboard id="board" model="#{dashboardBean.model}">
 				<p:ajax event="reorder" listener="#{dashboardBean.handleReorder}"
 					update="growl" />
 				
-				<p:panel id="studentStatistics" header="Student Statistics" style="width:450px;">
+				<p:panel id="studentStatistics" header="Student Statistics" style="width:450px;height:250px;">
 					<p:barChart id="basic" value="#{dashboardBean.studentsStats}" legendPosition="ne"  
             				min="0" max="200" style="height:200px" animate="true"/>
 				</p:panel>
 
-				<p:panel id="staffStatistics" header="Staff Statistics" style="width:450px;">
+				<p:panel id="staffStatistics" header="Staff Statistics" style="width:450px;height:250px;">
 					<p:pieChart id="sample" value="#{dashboardBean.staffStats}" legendPosition="w"  
                			style="height:200px" animate="true"/>
 				</p:panel>
-				<p:panel id="quotesOfTheDay" header="Quote of the day!" style="width:450px;">
+				<p:panel id="quotesOfTheDay" header="Quote of the day!" style="width:450px;height:250px;">
 					<p:dataGrid var="quote" value="#{dashboardBean.featuredQuotes}" columns="1"  
 				        rows="1" paginator="true" paginatorPosition="bottom" 
 				        paginatorTemplate="{PreviousPageLink} {PageLinks} {NextPageLink} "  
 				        >  
 				  
 				        <h:panelGrid columns="2" columnClasses="alignTop,alignTop">
-						<p:graphicImage value="/resources/images/gandhi.jpg" width="80%"></p:graphicImage>
+						<p:graphicImage value="/resources/images/gandhi.jpg" width="60%"></p:graphicImage>
 						
 						<h:panelGroup>
 							<blockquote id="border"><p><h:outputText value="#{quote.what}" /></p></blockquote>
@@ -41,11 +41,13 @@
 				  
 				    </p:dataGrid>
 				</p:panel>
-				<p:panel id="events" header="Events" style="width:450px;">
+				<p:panel id="events" header="Events" style="width:450px;height:250px;">
 					<p:dataTable id="dataTable" var="event" value="#{dashboardBean.currentEvents}"  
 			                 paginator="true" rows="5"
 			                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-			                 rowsPerPageTemplate="5,10,15">
+			                 rowsPerPageTemplate="5,10,15"
+			                 paginatorPosition="bottom"
+			                 >
 			        <p:column>  
 			            <f:facet name="header">  
 			                <h:outputText value="Title" />  
