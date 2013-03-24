@@ -24,7 +24,7 @@
 
 						<h:outputLabel for="regNumberTxt" value="Registration #"></h:outputLabel>
 						<p:inputText id="regNumberTxt"
-							value="#{studentDetailsBean.registrationNumber}" size="15" maxlength="11"></p:inputText>
+							value="#{studentDetailsBean.registrationNumber}" size="15" maxlength="11" required="true"></p:inputText>
 
 						<h:outputLabel for="batchTxt" value="Batch"></h:outputLabel>
 						<p:inputText id="batchTxt"
@@ -42,23 +42,23 @@
 						</p:selectOneButton>
 
 						<h:outputLabel for="dobDT" value="D.O.B"></h:outputLabel>
-						<p:inputText id="dobDT" value="#{studentDetailsBean.dob}" />
-
+						<p:calendar id="dobDT" value="#{studentDetailsBean.dob}" />
+						
 						<h:outputLabel for="collegeDD" value="College"></h:outputLabel>
-						<p:selectOneListbox id="collegeDD"
+						<p:selectOneMenu id="collegeDD"
 							value="#{studentDetailsBean.college}">
 							<f:selectItem itemLabel="M.A.M.C.E" itemValue="MAMCE" />
 							<f:selectItem itemLabel="M.A.M.C.E.T" itemValue="MAMCET" />
-						</p:selectOneListbox>
+						</p:selectOneMenu>
 
-						<h:outputLabel value="Department"></h:outputLabel>
-						<p:selectOneButton id="departmentBtn"
+						<h:outputLabel for="departmentDD" value="Department"></h:outputLabel>
+						<p:selectOneMenu id="departmentDD"
 							value="#{studentDetailsBean.department}">
 							<f:selectItem itemLabel="IT" itemValue="IT" />
 							<f:selectItem itemLabel="CSE" itemValue="CSE" />
 							<f:selectItem itemLabel="EEE" itemValue="EEE" />
 							<f:selectItem itemLabel="EI" itemValue="EI" />
-						</p:selectOneButton>
+						</p:selectOneMenu>
 
 						<h:outputLabel for="emailTxt" value="Email"></h:outputLabel>
 						<p:inputText id="emailTxt"
