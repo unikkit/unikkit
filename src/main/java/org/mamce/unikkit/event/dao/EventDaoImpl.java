@@ -2,7 +2,7 @@ package org.mamce.unikkit.event.dao;
 
 import java.util.List;
 
-import org.hibernate.Criteria;
+import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Expression;
 import org.hibernate.criterion.Order;
 import org.mamce.unikkit.dao.support.UnikkITDaoSupport;
@@ -16,9 +16,10 @@ public class EventDaoImpl extends UnikkITDaoSupport<Event> implements EventDao {
 
 	@Override
 	public List<Event> findAllEvents() {
-		Criteria criteria = getSession().createCriteria(Event.class);
+		DetachedCriteria criteria = DetachedCriteria.forClass(Event.class);
 		criteria.add(Expression.eq("active", true));
-		return criteria.list();
+		
+		return getHibernateTemplate().findByCriteria(criteria);
 	}
 
 	@Override
@@ -38,22 +39,21 @@ public class EventDaoImpl extends UnikkITDaoSupport<Event> implements EventDao {
 
 	@Override
 	public List<Event> findLatestEvents() {
-		Criteria criteria = getSession().createCriteria(Event.class);
-		criteria.addOrder(Order.asc("startDate"));
+		DetachedCriteria criteria = DetachedCriteria.forClass(Event.class);
 		criteria.add(Expression.eq("active", true));
+		criteria.addOrder(Order.asc("startDate"));
 		
-		return criteria.list();
+		return getHibernateTemplate().findByCriteria(criteria);
 	}
 
 	@Override
 	public List<Event> findLatestEvents(int maxLatestEvents) {
-		Criteria criteria = getSession().createCriteria(Event.class);
-		criteria.addOrder(Order.asc("startDate"));
+		DetachedCriteria criteria = DetachedCriteria.forClass(Event.class);
 		criteria.add(Expression.eq("active", true));
-		criteria.setMaxResults(maxLatestEvents);
-		criteria.setCacheable(true);
+		criteria.addOrder(Order.asc("startDate"));
 		
-		return criteria.list();
+		getHibernateTemplate().setMaxResults(maxLatestEvents);
+		return getHibernateTemplate().findByCriteria(criteria);
 	}
 
 }
