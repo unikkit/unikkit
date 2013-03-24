@@ -42,7 +42,7 @@
 
 							<h:outputLabel value=""></h:outputLabel>
 							<h:panelGroup>
-								<p:commandButton value="Quote it!" action="#{manageQuotesBean.addNewQuote}" update="@form"></p:commandButton>
+								<p:commandButton value="Quote it!" action="#{manageQuotesBean.addNewQuote}" update="addQuotePnl"></p:commandButton>
 								<p:spacer width="5" />
 								<p:commandButton value="Cancel"></p:commandButton>
 							</h:panelGroup>
@@ -63,7 +63,6 @@
 				</h:panelGrid>
 			</p:panel>
 		<!-- </h:form> -->
-			<br />
 		<!-- <h:form id="tableForm"> -->
 			<p:dataTable id="quotesDT" 
 				var="quote"
@@ -75,13 +74,13 @@
 		        rowClasses="alignTop"
 		        >
 		
-				<p:ajax event="rowEdit" listener="#{manageQuotesBean.onQuotesRowEdit}"
+				<p:ajax event="rowEdit" listener="#{manageQuotesBean.onQuotesRowEdit}" process="quotesDT"
 									update="quotesDT" />
 				<p:ajax event="rowEditCancel" listener="#{manageQuotesBean.onQuotesRowEditCancel}"
 					/>
 		
 				<p:column headerText="" style="width:1%;">
-					<p:commandButton icon="ui-icon-closethick" action="#{manageQuotesBean.deleteQuotes}" update="quotesDT">
+					<p:commandButton icon="ui-icon-closethick" action="#{manageQuotesBean.deleteQuotes}" process="quotesDT" update="quotesDT">
 						<f:setPropertyActionListener value="#{quote}" target="#{manageQuotesBean.selectedQuote}" />
 					</p:commandButton>
 				</p:column>
@@ -89,7 +88,6 @@
 				<p:column headerText="Who?" styleClass="width10">
 					<p:cellEditor>
 						<f:facet name="output">
-							<!-- <p:graphicImage value="/resources/images/gandhi.jpg" width="5%"></p:graphicImage> -->
 							<h:outputText value="#{quote.who}" />
 						</f:facet>
 						<f:facet name="input">
@@ -108,7 +106,6 @@
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
-				
 				
 				<p:column style="width:2%">
 					<p:rowEditor />
