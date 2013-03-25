@@ -1,6 +1,7 @@
 package org.mamce.unikkit.staff.manager;
 
 import java.util.List;
+import java.util.Set;
 
 import org.mamce.unikkit.model.staff.Staff;
 import org.mamce.unikkit.staff.dao.StaffDao;
@@ -45,6 +46,10 @@ public class StaffManagerImpl implements StaffManager {
 	@Override
 	public Staff findStaffById(long id) {
 		return staffDao.findStaffById(id);
+	}
+	
+	public List<Staff> findStaffs(Set<String> staffIds) {
+		return staffDao.findStaffs(staffIds);
 	}
 
 }
