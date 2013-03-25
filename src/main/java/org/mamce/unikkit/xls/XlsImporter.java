@@ -90,6 +90,23 @@ public class XlsImporter {
 		return value;
 	}
 
+	protected int getIntValue(Cell cell) {
+		int value = 0;
+		if(cell != null) {
+			int type = cell.getCellType();
+			switch (type) {
+			case Cell.CELL_TYPE_NUMERIC:
+				value = Double.valueOf(cell.getNumericCellValue()).intValue();
+				break;
+			default:
+				value = 0;
+				break;
+			}
+		}
+		
+		return value;
+	}
+	
 	protected Date getDateValue(Cell cell) {
 		getStringValue(cell);
 		return cell.getDateCellValue();
