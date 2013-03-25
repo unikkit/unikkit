@@ -23,5 +23,6 @@ public interface StudentImportColumns {
 	int ADDRESS2 = 18;
 	int EMAIL = 19;
 	int PHONE_NUMBER = 20;
+	int AVATAR_PATH = 21;
 
 }

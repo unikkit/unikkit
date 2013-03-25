@@ -110,7 +110,10 @@ public class StudentImporter extends XlsImporter implements Importer<Student> {
 
 							cell = row.getCell(StudentImportColumns.PHONE_NUMBER);
 							//student.setPhoneNumber(getStringValue(cell));
-
+							
+							cell = row.getCell(StudentImportColumns.AVATAR_PATH);
+							student.setAvatar(getStringValue(cell));
+							
 							students.add(student);
 						}
 						i++;
