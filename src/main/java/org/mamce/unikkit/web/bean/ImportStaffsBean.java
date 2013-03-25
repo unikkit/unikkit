@@ -1,6 +1,7 @@
 package org.mamce.unikkit.web.bean;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -9,8 +10,10 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
+import org.apache.log4j.Logger;
 import org.mamce.unikkit.exception.UnikkImporterException;
 import org.mamce.unikkit.exception.UnikkResourceException;
+import org.mamce.unikkit.img.ImageUploader;
 import org.mamce.unikkit.model.staff.Staff;
 import org.mamce.unikkit.staff.manager.StaffManager;
 import org.mamce.unikkit.xls.StaffImporter;
@@ -29,6 +32,7 @@ public class ImportStaffsBean extends BaseBean {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	public static final Logger LOGGER = Logger.getLogger(ImportStaffsBean.class);
 	
 	@ManagedProperty(value=MP_STAFF_MANAGER)
 	private StaffManager staffManager;
@@ -49,24 +53,35 @@ public class ImportStaffsBean extends BaseBean {
 	}
 
 
-	public void handleStaffXlsUploadEvent(FileUploadEvent event) {  
+	public void handleStaffXlsUploadEvent(FileUploadEvent event) {
 		System.out.println("Upload started");
 		UploadedFile uploadedFile = event.getFile();
-		StaffImporter staffImporter = new StaffImporter();
-		
+		StaffImporter staffImporter = new StaffImporter(staffManager);
+
 		try {
 			File xlsxFile = staffImporter.createACopyInServer(uploadedFile);
 			List<Staff> staffs = staffImporter.importData(xlsxFile);
-			
+
 			if(staffs != null && !staffs.isEmpty()) {
 				staffManager.saveAllStaff(staffs);
 			}
+
+			ImageUploader imgUploader = new ImageUploader();
+			List<Staff> updateStaffs = new ArrayList<>();
 			
+			// Upload student avatar
+			for (Staff staff : staffs) {
+				if(staff != null && staff.getAvatar() != null) {
+					String uploadedPath = imgUploader.uploadStaffAvatar(staff.getId(), staff.getAvatar());
+					staff.setAvatar(uploadedPath);
+					updateStaffs.add(staff);
+				}
+			}
+			staffManager.saveAllStaff(updateStaffs);
 		} catch (UnikkImporterException | UnikkResourceException e) {
-			// TODO: RK: Implement logger
-			e.printStackTrace();
+			LOGGER.error("Error while importing staff informations", e);
 		}
-		
+
 		FacesMessage msg = new FacesMessage("Staff Data Imported successfully!");
 		FacesContext.getCurrentInstance().addMessage(null, msg); 
 		System.out.println("Upload ended");
