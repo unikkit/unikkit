@@ -15,6 +15,7 @@ public class Achievement extends BaseModel {
 	private Staff staff;
 	private String type;
 	private String description;
+	private int year;
 	
 	/**
 	 * @return the staff
@@ -52,5 +53,18 @@ public class Achievement extends BaseModel {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	/**
+	 * @return the year
+	 */
+	public int getYear() {
+		return year;
+	}
+	/**
+	 * @param year the year to set
+	 */
+	public void setYear(int year) {
+		this.year = year;
+	}
+	
 	
 }

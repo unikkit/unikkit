@@ -19,6 +19,9 @@
 		<property name="description" type="string">
 			<column name="description" />
 		</property>
+		<property name="year" type="int">
+			<column name="year" />
+		</property>
 		<property name="createdDate" type="timestamp">
 			<column name="created_date" />
 		</property>
