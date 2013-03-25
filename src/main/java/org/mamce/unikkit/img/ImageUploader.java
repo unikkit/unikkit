@@ -17,6 +17,11 @@ public class ImageUploader {
 		if(source != null && source.exists()) {
 			newPath = UnikkUtils.getStudentImageUploadLocation(studentId, fileLocation);
 			destination = new File(newPath);
+			
+			if(fileLocation.equals(newPath)) {
+				newPath = fileLocation;
+				return newPath;
+			}
 			try {
 				FileUtils.copyFile(source, destination);
 			} catch (IOException e) {
@@ -38,6 +43,10 @@ public class ImageUploader {
 			newPath = UnikkUtils.getStaffImageUploadLocation(staffId, fileLocation);
 			destination = new File(newPath);
 			try {
+				if(fileLocation.equals(newPath)) {
+					newPath = fileLocation;
+					return newPath;
+				}
 				FileUtils.copyFile(source, destination);
 			} catch (IOException e) {
 				throw new UnikkResourceException("Error while copying staff avatar file", e);
