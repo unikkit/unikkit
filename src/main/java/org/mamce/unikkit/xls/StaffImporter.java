@@ -202,7 +202,7 @@ public class StaffImporter extends XlsImporter implements Importer<Staff> {
 			pub.setDescription(getStringValue(cell));
 			
 			cell = row.getCell(StaffImporterColumns.OTHER_PUB_YEAR);
-			//pub.setYear(getStringValue(cell)); // TODO: Add column in table
+			pub.setYear(getIntValue(cell)); // TODO: Add column in table
 			
 			cell = row.getCell(StaffImporterColumns.OTHER_STAFF_NUMBER);
 			String staffId = getStringValue(cell);
