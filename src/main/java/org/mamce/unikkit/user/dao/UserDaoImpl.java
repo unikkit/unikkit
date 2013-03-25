@@ -2,11 +2,15 @@ package org.mamce.unikkit.user.dao;
 
 import java.util.List;
 
-import org.hibernate.Criteria;
+import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Expression;
 import org.mamce.unikkit.dao.support.UnikkITDaoSupport;
 import org.mamce.unikkit.model.user.User;
 
+/**
+ * @author Ramesh
+ *
+ */
 public class UserDaoImpl extends UnikkITDaoSupport<User> implements UserDao {
 
 	@Override
@@ -33,12 +37,12 @@ public class UserDaoImpl extends UnikkITDaoSupport<User> implements UserDao {
 
 	@Override
 	public User findUser(String userName, String hashedPassword) {
-		Criteria criteria = getSession().createCriteria(User.class);
+		DetachedCriteria criteria = DetachedCriteria.forClass(User.class);
 		criteria.add(Expression.eq("username", userName));
 		criteria.add(Expression.eq("password", hashedPassword));
 		criteria.add(Expression.eq("active", true));
 		
-		List<User> user = (List<User>) criteria.list();
+		List<User> user = (List<User>) getHibernateTemplate().findByCriteria(criteria);
 		
 		if(user != null && !user.isEmpty()) {
 			return user.get(0);
