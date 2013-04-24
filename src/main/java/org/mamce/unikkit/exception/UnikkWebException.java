@@ -1,7 +1,7 @@
 package org.mamce.unikkit.exception;
 
 /**
- * @author Ramesh
+ * @author IT09B007 - Ganesh
  *
  */
 public class UnikkWebException extends Throwable {

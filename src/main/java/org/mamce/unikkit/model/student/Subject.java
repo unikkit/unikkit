@@ -7,7 +7,7 @@ import org.mamce.unikkit.model.BaseModel;
 import org.mamce.unikkit.model.Department;
 
 /**
- * @author Ramesh
+ * @author IT09B007 - Ganesh
  *
  */
 public class Subject extends BaseModel {

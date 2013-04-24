@@ -6,7 +6,7 @@ import org.mamce.unikkit.menu.dao.MenuDao;
 import org.mamce.unikkit.model.Menu;
 
 /**
- * @author Ramesh
+ * @author IT09B007 - Ganesh
  *
  */
 public class MenuManagerImpl implements MenuManager {

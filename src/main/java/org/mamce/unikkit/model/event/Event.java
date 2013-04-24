@@ -6,7 +6,7 @@ import org.mamce.unikkit.common.util.UnikkUtils;
 import org.mamce.unikkit.model.BaseModel;
 
 /**
- * @author Ramesh
+ * @author IT09B007 - Ganesh
  *
  */
 public class Event extends BaseModel {

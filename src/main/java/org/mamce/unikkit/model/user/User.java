@@ -4,7 +4,7 @@ import org.mamce.unikkit.model.BaseModel;
 import org.mamce.unikkit.model.role.Role;
 
 /**
- * @author Ramesh
+ * @author IT09B007 - Ganesh
  *
  */
 public class User extends BaseModel {

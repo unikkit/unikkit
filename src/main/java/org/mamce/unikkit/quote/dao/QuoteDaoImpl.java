@@ -9,7 +9,7 @@ import org.mamce.unikkit.dao.support.UnikkITDaoSupport;
 import org.mamce.unikkit.model.quote.Quote;
 
 /**
- * @author Ramesh
+ * @author IT09B007 - Ganesh
  *
  */
 public class QuoteDaoImpl extends UnikkITDaoSupport<Quote> implements QuoteDao {

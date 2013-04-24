@@ -8,7 +8,7 @@ import org.mamce.unikkit.dao.support.UnikkITDaoSupport;
 import org.mamce.unikkit.model.user.User;
 
 /**
- * @author Ramesh
+ * @author IT09B007 - Ganesh
  *
  */
 public class UserDaoImpl extends UnikkITDaoSupport<User> implements UserDao {

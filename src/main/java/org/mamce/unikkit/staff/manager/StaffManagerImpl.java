@@ -7,7 +7,7 @@ import org.mamce.unikkit.model.staff.Staff;
 import org.mamce.unikkit.staff.dao.StaffDao;
 
 /**
- * @author Ramesh
+ * @author IT09B007 - Ganesh
  *
  */
 public class StaffManagerImpl implements StaffManager {

@@ -9,7 +9,7 @@ import org.mamce.unikkit.dao.support.UnikkITDaoSupport;
 import org.mamce.unikkit.model.event.Event;
 
 /**
- * @author Ramesh
+ * @author IT09B007 - Ganesh
  *
  */
 public class EventDaoImpl extends UnikkITDaoSupport<Event> implements EventDao {

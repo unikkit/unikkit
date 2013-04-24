@@ -6,7 +6,7 @@ import org.mamce.unikkit.model.user.User;
 import org.mamce.unikkit.user.dao.UserDao;
 
 /**
- * @author Ramesh
+ * @author IT09B007 - Ganesh
  *
  */
 public class UserManagerImpl implements UserManager {

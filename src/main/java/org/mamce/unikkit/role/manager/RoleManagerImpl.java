@@ -6,7 +6,7 @@ import org.mamce.unikkit.model.role.Role;
 import org.mamce.unikkit.role.dao.RoleDao;
 
 /**
- * @author Ramesh
+ * @author IT09B007 - Ganesh
  *
  */
 public class RoleManagerImpl implements RoleManager {

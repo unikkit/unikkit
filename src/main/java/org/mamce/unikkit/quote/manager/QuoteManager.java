@@ -5,7 +5,7 @@ import java.util.List;
 import org.mamce.unikkit.model.quote.Quote;
 
 /**
- * @author Ramesh
+ * @author IT09B007 - Ganesh
  *
  */
 public interface QuoteManager {

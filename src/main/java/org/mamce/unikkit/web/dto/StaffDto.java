@@ -3,7 +3,7 @@ package org.mamce.unikkit.web.dto;
 import java.util.List;
 
 /**
- * @author Ramesh
+ * @author IT09B007 - Ganesh
  *
  */
 public class StaffDto extends BaseDto {

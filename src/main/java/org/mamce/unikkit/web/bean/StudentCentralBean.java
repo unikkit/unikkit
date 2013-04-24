@@ -11,7 +11,7 @@ import org.mamce.unikkit.model.student.Student;
 import org.mamce.unikkit.student.manager.StudentManager;
 
 /**
- * @author Ramesh
+ * @author IT09B007 - Ganesh
  *
  */
 @ManagedBean

@@ -10,7 +10,7 @@ import org.mamce.unikkit.model.event.Event;
 import org.mamce.unikkit.model.event.UnikkScheduleEvent;
 
 /**
- * @author Ramesh
+ * @author IT09B007 - Ganesh
  *
  */
 public class EventManagerImpl implements EventManager {

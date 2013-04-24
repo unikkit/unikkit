@@ -1,7 +1,7 @@
 package org.mamce.unikkit.web.dto;
 
 /**
- * @author Ramesh
+ * @author IT09B007 - Ganesh
  *
  */
 public class ExperienceDto extends BaseDto {

@@ -6,7 +6,7 @@ import java.util.Set;
 import org.mamce.unikkit.model.BaseModel;
 
 /**
- * @author Ramesh
+ * @author IT09B007 - Ganesh
  *
  */
 public class Semester extends BaseModel {

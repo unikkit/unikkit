@@ -6,7 +6,7 @@ import java.util.Set;
 import org.mamce.unikkit.model.staff.Staff;
 
 /**
- * @author Ramesh
+ * @author IT09B007 - Ganesh
  *
  */
 public interface StaffManager {

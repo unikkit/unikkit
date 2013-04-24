@@ -7,7 +7,7 @@ import org.mamce.unikkit.student.semester.dao.SemesterDao;
 
 
 /**
- * @author Ramesh
+ * @author IT09B007 - Ganesh
  *
  */
 public class SemesterManagerImpl implements SemesterManager {

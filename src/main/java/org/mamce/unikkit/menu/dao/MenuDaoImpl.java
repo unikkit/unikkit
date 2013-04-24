@@ -8,7 +8,7 @@ import org.mamce.unikkit.dao.support.UnikkITDaoSupport;
 import org.mamce.unikkit.model.Menu;
 
 /**
- * @author Ramesh
+ * @author IT09B007 - Ganesh
  *
  */
 public class MenuDaoImpl extends UnikkITDaoSupport<Menu> implements MenuDao {

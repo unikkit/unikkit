@@ -5,7 +5,7 @@ import java.io.Serializable;
 import org.mamce.unikkit.common.util.Constants;
 
 /**
- * @author Ramesh
+ * @author IT09B007 - Ganesh
  *
  */
 public class BaseBean implements Serializable {

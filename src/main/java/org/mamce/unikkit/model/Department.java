@@ -1,7 +1,7 @@
 package org.mamce.unikkit.model;
 
 /**
- * @author Ramesh
+ * @author IT09B007 - Ganesh
  *
  */
 public class Department extends BaseModel {

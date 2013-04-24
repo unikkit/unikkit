@@ -6,7 +6,7 @@ import org.mamce.unikkit.model.quote.Quote;
 import org.mamce.unikkit.quote.dao.QuoteDao;
 
 /**
- * @author Ramesh
+ * @author IT09B007 - Ganesh
  *
  */
 public class QuoteManagerImpl implements QuoteManager {

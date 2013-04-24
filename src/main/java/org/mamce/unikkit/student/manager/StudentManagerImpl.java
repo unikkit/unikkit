@@ -6,7 +6,7 @@ import org.mamce.unikkit.model.student.Student;
 import org.mamce.unikkit.student.dao.StudentDao;
 
 /**
- * @author Ramesh
+ * @author IT09B007 - Ganesh
  *
  */
 public class StudentManagerImpl implements StudentManager {

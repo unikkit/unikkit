@@ -3,7 +3,7 @@ package org.mamce.unikkit.model;
 import java.util.Set;
 
 /**
- * @author Ramesh
+ * @author IT09B007 - Ganesh
  *
  */
 public class Menu extends BaseModel {

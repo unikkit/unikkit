@@ -8,7 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.mamce.unikkit.model.user.User;
 
 /**
- * @author Ramesh
+ * @author IT09B007 - Ganesh
  *
  */
 public class FacesUtils {

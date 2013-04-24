@@ -3,7 +3,7 @@ package org.mamce.unikkit.model.staff;
 import org.mamce.unikkit.model.BaseModel;
 
 /**
- * @author Ramesh
+ * @author IT09B007 - Ganesh
  *
  */
 public class StaffInterest extends BaseModel {

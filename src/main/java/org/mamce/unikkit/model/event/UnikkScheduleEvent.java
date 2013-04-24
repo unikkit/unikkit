@@ -5,7 +5,7 @@ import java.util.Date;
 import org.primefaces.model.DefaultScheduleEvent;
 
 /**
- * @author Ramesh
+ * @author IT09B007 - Ganesh
  *
  */
 public class UnikkScheduleEvent extends DefaultScheduleEvent {
