@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Set;
 
 import org.mamce.unikkit.model.BaseModel;
+import org.mamce.unikkit.model.role.Role;
 
 /**
  * @author Ramesh
@@ -29,9 +30,10 @@ public class Staff extends BaseModel {
 	private String city;
 	private String state;
 	private String country;
-	private String phoneNumber;
+	private int phoneNumber;
 	private String gender;
 	private String avatar;
+	private Role role;
 	private Set<StaffInterest> interests;
 	private Set<Publication> publications;
 	private Set<Education> education;
@@ -129,13 +131,13 @@ public class Staff extends BaseModel {
 	/**
 	 * @return the phoneNumber
 	 */
-	public String getPhoneNumber() {
+	public int getPhoneNumber() {
 		return phoneNumber;
 	}
 	/**
 	 * @param phoneNumber the phoneNumber to set
 	 */
-	public void setPhoneNumber(String phoneNumber) {
+	public void setPhoneNumber(int phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 	
@@ -259,6 +261,19 @@ public class Staff extends BaseModel {
 	 */
 	public void setWorkExperience(Set<Experience> workExperience) {
 		this.workExperience = workExperience;
+	}
+	
+	/**
+	 * @return the role
+	 */
+	public Role getRole() {
+		return role;
+	}
+	/**
+	 * @param role the role to set
+	 */
+	public void setRole(Role role) {
+		this.role = role;
 	}
 	/**
 	 * @return the interests
