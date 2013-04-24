@@ -8,6 +8,10 @@ import org.mamce.unikkit.model.BaseModel;
  */
 public class Grade extends BaseModel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Student student;
 	private Semester semester;
 	private Subject subject;

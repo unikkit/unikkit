@@ -12,6 +12,10 @@ import org.mamce.unikkit.model.Department;
  */
 public class Subject extends BaseModel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String code;
 	private String name;
 	private Set<Semester> semesters = new HashSet<>();

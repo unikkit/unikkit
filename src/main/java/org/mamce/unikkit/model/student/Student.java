@@ -1,5 +1,6 @@
 package org.mamce.unikkit.model.student;
 
+import java.util.Date;
 import java.util.Set;
 
 import org.mamce.unikkit.model.BaseModel;
@@ -16,8 +17,9 @@ public class Student extends BaseModel {
 	private String rollNumber;
 	private String registrationNumber;
 	private int batch;
+	private int gapInAcademics;
 	private String gender;
-	private String dob;
+	private Date dob;
 	private String college;
 	private String department;
 	private String email;
@@ -28,8 +30,11 @@ public class Student extends BaseModel {
 	private String parentName;
 	private int arrears;
 	private int arrearsHistory;
+	private int tenthYop;
 	private String tenthGpa;
+	private int twelthYop;
 	private String twelthGpa;
+	private int diplamoYop;
 	private String diplamoGpa;
 	private String avatar;
 	private Set<Grade> grades;
@@ -106,6 +111,19 @@ public class Student extends BaseModel {
 	public void setBatch(int batch) {
 		this.batch = batch;
 	}
+	
+	/**
+	 * @return the gapInAcademics
+	 */
+	public int getGapInAcademics() {
+		return gapInAcademics;
+	}
+	/**
+	 * @param gapInAcademics the gapInAcademics to set
+	 */
+	public void setGapInAcademics(int gapInAcademics) {
+		this.gapInAcademics = gapInAcademics;
+	}
 	/**
 	 * @return the gender
 	 */
@@ -121,13 +139,13 @@ public class Student extends BaseModel {
 	/**
 	 * @return the dob
 	 */
-	public String getDob() {
+	public Date getDob() {
 		return dob;
 	}
 	/**
 	 * @param dob the dob to set
 	 */
-	public void setDob(String dob) {
+	public void setDob(Date dob) {
 		this.dob = dob;
 	}
 	/**
@@ -250,6 +268,19 @@ public class Student extends BaseModel {
 	public void setArrearsHistory(int arrearsHistory) {
 		this.arrearsHistory = arrearsHistory;
 	}
+	
+	/**
+	 * @return the tenthYop
+	 */
+	public int getTenthYop() {
+		return tenthYop;
+	}
+	/**
+	 * @param tenthYop the tenthYop to set
+	 */
+	public void setTenthYop(int tenthYop) {
+		this.tenthYop = tenthYop;
+	}
 	/**
 	 * @return the tenthGpa
 	 */
@@ -262,6 +293,19 @@ public class Student extends BaseModel {
 	public void setTenthGpa(String tenthGpa) {
 		this.tenthGpa = tenthGpa;
 	}
+	
+	/**
+	 * @return the twelthYop
+	 */
+	public int getTwelthYop() {
+		return twelthYop;
+	}
+	/**
+	 * @param twelthYop the twelthYop to set
+	 */
+	public void setTwelthYop(int twelthYop) {
+		this.twelthYop = twelthYop;
+	}
 	/**
 	 * @return the twelthGpa
 	 */
@@ -273,6 +317,19 @@ public class Student extends BaseModel {
 	 */
 	public void setTwelthGpa(String twelthGpa) {
 		this.twelthGpa = twelthGpa;
+	}
+	
+	/**
+	 * @return the diplamoYop
+	 */
+	public int getDiplamoYop() {
+		return diplamoYop;
+	}
+	/**
+	 * @param diplamoYop the diplamoYop to set
+	 */
+	public void setDiplamoYop(int diplamoYop) {
+		this.diplamoYop = diplamoYop;
 	}
 	/**
 	 * @return the diplamoGpa
