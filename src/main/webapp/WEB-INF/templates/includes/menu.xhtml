@@ -9,8 +9,8 @@
 
 		<p:growl id="messages" />
 
-		<p:menubar>
-			<p:menuitem value="Home" url="/home/dashboard.xhtml"
+		<p:menubar model="#{menuBean.menuModel}">
+			<!-- <p:menuitem value="Home" url="/home/dashboard.xhtml"
 				icon="ui-icon-home" />
 			<p:submenu label="Student" icon="ui-icon-person">
 				<p:menuitem value="Add / Edit" url="/student/studentCentral.xhtml" icon="ui-icon-pencil"/>
@@ -25,13 +25,14 @@
 			<p:submenu label="Events" icon="ui-icon-calendar">
 				<p:menuitem value="Manage Event" url="/eventsCentral/manageEvents.xhtml" icon="ui-icon-note" />
 			</p:submenu>
-
-			<p:menuitem value="Manage Access" url="/access/manageAccessControl.xhtml"
-				icon="ui-icon-locked" />
+			
+			<p:submenu label="Access" icon="ui-icon-locked">
+				<p:menuitem value="Manage Access" url="/access/manageAccessControl.xhtml" icon="ui-icon-locked" />
+			</p:submenu>
 			
 			<p:submenu label="Administration" icon="ui-icon-locked">
 				<p:menuitem value="Manage Quotes" url="/admin/manageQuotes.xhtml" icon="ui-icon-note" />
-			</p:submenu>
+			</p:submenu> -->
 		</p:menubar>
 
 	</h:form>

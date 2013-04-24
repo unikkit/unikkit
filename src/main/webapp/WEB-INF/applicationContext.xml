@@ -15,4 +15,5 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
  	<import resource="classes/org/mamce/unikkit/spring/bean/staffBean.xml"/>
  	<import resource="classes/org/mamce/unikkit/spring/bean/eventBean.xml"/>
  	<import resource="classes/org/mamce/unikkit/spring/bean/quoteBean.xml"/>
+ 	<import resource="classes/org/mamce/unikkit/spring/bean/roleBean.xml"/>
 </beans>

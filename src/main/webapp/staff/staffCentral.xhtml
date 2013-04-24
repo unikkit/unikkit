@@ -9,7 +9,10 @@
 
 	<ui:define name="content">
 		<h:form id="staffCentralForm">
-			<h1>Staff Central - Add / Edit Staff Details</h1>
+			<h:panelGrid columns="2" styleClass="width100" columnClasses="width90,width1">
+				<h1>Staff Central - Add / Edit Staff Details</h1>
+				<p:commandButton id="addStudent" value="Add" icon="ui-icon-circle-plus" action="#{staffDetailsBean.addNewStaff}"/>
+			</h:panelGrid>
 			<p:dataTable id="staffDT" var="staff" widgetVar="staffDTWdgtVar" indexVar="index"
 				value="#{staffCentralBean.staffs}"
 				paginator="true" rows="20"

@@ -16,7 +16,8 @@
 			<br />
 			<h:panelGrid columns="2" styleClass="panelGrid" rowClasses="alignTop"
 				columnClasses="width40">
-				<p:fieldset id="staffDetailsFS" legend="Staff Details">
+				<p:panel id="staffDetailsPnl" header="Staff Details" toggleable="false"
+					closable="false" collapsed="false">
 					<h:panelGrid columns="2" style="width:90%;">
 						<h:outputLabel value="Staff #"></h:outputLabel>
 						<h:outputLabel id="staffId" value="#{staffDetailsBean.staffId}"></h:outputLabel>
@@ -45,7 +46,22 @@
 							<f:selectItem itemLabel="M.A.M.C.E" itemValue="MAMCE" />
 							<f:selectItem itemLabel="M.A.M.C.E.T" itemValue="MAMCET" />
 						</p:selectOneListbox>
-
+						
+						<h:outputLabel for="createAccountCHK" value="Create Logon Account?"></h:outputLabel>
+						<p:selectBooleanCheckbox value="#{staffDetailsBean.createLogonAccount}"></p:selectBooleanCheckbox>
+						
+						<h:outputLabel for="unikkRoleDD" value="UnikkIT Access Role"></h:outputLabel>
+						<p:selectOneListbox id="unikkRoleDD" 
+							value="#{staffDetailsBean.roleId}"
+							style="width:200px;">
+							<f:selectItem itemLabel="" itemValue=""></f:selectItem>
+							<f:selectItems value="#{dropDownBean.roles}" var="role"
+								itemLabel="#{role.name}" itemValue="#{role.id}" />
+							<p:column>
+	                		#{role.name} 
+	            		</p:column>
+						</p:selectOneListbox>
+						
 						<h:outputLabel for="departmentBtn" value="Department"></h:outputLabel>
 						<h:selectOneMenu id="departmentBtn"
 							value="#{staffDetailsBean.department}">
@@ -74,9 +90,10 @@
 						<p:inputText id="countryTxt" value="#{staffDetailsBean.country}"></p:inputText>
 
 					</h:panelGrid>
-				</p:fieldset>
+				</p:panel>
 				<h:panelGrid columns="1" styleClass="panelGrid">
-					<p:fieldset id="idFS" legend="ID" style="200px;">
+					<p:panel id="idPnl" header="Staff Details" toggleable="false" style="200px;"
+					closable="false" collapsed="false">
 						<h:panelGrid columns="2" styleClass="panelGrid"
 							columnClasses="width40,width60" rowClasses="alignTop">
 							<h:graphicImage url="#{staff.avatar}" width="120" rendered="#{staff.avatar != ''}"></h:graphicImage>
@@ -89,13 +106,14 @@
 								<h:outputLabel value="#{staffDetailsBean.phoneNumber}" />
 							</h:panelGrid>
 						</h:panelGrid>
-					</p:fieldset>
-					<p:fieldset id="workExperienceFS" legend="Work Experience">
+					</p:panel>
+					<p:panel id="workExperiencePnl" header="Work Experience" toggleable="false"
+					closable="false" collapsed="false">
 						<h:panelGrid columns="2" styleClass="panelGrid"
 							columnClasses="width40">
 
 						</h:panelGrid>
-					</p:fieldset>
+					</p:panel>
 				</h:panelGrid>
 			</h:panelGrid>
 			<h:panelGroup>

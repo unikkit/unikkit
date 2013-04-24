@@ -1,13 +1,53 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	template="/WEB-INF/templates/unikkTemplate.xhtml"
+<ui:composition template="/WEB-INF/templates/unikkTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="content">
-		<h:outputLabel value="Manage Access Control" styleClass="pageHeader" />
+		<h:outputLabel value="Manage Quotes" styleClass="pageHeader" />
+		<br />
+		<br />
+		<h:form>
+			<p:panel id="manageAccessPnl" header="User Access Assignment"
+				toggleable="false" closable="false" collapsed="false">
+				<h:panelGrid columns="2" styleClass="width60" rowClasses="alignTop" >
+					<h:outputLabel value="Role"></h:outputLabel>
+					<h:outputLabel value="Has access to"></h:outputLabel>
+					<p:selectOneListbox id="roles" required="true"
+						value="#{manageAccessBean.selectedRole}"
+						valueChangeListener="#{manageAccessBean.roleChangeEvent}" style="width:250px;">
+						<f:selectItem itemLabel="" itemValue=""></f:selectItem>
+						<f:selectItems value="#{dropDownBean.roles}" var="role"
+							itemLabel="#{role.name}" itemValue="#{role.id}" />
+						<p:column>
+                		#{role.name} 
+            		</p:column>
+						<p:ajax update="menu"></p:ajax>
+					</p:selectOneListbox>
+
+					<p:selectManyMenu id="menu"
+						value="#{manageAccessBean.selectedMenus}"
+						style="width:150px;" showCheckbox="true">
+						<f:selectItems value="#{dropDownBean.menu}" var="menu"
+							itemLabel="#{menu.menuText}" itemValue="#{menu.id}" />
+
+						<p:column>
+		                #{menu.name}
+		            </p:column>
+					</p:selectManyMenu>
+					<h:panelGroup>
+					<p:commandButton value="Save"
+						action="#{manageAccessBean.saveRoleMenuSelection}" />
+					<p:commandButton value="Cancel"
+						action="#{manageAccessBean.cancelRoleSelection}" update="@form" />
+					</h:panelGroup>
+					<h:outputLabel value=""></h:outputLabel>
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
 	</ui:define>
 </ui:composition>

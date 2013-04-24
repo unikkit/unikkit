@@ -9,7 +9,11 @@
 
 	<ui:define name="content">
 		<h:form id="studentCentralForm">
-			<h1>Student Central - Add / Edit Student Details</h1>
+			<h:panelGrid columns="2" styleClass="width100" columnClasses="width90,width1">
+				<h1>Student Central - Add / Edit Student Details</h1>
+				<p:commandButton id="addStudent" value="Add" icon="ui-icon-circle-plus" action="#{studentDetailsBean.addNewStudent}"/>
+			</h:panelGrid>
+			
 			<p:dataTable id="studentDT" var="student" widgetVar="studentDTWdgtVar" indexVar="index"
 				value="#{studentCentralBean.students}"
 				emptyMessage="No Students Found" 
