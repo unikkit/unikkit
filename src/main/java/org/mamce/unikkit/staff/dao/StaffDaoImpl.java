@@ -6,6 +6,8 @@ import java.util.Set;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Disjunction;
+import org.hibernate.criterion.Expression;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.mamce.unikkit.dao.support.UnikkITDaoSupport;
 import org.mamce.unikkit.model.staff.Staff;
@@ -47,5 +49,22 @@ public class StaffDaoImpl extends UnikkITDaoSupport<Staff> implements StaffDao {
 		}
 		
 		return getHibernateTemplate().findByCriteria(criteria);
+	}
+
+	@Override
+	public int findTotalStaffByDepartment(String department) {
+
+		DetachedCriteria criteria = DetachedCriteria.forClass(Staff.class);
+		criteria.add(Expression.eq("department", department));
+		criteria.setProjection(Projections.countDistinct("staffId"));
+		
+		List resultSet = getHibernateTemplate().findByCriteria(criteria);
+
+		Integer count = new Integer(0);
+		if(resultSet != null && !resultSet.isEmpty()) {
+			count = (Integer) resultSet.get(0);
+		}
+		
+		return count.intValue();
 	}
 }

@@ -12,4 +12,5 @@ public interface StaffDao {
 	void saveStaff(Staff staff);
 	void saveAllStaff(List<Staff> staffs);
 	List<Staff> findStaffs(Set<String> staffIds);
+	int findTotalStaffByDepartment(String department);
 }
