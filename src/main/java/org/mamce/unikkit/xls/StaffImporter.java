@@ -361,9 +361,6 @@ public class StaffImporter extends XlsImporter implements Importer<Staff> {
 		}
 		collection.add(obj);
 		
-		//staffOtherInfos.remove(type);
-		//staffOtherInfos.put(type, collection);
-		
 		addOtherDetails(staffId, staffOtherInfos);
 	}
 	

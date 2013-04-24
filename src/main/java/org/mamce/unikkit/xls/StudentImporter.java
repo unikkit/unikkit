@@ -61,7 +61,7 @@ public class StudentImporter extends XlsImporter implements Importer<Student> {
 							student.setGender(getStringValue(cell));
 
 							cell = row.getCell(StudentImportColumns.DOB);
-							student.setDob(getStringValue(cell));
+							student.setDob(getDateValue(cell));
 
 							cell = row.getCell(StudentImportColumns.COLLEGE);
 							student.setCollege(getStringValue(cell));
@@ -71,33 +71,36 @@ public class StudentImporter extends XlsImporter implements Importer<Student> {
 
 							cell = row.getCell(StudentImportColumns.DOJ);
 							// TODO: RK
-
+							
+							cell = row.getCell(StudentImportColumns.BATCH);
+							student.setBatch(getIntValue(cell));
+							
 							cell = row.getCell(StudentImportColumns.DIPLAMO_YOP);
-							//student.setBatch(getStringValue(cell));
+							student.setDiplamoYop(getIntValue(cell));
 
 							cell = row.getCell(StudentImportColumns.DIPLAMO_GPA);
 							student.setDiplamoGpa(getStringValue(cell));
 
 							cell = row.getCell(StudentImportColumns.PLUS_TWO_YOP);
-							// TODO: RK
+							student.setTwelthYop(getIntValue(cell));
 
 							cell = row.getCell(StudentImportColumns.PLUS_TWO_GPA);
 							student.setTwelthGpa(getStringValue(cell));
 
 							cell = row.getCell(StudentImportColumns.SSLC_YOP);
-							// TODO: RK
+							student.setTenthYop(getIntValue(cell));
 
 							cell = row.getCell(StudentImportColumns.SSLC_GPA);
 							student.setTenthGpa(getStringValue(cell));
 
 							cell = row.getCell(StudentImportColumns.GAP_IN_ACADEMICS);
-							// TODO: RK
+							student.setGapInAcademics(getIntValue(cell));
 
 							cell = row.getCell(StudentImportColumns.ARREARS);
-							//student.setArrears(getStringValue(cell));
+							student.setArrears(getIntValue(cell));
 
 							cell = row.getCell(StudentImportColumns.HISTORY_OF_ARREARS);
-							//student.setArrearsHistory(getStringValue(cell));
+							student.setArrearsHistory(getIntValue(cell));
 
 							cell = row.getCell(StudentImportColumns.ADDRESS1);
 							student.setAddress1(getStringValue(cell));
@@ -109,7 +112,7 @@ public class StudentImporter extends XlsImporter implements Importer<Student> {
 							student.setEmail(getStringValue(cell));
 
 							cell = row.getCell(StudentImportColumns.PHONE_NUMBER);
-							//student.setPhoneNumber(getStringValue(cell));
+							student.setPhoneNumber(getIntValue(cell));
 							
 							cell = row.getCell(StudentImportColumns.AVATAR_PATH);
 							student.setAvatar(getStringValue(cell));

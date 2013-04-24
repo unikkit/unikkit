@@ -10,19 +10,20 @@ public interface StudentImportColumns {
 	int COLLEGE = 5;
 	int DEPARTMENT = 6;
 	int DOJ	= 7;
-	int DIPLAMO_YOP	= 8;
-	int DIPLAMO_GPA	= 9; 
-	int PLUS_TWO_YOP = 10;
-	int PLUS_TWO_GPA = 11;
-	int SSLC_YOP = 12;
-	int SSLC_GPA = 13;
-	int GAP_IN_ACADEMICS = 14;
-	int ARREARS	= 15;
-	int HISTORY_OF_ARREARS = 16;
-	int ADDRESS1 = 17;
-	int ADDRESS2 = 18;
-	int EMAIL = 19;
-	int PHONE_NUMBER = 20;
-	int AVATAR_PATH = 21;
+	int BATCH = 8;
+	int DIPLAMO_YOP	= 9;
+	int DIPLAMO_GPA	= 10; 
+	int PLUS_TWO_YOP = 11;
+	int PLUS_TWO_GPA = 12;
+	int SSLC_YOP = 13;
+	int SSLC_GPA = 14;
+	int GAP_IN_ACADEMICS = 15;
+	int ARREARS	= 16;
+	int HISTORY_OF_ARREARS = 17;
+	int ADDRESS1 = 18;
+	int ADDRESS2 = 19;
+	int EMAIL = 20;
+	int PHONE_NUMBER = 21;
+	int AVATAR_PATH = 22;
 
 }

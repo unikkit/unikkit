@@ -108,7 +108,6 @@ public class XlsImporter {
 	}
 	
 	protected Date getDateValue(Cell cell) {
-		getStringValue(cell);
 		return cell.getDateCellValue();
 	}
 	
