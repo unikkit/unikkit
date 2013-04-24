@@ -1,9 +1,7 @@
 package org.mamce.unikkit.model.user;
 
-import java.util.Set;
-
 import org.mamce.unikkit.model.BaseModel;
-import org.mamce.unikkit.model.Menu;
+import org.mamce.unikkit.model.role.Role;
 
 /**
  * @author Ramesh
@@ -13,7 +11,7 @@ public class User extends BaseModel {
 
 	private String username;
 	private String password;
-	private Set<Menu> userMenu;
+	private Role role;
 	
 	/**
 	 * @return the username
@@ -40,16 +38,17 @@ public class User extends BaseModel {
 		this.password = password;
 	}
 	/**
-	 * @return the userMenu
+	 * @return the role
 	 */
-	public Set<Menu> getUserMenu() {
-		return userMenu;
+	public Role getRole() {
+		return role;
 	}
 	/**
-	 * @param userMenu the userMenu to set
+	 * @param role the role to set
 	 */
-	public void setUserMenu(Set<Menu> userMenu) {
-		this.userMenu = userMenu;
+	public void setRole(Role role) {
+		this.role = role;
 	}
+	
 	
 }
