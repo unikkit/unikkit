@@ -26,13 +26,16 @@
 			<column name="registration_number" length="255" not-null="true" />
 		</property>
 		<property name="batch" type="int">
-			<column name="batch" length="255" not-null="true" />
+			<column name="batch" not-null="true" />
+		</property>
+		<property name="gapInAcademics" type="int">
+			<column name="gap_in_academics" />
 		</property>
 		<property name="gender" type="string">
 			<column name="gender" length="255" />
 		</property>
-		<property name="dob" type="string">
-			<column name="dob" length="255" />
+		<property name="dob" type="java.util.Date">
+			<column name="dob" />
 		</property>
 		<property name="college" type="string">
 			<column name="college" length="100" not-null="true" />
@@ -59,16 +62,25 @@
 			<column name="parent_name" length="255" />
 		</property>
 		<property name="arrears" type="int">
-			<column name="arrears" length="255" default="0" />
+			<column name="arrears" default="0" />
 		</property>
 		<property name="arrearsHistory" type="int">
-			<column name="arrears_history" length="255" default="0" />
+			<column name="arrears_history" default="0" />
+		</property>
+		<property name="tenthYop" type="int">
+			<column name="tenth_yop" />
 		</property>
 		<property name="tenthGpa" type="string">
 			<column name="tenth_gpa" length="255" />
 		</property>
+		<property name="twelthYop" type="int">
+			<column name="twelth_yop" />
+		</property>
 		<property name="twelthGpa" type="string">
 			<column name="twelth_gpa" length="255" />
+		</property>
+		<property name="diplamoYop" type="int">
+			<column name="diplamo_yop" />
 		</property>
 		<property name="diplamoGpa" type="string">
 			<column name="diplamo_gpa" length="255" />
@@ -87,7 +99,7 @@
 		</property>
 
 		<set name="grades" table="tbl_stud_grade" inverse="true"
-			lazy="true" fetch="select">
+			lazy="false" fetch="select" order-by="semester_id">
 			<key>
 				<column name="student_id" not-null="true" />
 			</key>

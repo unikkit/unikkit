@@ -68,6 +68,10 @@
 			<column name="updated_by" />
 		</property>
 		
+		<many-to-one name="role" class="org.mamce.unikkit.model.role.Role" fetch="select">
+            <column name="role_id" not-null="true" />
+        </many-to-one>
+        
 		<set name="interests" table="tbl_staff_interest" order-by="interest"
 				inverse="true" lazy="false" fetch="select" cascade="save-update,delete-orphan">
             <key>

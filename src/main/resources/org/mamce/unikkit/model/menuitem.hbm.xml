@@ -12,6 +12,12 @@
         <property name="menuText" type="string">
             <column name="menu_text" not-null="true" />
         </property>
+        <property name="icon" type="string">
+            <column name="icon" />
+        </property>
+        <property name="uri" type="string">
+            <column name="uri" />
+        </property>
         <property name="active" type="boolean">
             <column name="active" default="true"/>
         </property>
@@ -25,8 +31,8 @@
 			<column name="updated_by" />
 		</property>
 		
-		<many-to-one name="parent" class="org.mamce.unikkit.model.Menu" fetch="select">
+		<!-- <many-to-one name="parent" class="org.mamce.unikkit.model.Menu" fetch="select">
             <column name="menu_id" not-null="true" />
-        </many-to-one>
+        </many-to-one> -->
     </class>
 </hibernate-mapping>

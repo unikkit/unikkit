@@ -24,6 +24,8 @@
 			<column name="updated_by" />
 		</property>
 		
+		<many-to-one name="department" class="org.mamce.unikkit.model.Department" column="department_id" cascade="all" not-null="true" />
+		
 		 <set name="semesters" table="tbl_sem_subject" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="subject_id" not-null="true" />

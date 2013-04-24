@@ -12,11 +12,20 @@
         <property name="menuText" type="string">
             <column name="menu_text" not-null="true" />
         </property>
+        <property name="icon" type="string">
+            <column name="icon" />
+        </property>
+        <property name="uri" type="string">
+            <column name="uri" />
+        </property>
+        <property name="ordr" type="int">
+            <column name="ordr" />
+        </property>
         <property name="active" type="boolean">
             <column name="active" default="true"/>
         </property>
         <property name="defaultMenu" type="boolean">
-            <column name="default" default="false"/>
+            <column name="default_menu" default="false"/>
         </property>
         <property name="createdDate" type="timestamp">
 			<column name="created_date" />
@@ -29,7 +38,7 @@
 		</property>
 		
 		<set name="menuItems" table="tbl_menu_item" 
-				inverse="true" lazy="true" fetch="select">
+				inverse="true" lazy="false" fetch="select">
             <key>
                 <column name="menu_id" not-null="true" />
             </key>
