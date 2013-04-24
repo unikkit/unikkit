@@ -9,6 +9,8 @@ public class MenuItem extends BaseModel {
 	private static final long serialVersionUID = 1L;
 	private String menuText;
 	private Menu parent;
+	private String icon;
+	private String uri;
 	
 	/**
 	 * @return the menuText
@@ -34,5 +36,30 @@ public class MenuItem extends BaseModel {
 	public void setParent(Menu parent) {
 		this.parent = parent;
 	}
+	/**
+	 * @return the icon
+	 */
+	public String getIcon() {
+		return icon;
+	}
+	/**
+	 * @param icon the icon to set
+	 */
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+	/**
+	 * @return the uri
+	 */
+	public String getUri() {
+		return uri;
+	}
+	/**
+	 * @param uri the uri to set
+	 */
+	public void setUri(String uri) {
+		this.uri = uri;
+	}
+	
 
 }

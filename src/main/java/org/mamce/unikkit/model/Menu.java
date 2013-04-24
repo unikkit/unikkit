@@ -14,6 +14,9 @@ public class Menu extends BaseModel {
 	private static final long serialVersionUID = 1L;
 	private String menuText;
 	private boolean defaultMenu;
+	private String icon;
+	private String uri;
+	private int ordr;
 	private Set<MenuItem> menuItems;
 	
 	/**
@@ -40,6 +43,19 @@ public class Menu extends BaseModel {
 	public void setDefaultMenu(boolean defaultMenu) {
 		this.defaultMenu = defaultMenu;
 	}
+	
+	/**
+	 * @return the icon
+	 */
+	public String getIcon() {
+		return icon;
+	}
+	/**
+	 * @param icon the icon to set
+	 */
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
 	/**
 	 * @return the menuItems
 	 */
@@ -51,6 +67,30 @@ public class Menu extends BaseModel {
 	 */
 	public void setMenuItems(Set<MenuItem> menuItems) {
 		this.menuItems = menuItems;
+	}
+	/**
+	 * @return the uri
+	 */
+	public String getUri() {
+		return uri;
+	}
+	/**
+	 * @param uri the uri to set
+	 */
+	public void setUri(String uri) {
+		this.uri = uri;
+	}
+	/**
+	 * @return the ordr
+	 */
+	public int getOrdr() {
+		return ordr;
+	}
+	/**
+	 * @param ordr the ordr to set
+	 */
+	public void setOrdr(int ordr) {
+		this.ordr = ordr;
 	}
 	
 	

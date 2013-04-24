@@ -3,15 +3,12 @@ package org.mamce.unikkit.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.mamce.unikkit.common.util.Constants;
 import org.mamce.unikkit.common.util.UnikkUtils;
 
 public class BaseModel implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private long id;
+	private long id = Constants.UNSAVED_ID;
 	private boolean active = true;
 	private Date createdDate;
 	private Date updatedDate;
