@@ -67,6 +67,13 @@ public class MenuBean extends BaseBean {
 				return menuModel;
 			}
 			
+			menuModel = new DefaultMenuModel();
+			MenuItem home = new MenuItem();
+			home.setUrl("/home/dashboard.xhtml");
+			home.setValue("Home");
+			home.setIcon("ui-icon-home");
+			
+			menuModel.addMenuItem(home);
 			if(user.getRole() != null) {
 				Role userRole = user.getRole();
 
@@ -75,7 +82,6 @@ public class MenuBean extends BaseBean {
 
 					if(freshRole != null) {
 						Set<Menu> menus = freshRole.getMenu();
-						menuModel = new DefaultMenuModel();
 						
 						for (Menu menu : menus) {
 							Submenu sub = new Submenu();
