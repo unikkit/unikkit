@@ -7,6 +7,8 @@ import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * @author Ramesh
  *
@@ -118,6 +120,24 @@ public class UnikkUtils {
 		if(date == null) return "";
 		
 		return sdf.format(date);
+	}
+	
+	public static String generateRollNumber(int batch, int sequence) {
+		sequence++;
+		String rollNumberPattern = PropertyUtils.getProperty(Constants.PROP_KEY_ROLL_NUM_PATTERN);
+		String yearTwoDigit = StringUtils.substring(String.valueOf(batch), 2);
+		yearTwoDigit = StringUtils.leftPad(yearTwoDigit, 2, "0");
+		String seq = StringUtils.leftPad(String.valueOf(sequence), 3, "0");
+		
+		return MessageFormat.format(rollNumberPattern, yearTwoDigit, seq);
+	}
+	
+	public static String generateStaffNumber(String department, int sequence) {
+		sequence++;
+		String staffNumberPattern = PropertyUtils.getProperty(Constants.PROP_KEY_STAFF_NUM_PATTERN);
+		String seq = StringUtils.leftPad(String.valueOf(sequence), 5, "0");
+		
+		return MessageFormat.format(staffNumberPattern, department, seq);
 	}
 	
 }
