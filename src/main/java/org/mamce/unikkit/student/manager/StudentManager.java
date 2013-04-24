@@ -10,4 +10,5 @@ public interface StudentManager {
 	void saveAllStudent(List<Student> students);
 	List<Student> findAllStudents();
 	Student findStudentById(long id);
+	int findTotalStudentsByBatch(int batch, String department);
 }

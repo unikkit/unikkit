@@ -46,6 +46,15 @@ public class StudentManagerImpl implements StudentManager {
 	public Student findStudentById(long id) {
 		return studentDao.findStudentById(id);
 	}
+
+	@Override
+	public int findTotalStudentsByBatch(int batch, String department) {
+		int count = studentDao.findTotalStudentsByBatch(batch, department);
+		if(count <= 0) {
+			count = 1;
+		}
+		return count;
+	}
 	
 
 }
