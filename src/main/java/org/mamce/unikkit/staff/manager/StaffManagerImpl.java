@@ -52,4 +52,14 @@ public class StaffManagerImpl implements StaffManager {
 		return staffDao.findStaffs(staffIds);
 	}
 
+	@Override
+	public int findTotalStaffByDepartment(String department) {
+		int count = staffDao.findTotalStaffByDepartment(department);
+		
+		if(count <= 0) {
+			count++;
+		}
+		return count;
+	}
+
 }

@@ -16,5 +16,5 @@ public interface StaffManager {
 	List<Staff> findAllStaffs();
 	Staff findStaffById(long id);
 	List<Staff> findStaffs(Set<String> staffId);
-
+	int findTotalStaffByDepartment(String department);
 }
