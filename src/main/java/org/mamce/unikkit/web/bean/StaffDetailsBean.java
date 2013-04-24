@@ -6,19 +6,24 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.context.FacesContext;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.mamce.unikkit.common.util.Constants;
+import org.mamce.unikkit.common.util.FacesUtils;
+import org.mamce.unikkit.common.util.UnikkUtils;
 import org.mamce.unikkit.model.staff.Achievement;
 import org.mamce.unikkit.model.staff.Membership;
 import org.mamce.unikkit.model.staff.Publication;
 import org.mamce.unikkit.model.staff.Staff;
 import org.mamce.unikkit.model.staff.StaffInterest;
+import org.mamce.unikkit.model.user.User;
+import org.mamce.unikkit.role.manager.RoleManager;
 import org.mamce.unikkit.staff.manager.StaffManager;
+import org.mamce.unikkit.user.manager.UserManager;
 import org.primefaces.event.RowEditEvent;
 
 /**
@@ -38,6 +43,12 @@ public class StaffDetailsBean extends BaseBean {
 	@ManagedProperty(value=MP_STAFF_MANAGER)
 	private StaffManager staffManager;
 	
+	@ManagedProperty(value=MP_ROLE_MANAGER)
+	private RoleManager roleManager;
+	
+	@ManagedProperty(value=MP_USER_MANAGER)
+	private UserManager userManager;
+	
 	private Staff selectedStaff;
 	
 	private String staffId;
@@ -53,7 +64,7 @@ public class StaffDetailsBean extends BaseBean {
 	private String city;
 	private String state;
 	private String country;
-	private String phoneNumber;
+	private int phoneNumber;
 	private String gender;
 	private String newInterest;
 	private String newPublicationDesc;
@@ -62,6 +73,8 @@ public class StaffDetailsBean extends BaseBean {
 	private String newAchievementType;
 	private String newMembershipDesc;
 	private String newMembershipType;
+	private String roleId;
+	private boolean createLogonAccount;
 	
 	private StaffInterest selectedInterest;
 	private Publication selectedPublication;
@@ -258,14 +271,14 @@ public class StaffDetailsBean extends BaseBean {
 	/**
 	 * @return the phoneNumber
 	 */
-	public String getPhoneNumber() {
+	public int getPhoneNumber() {
 		return phoneNumber;
 	}
 
 	/**
 	 * @param phoneNumber the phoneNumber to set
 	 */
-	public void setPhoneNumber(String phoneNumber) {
+	public void setPhoneNumber(int phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
@@ -379,6 +392,34 @@ public class StaffDetailsBean extends BaseBean {
 	 */
 	public void setNewMembershipType(String newMembershipType) {
 		this.newMembershipType = newMembershipType;
+	}
+
+	/**
+	 * @return the roleId
+	 */
+	public String getRoleId() {
+		return roleId;
+	}
+
+	/**
+	 * @param roleId the roleId to set
+	 */
+	public void setRoleId(String roleId) {
+		this.roleId = roleId;
+	}
+
+	/**
+	 * @return the createLogonAccount
+	 */
+	public boolean isCreateLogonAccount() {
+		return createLogonAccount;
+	}
+
+	/**
+	 * @param createLogonAccount the createLogonAccount to set
+	 */
+	public void setCreateLogonAccount(boolean createLogonAccount) {
+		this.createLogonAccount = createLogonAccount;
 	}
 
 	/**
@@ -508,6 +549,34 @@ public class StaffDetailsBean extends BaseBean {
 	}
 
 	/**
+	 * @return the roleManager
+	 */
+	public RoleManager getRoleManager() {
+		return roleManager;
+	}
+
+	/**
+	 * @param roleManager the roleManager to set
+	 */
+	public void setRoleManager(RoleManager roleManager) {
+		this.roleManager = roleManager;
+	}
+
+	/**
+	 * @return the userManager
+	 */
+	public UserManager getUserManager() {
+		return userManager;
+	}
+
+	/**
+	 * @param userManager the userManager to set
+	 */
+	public void setUserManager(UserManager userManager) {
+		this.userManager = userManager;
+	}
+
+	/**
 	 * @return the selectedStaff
 	 */
 	public Staff getSelectedStaff() {
@@ -535,24 +604,66 @@ public class StaffDetailsBean extends BaseBean {
 		return "staffCentral";
 	}
 	
+	public String addNewStaff() {
+		setId(Constants.UNSAVED_ID);
+		clearForm();
+		return "staffDetails";
+	}
+	
 	/**
 	 * 
 	 */
 	public void saveStaffDetails() {
+		Staff staff = null;
 		try {
-			Staff staff = staffManager.findStaffById(getId());
-			
-			if(staff == null) {
-				FacesMessage msg = new FacesMessage("Staff Information not found. Could not update.");
-				FacesContext.getCurrentInstance().addMessage(null, msg); 
+
+			if(getId() < 0) {
+				staff = new Staff();
+				int sequence = staffManager.findTotalStaffByDepartment(getDepartment());
+				setStaffId(UnikkUtils.generateStaffNumber(getDepartment(), sequence));
+				staff.setStaffId(getStaffId());
+			} else {
+				staff = staffManager.findStaffById(getId());
+
+				if(staff == null) {
+					FacesUtils.addErrorMessage("Staff Information not found. Could not update.");
+					return;
+				}
 			}
 			populateModel(staff);
+			
+			if(StringUtils.isNotBlank(roleId)) {
+				staff.setRole(roleManager.findRoleById(Long.valueOf(roleId)));
+			} else {
+				staff.setRole(null);
+			}
+			
+			
 			staffManager.saveStaff(staff);
 			populateForm(staff);
-			FacesMessage msg = new FacesMessage("Staff information saved successfully!");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
+			FacesUtils.addInfoMessage("Staff information saved successfully!");
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.error("Staff information saved successfully!", e);
+			FacesUtils.addFatalMessage("Error while saving staff details");
+		}
+		
+		
+		try {
+			if(isCreateLogonAccount() && StringUtils.isNotBlank(staff.getStaffId())) {
+				User userAccount = userManager.findUser(staff.getStaffId());
+				
+				if(userAccount == null) {
+					userAccount = new User();
+					userAccount.setUsername(staff.getStaffId());
+					userAccount.setPassword(UnikkUtils.hashIt("unikkit"));
+					userAccount.setRole(staff.getRole());
+					userAccount.setActive(true);
+					
+					userManager.saveUser(userAccount);
+				}
+			}
+		} catch (Exception e) {
+			LOGGER.error("Error while creating user logon account", e);
 		}
 	}
 	
@@ -562,6 +673,7 @@ public class StaffDetailsBean extends BaseBean {
 	public void addNewInterest() {
 		Staff staff = staffManager.findStaffById(getId());
 		if(staff == null) {
+			FacesUtils.addErrorMessage("Staff details could not be found.");
 			LOGGER.error("Staff details could not be found.");
 			return;
 		}
@@ -582,6 +694,7 @@ public class StaffDetailsBean extends BaseBean {
 		refreshInterests(staff.getInterests());
 		setNewInterest("");
 		LOGGER.info("Staff interest added!");
+		FacesUtils.addInfoMessage("Staff interest added!");
 	}
 	
 	/**
@@ -591,6 +704,7 @@ public class StaffDetailsBean extends BaseBean {
 		if(selectedInterest != null) {
 			Staff staff = staffManager.findStaffById(getId());
 			if(staff == null) {
+				FacesUtils.addErrorMessage("Staff details could not be found.");
 				LOGGER.error("Staff details could not be found.");
 				return;
 			}
@@ -606,6 +720,7 @@ public class StaffDetailsBean extends BaseBean {
 			setSelectedInterest(null);
 			
 			LOGGER.info("Staff interest deleted!");
+			FacesUtils.addInfoMessage("Staff interest deleted!");
 		}
 	}
 	
@@ -619,6 +734,7 @@ public class StaffDetailsBean extends BaseBean {
 			Staff staff = staffManager.findStaffById(getId());
 			if(staff == null) {
 				LOGGER.error("Staff details could not be found.");
+				FacesUtils.addErrorMessage("Staff details could not be found.");
 				return;
 			}
 
@@ -633,6 +749,7 @@ public class StaffDetailsBean extends BaseBean {
 
 				refreshInterests(staff.getInterests());
 				LOGGER.info("Staff interest updated!");
+				FacesUtils.addInfoMessage("Staff interest updated!");
 			}
 		}
 	}
@@ -651,6 +768,7 @@ public class StaffDetailsBean extends BaseBean {
 		Staff staff = staffManager.findStaffById(getId());
 		if(staff == null) {
 			LOGGER.error("Staff details could not be found.");
+			FacesUtils.addErrorMessage("Staff details could not be found.");
 			return;
 		}
 		
@@ -672,7 +790,8 @@ public class StaffDetailsBean extends BaseBean {
 		setNewPublicationDesc("");
 		setNewPublicationType("");
 		
-		LOGGER.info("Staff interest added!");
+		LOGGER.info("Staff publication added!");
+		FacesUtils.addInfoMessage("Staff publication added!");
 	}
 	
 	/**
@@ -683,6 +802,7 @@ public class StaffDetailsBean extends BaseBean {
 			Staff staff = staffManager.findStaffById(getId());
 			if(staff == null) {
 				LOGGER.error("Staff details could not be found.");
+				FacesUtils.addErrorMessage("Staff details could not be found.");
 				return;
 			}
 			
@@ -694,9 +814,10 @@ public class StaffDetailsBean extends BaseBean {
 
 				staffManager.saveStaff(staff);
 
-				refreshInterests(staff.getInterests());
+				refreshPublications(staff.getPublications());
 				setSelectedInterest(null);
-				LOGGER.info("Staff interest deleted!");
+				LOGGER.info("Staff publication deleted!");
+				FacesUtils.addInfoMessage("Staff publication deleted!");
 			}
 		}
 	
@@ -712,6 +833,7 @@ public class StaffDetailsBean extends BaseBean {
 			Staff staff = staffManager.findStaffById(getId());
 			if(staff == null) {
 				LOGGER.error("Staff details could not be found.");
+				FacesUtils.addErrorMessage("Staff details could not be found.");
 				return;
 			}
 
@@ -726,6 +848,7 @@ public class StaffDetailsBean extends BaseBean {
 
 				refreshPublications(staff.getPublications());
 				LOGGER.info("Staff publication updated!");
+				FacesUtils.addInfoMessage("Staff publication updated!");
 			}
 		}
 	}
@@ -744,6 +867,7 @@ public class StaffDetailsBean extends BaseBean {
 		Staff staff = staffManager.findStaffById(getId());
 		if(staff == null) {
 			LOGGER.error("Staff details could not be found.");
+			FacesUtils.addErrorMessage("Staff details could not be found.");
 			return;
 		}
 		
@@ -765,7 +889,8 @@ public class StaffDetailsBean extends BaseBean {
 		setNewAchievementDesc("");
 		setNewAchievementType("");
 		
-		LOGGER.info("Staff interest added!");
+		LOGGER.info("Staff achievement added!");
+		FacesUtils.addInfoMessage("Staff achievement added!");
 	}
 	
 	/**
@@ -776,6 +901,7 @@ public class StaffDetailsBean extends BaseBean {
 			Staff staff = staffManager.findStaffById(getId());
 			if(staff == null) {
 				LOGGER.error("Staff details could not be found.");
+				FacesUtils.addErrorMessage("Staff details could not be found.");
 				return;
 			}
 			
@@ -789,7 +915,8 @@ public class StaffDetailsBean extends BaseBean {
 
 				refreshAchievements(staff.getAchievements());
 				setSelectedAchievement(null);
-				LOGGER.info("Staff interest deleted!");
+				LOGGER.info("Staff achievement deleted!");
+				FacesUtils.addInfoMessage("Staff achievement deleted!");
 			}
 		}
 	
@@ -805,6 +932,7 @@ public class StaffDetailsBean extends BaseBean {
 			Staff staff = staffManager.findStaffById(getId());
 			if(staff == null) {
 				LOGGER.error("Staff details could not be found.");
+				FacesUtils.addErrorMessage("Staff details could not be found.");
 				return;
 			}
 
@@ -819,6 +947,7 @@ public class StaffDetailsBean extends BaseBean {
 
 				refreshAchievements(staff.getAchievements());
 				LOGGER.info("Staff achievement updated!");
+				FacesUtils.addInfoMessage("Staff achievement updated!");
 			}
 		}
 	}
@@ -837,6 +966,7 @@ public class StaffDetailsBean extends BaseBean {
 		Staff staff = staffManager.findStaffById(getId());
 		if(staff == null) {
 			LOGGER.error("Staff details could not be found.");
+			FacesUtils.addErrorMessage("Staff details could not be found.");
 			return;
 		}
 		
@@ -859,6 +989,7 @@ public class StaffDetailsBean extends BaseBean {
 		setNewMembershipType("");
 		
 		LOGGER.info("Staff membership added!");
+		FacesUtils.addInfoMessage("Staff membership added!");
 	}
 	
 	/**
@@ -869,6 +1000,7 @@ public class StaffDetailsBean extends BaseBean {
 			Staff staff = staffManager.findStaffById(getId());
 			if(staff == null) {
 				LOGGER.error("Staff details could not be found.");
+				FacesUtils.addErrorMessage("Staff details could not be found.");
 				return;
 			}
 			
@@ -883,6 +1015,7 @@ public class StaffDetailsBean extends BaseBean {
 				refreshMemberships(staff.getMemberships());
 				setSelectedMembership(null);
 				LOGGER.info("Staff membership deleted!");
+				FacesUtils.addInfoMessage("Staff membership deleted!");
 			}
 		}
 	
@@ -898,6 +1031,7 @@ public class StaffDetailsBean extends BaseBean {
 			Staff staff = staffManager.findStaffById(getId());
 			if(staff == null) {
 				LOGGER.error("Staff details could not be found.");
+				FacesUtils.addErrorMessage("Staff details could not be found.");
 				return;
 			}
 
@@ -912,6 +1046,7 @@ public class StaffDetailsBean extends BaseBean {
 
 				refreshMemberships(staff.getMemberships());
 				LOGGER.info("Staff membership updated!");
+				FacesUtils.addInfoMessage("Staff membership updated!");
 			}
 		}
 	}
@@ -924,21 +1059,29 @@ public class StaffDetailsBean extends BaseBean {
 	}
 	
 	private void refreshInterests(Set<StaffInterest> interests) {
-		getInterests().clear();
-		getInterests().addAll(interests);
+		if(interests != null) {
+			getInterests().clear();
+			getInterests().addAll(interests);
+		}
 	}
 	
 	private void refreshPublications(Set<Publication> publications) {
-		getPublications().clear();
-		getPublications().addAll(publications);
+		if(publications != null) {
+			getPublications().clear();
+			getPublications().addAll(publications);
+		}
 	}
 	private void refreshAchievements(Set<Achievement> achievements) {
-		getAchievements().clear();
-		getAchievements().addAll(achievements);
+		if(achievements != null) {
+			getAchievements().clear();
+			getAchievements().addAll(achievements);
+		}
 	}
 	private void refreshMemberships(Set<Membership> memberships) {
-		getMemberships().clear();
-		getMemberships().addAll(memberships);
+		if(memberships != null) {
+			getMemberships().clear();
+			getMemberships().addAll(memberships);
+		}
 	}
 	
 	private void populateForm(Staff staff) {
@@ -958,6 +1101,12 @@ public class StaffDetailsBean extends BaseBean {
 		setPhoneNumber(staff.getPhoneNumber());
 		setStaffId(staff.getStaffId());
 		setState(staff.getState());
+		
+		if(staff.getRole() != null) {
+			setRoleId(String.valueOf(staff.getRole().getId()));
+		} else {
+			setRoleId("");
+		}
 		
 		refreshInterests(staff.getInterests());
 		refreshPublications(staff.getPublications());
@@ -984,6 +1133,30 @@ public class StaffDetailsBean extends BaseBean {
 		staff.setState(getState());
 		
 		// TODO: RK: Other persistable object population
+	}
+	
+	private void clearForm() {
+		setAddress1(StringUtils.EMPTY);
+		setAddress2(StringUtils.EMPTY);
+		setCity(StringUtils.EMPTY);
+		setCollege(StringUtils.EMPTY);
+		setCountry(StringUtils.EMPTY);
+		setDepartment(StringUtils.EMPTY);
+		setDesignation(StringUtils.EMPTY);
+		setDob(null);
+		setDoj(null);
+		setEmail(StringUtils.EMPTY);
+		setGender(StringUtils.EMPTY);
+		setName(StringUtils.EMPTY);
+		setPhoneNumber(0);
+		setStaffId(StringUtils.EMPTY);
+		setState(StringUtils.EMPTY);
+		setRoleId("");
+		
+		setInterests(new ArrayList<StaffInterest>());
+		setPublications(new ArrayList<Publication>());
+		setAchievements(new ArrayList<Achievement>());
+		setMemberships(new ArrayList<Membership>());
 	}
 	
 }

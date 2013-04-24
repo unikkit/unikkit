@@ -1,14 +1,20 @@
 package org.mamce.unikkit.web.bean;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.mamce.unikkit.common.util.Constants;
+import org.mamce.unikkit.common.util.FacesUtils;
+import org.mamce.unikkit.common.util.UnikkUtils;
+import org.mamce.unikkit.model.student.Grade;
 import org.mamce.unikkit.model.student.Semester;
 import org.mamce.unikkit.model.student.Student;
 import org.mamce.unikkit.student.manager.StudentManager;
@@ -39,7 +45,7 @@ public class StudentDetailsBean extends BaseBean {
 	private String registrationNumber;
 	private int batch;
 	private String gender;
-	private String dob;
+	private Date dob;
 	private String college;
 	private String department;
 	private String email;
@@ -50,6 +56,9 @@ public class StudentDetailsBean extends BaseBean {
 	private String parentName;
 	private int arrears;
 	private int arrearsHistory;
+	private int tenthYop;
+	private int twelthYop;
+	private int diplamoYop;
 	private String tenthGpa;
 	private String twelthGpa;
 	private String diplamoGpa;
@@ -199,14 +208,14 @@ public class StudentDetailsBean extends BaseBean {
 	/**
 	 * @return the dob
 	 */
-	public String getDob() {
+	public Date getDob() {
 		return dob;
 	}
 
 	/**
 	 * @param dob the dob to set
 	 */
-	public void setDob(String dob) {
+	public void setDob(Date dob) {
 		this.dob = dob;
 	}
 
@@ -351,6 +360,48 @@ public class StudentDetailsBean extends BaseBean {
 	}
 
 	/**
+	 * @return the tenthYop
+	 */
+	public int getTenthYop() {
+		return tenthYop;
+	}
+
+	/**
+	 * @param tenthYop the tenthYop to set
+	 */
+	public void setTenthYop(int tenthYop) {
+		this.tenthYop = tenthYop;
+	}
+
+	/**
+	 * @return the twelthYop
+	 */
+	public int getTwelthYop() {
+		return twelthYop;
+	}
+
+	/**
+	 * @param twelthYop the twelthYop to set
+	 */
+	public void setTwelthYop(int twelthYop) {
+		this.twelthYop = twelthYop;
+	}
+
+	/**
+	 * @return the diplamoYop
+	 */
+	public int getDiplamoYop() {
+		return diplamoYop;
+	}
+
+	/**
+	 * @param diplamoYop the diplamoYop to set
+	 */
+	public void setDiplamoYop(int diplamoYop) {
+		this.diplamoYop = diplamoYop;
+	}
+
+	/**
 	 * @return the tenthGpa
 	 */
 	public String getTenthGpa() {
@@ -434,19 +485,33 @@ public class StudentDetailsBean extends BaseBean {
 		return "studentCentral";
 	}
 	
+	public String addNewStudent() {
+		setId(Constants.UNSAVED_ID);
+		clearForm();
+		return "studentDetails";
+	}
+	
 	public void saveStudentDetails() {
+		Student student = null;
 		try {
-			Student student = studentManager.findStudentById(getId());
-			
-			if(student == null) {
-				FacesMessage msg = new FacesMessage("Student Information not found. Could not update.");
-				FacesContext.getCurrentInstance().addMessage(null, msg); 
+			if(getId() < 0) {
+				int sequence = studentManager.findTotalStudentsByBatch(getBatch(), getDepartment());
+				setRollNumber(UnikkUtils.generateRollNumber(getBatch(), sequence));
+				
+				student = new Student();
+				student.setRollNumber(getRollNumber());
+			} else {
+				student = studentManager.findStudentById(getId());
+
+				if(student == null) {
+					FacesUtils.addErrorMessage("Student Information not found. Could not update.");
+					return;
+				}
 			}
 			populateModel(student);
 			studentManager.saveStudent(student);
 			populateForm(student);
-			FacesMessage msg = new FacesMessage("Student information saved successfully!");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
+			FacesUtils.addInfoMessage("Student information saved successfully!");
 		} catch (Exception e) {
 			LOGGER.error("Error while saving student details", e);
 		}
@@ -463,7 +528,7 @@ public class StudentDetailsBean extends BaseBean {
 		setCountry(student.getCountry());
 		setDepartment(student.getDepartment());
 		setDiplamoGpa(student.getDiplamoGpa());
-		//setDob(student.getDob());
+		setDob(student.getDob());
 		setEmail(student.getEmail());
 		setGender(student.getGender());
 		setId(student.getId());
@@ -479,6 +544,30 @@ public class StudentDetailsBean extends BaseBean {
 		
 		setSemesters(semesterManager.findAllSemesters());
 		
+		Set<Grade> studentGrade = student.getGrades();
+		
+		List<Grade> semGrade = new ArrayList<>();
+		
+		if(studentGrade != null && !studentGrade.isEmpty()) {
+			List<Semester> semesters = semesterManager.findAllSemesters();
+			long previousId = -1;
+			
+			if(semesters != null) {
+				for (Semester semester : semesters) {
+					if(semester != null) {
+						long currentId = semester.getId();
+						
+						if(previousId < 0) previousId = currentId;
+						
+						if(currentId != previousId) {
+							
+						}
+						
+						
+					}
+				}
+			}
+		}
 	}
 	
 	private void populateModel(Student student) {
@@ -491,8 +580,9 @@ public class StudentDetailsBean extends BaseBean {
 		student.setCollege(getCollege());
 		student.setCountry(getCountry());
 		student.setDepartment(getDepartment());
+		student.setDiplamoYop(getDiplamoYop());
 		student.setDiplamoGpa(getDiplamoGpa());
-		//student.setDob(getDob());
+		student.setDob(getDob());
 		student.setEmail(getEmail());
 		student.setGender(getGender());
 		student.setId(getId());
@@ -502,8 +592,36 @@ public class StudentDetailsBean extends BaseBean {
 		student.setRegistrationNumber(getRegistrationNumber());
 		//student.setRollNumber(getRollNumber());
 		student.setState(getState());
+		student.setTenthYop(getTenthYop());
 		student.setTenthGpa(getTenthGpa());
+		student.setTwelthYop(getTwelthYop());
 		student.setTwelthGpa(getTwelthGpa());
 	}
 
+	private void clearForm() {
+		setAddress1(StringUtils.EMPTY);
+		setAddress2(StringUtils.EMPTY);
+		setArrears(Constants.ZERO);
+		setArrearsHistory(Constants.ZERO);
+		setBatch(Constants.ZERO);
+		setCity(StringUtils.EMPTY);
+		setCollege(StringUtils.EMPTY);
+		setCountry(StringUtils.EMPTY);
+		setDepartment(StringUtils.EMPTY);
+		setDiplamoGpa(StringUtils.EMPTY);
+		setDob(null);
+		setEmail(StringUtils.EMPTY);
+		setGender(StringUtils.EMPTY);
+		setName(StringUtils.EMPTY);
+		setParentName(StringUtils.EMPTY);
+		setPhoneNumber(Constants.ZERO);
+		setRegistrationNumber(StringUtils.EMPTY);
+		setRollNumber(StringUtils.EMPTY);
+		setState(StringUtils.EMPTY);
+		setTenthGpa(StringUtils.EMPTY);
+		setTwelthGpa(StringUtils.EMPTY);
+		setUpdatedBy(StringUtils.EMPTY);
+		
+		//setSemesters(semesterManager.findAllSemesters());
+	}
 }

@@ -50,4 +50,17 @@ public class UserDaoImpl extends UnikkITDaoSupport<User> implements UserDao {
 		return null;
 	}
 
+	@Override
+	public User findUser(String userName) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(User.class);
+		criteria.add(Expression.eq("username", userName));
+		
+		List<User> user = (List<User>) getHibernateTemplate().findByCriteria(criteria);
+		
+		if(user != null && !user.isEmpty()) {
+			return user.get(0);
+		}
+		return null;
+	}
+
 }

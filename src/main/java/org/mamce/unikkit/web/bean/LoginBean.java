@@ -82,12 +82,20 @@ public class LoginBean extends BaseBean {
 		User user = userManager.findUser(getUsername(), UnikkUtils.hashIt(getPassword()));
 		
 		if(user == null) {
+			setUsername("");
 			LOGGER.info("Invalid username / password. Try again.");
+			FacesUtils.addErrorMessage("Invalid username - password. Try again.");
 			return "login";
 		}
 		
 		FacesUtils.setSessionAttribute(Constants.USER_SESSION_KEY, user);
 		
 		return "/home/dashboard";
+	}
+	
+	public String logout() {
+		FacesUtils.invalidateSession();
+		
+		return "/login.jsf";
 	}
 }

@@ -51,5 +51,10 @@ public class UserManagerImpl implements UserManager {
 	public User findUser(String userName, String hashedPassword) {
 		return userDao.findUser(userName, hashedPassword);
 	}
+	
+	@Override
+	public User findUser(String userName) {
+		return userDao.findUser(userName);
+	}
 
 }

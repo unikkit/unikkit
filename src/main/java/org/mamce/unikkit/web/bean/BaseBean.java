@@ -23,6 +23,7 @@ public class BaseBean implements Serializable {
 	protected static final String MP_EVENT_MANAGER = "#{eventManager}";
 	protected static final String MP_QUOTE_MANAGER = "#{quoteManager}";
 	protected static final String MP_EVENT_MODEL = "#{eventModel}";
+	protected static final String MP_ROLE_MANAGER = "#{roleManager}";
 	
 	private long id = Constants.UNSAVED_ID;
 
