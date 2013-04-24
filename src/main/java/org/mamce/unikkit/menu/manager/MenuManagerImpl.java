@@ -38,6 +38,11 @@ public class MenuManagerImpl implements MenuManager {
 	}
 
 	@Override
+	public List<Menu> findMenuByIds(List<Long> ids) {
+		return menuDao.findMenuByIds(ids);
+	}
+	
+	@Override
 	public void saveMenu(Menu menu) {
 		menuDao.saveMenu(menu);
 		
