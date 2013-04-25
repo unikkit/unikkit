@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 
 import org.mamce.unikkit.common.util.Constants;
 import org.mamce.unikkit.common.util.FacesUtils;
@@ -106,5 +107,9 @@ public class MenuBean extends BaseBean {
 			FacesUtils.setSessionAttribute(Constants.USER_MENU_MODEL, menuModel);
 		}
 		return menuModel;
+	}
+	
+	public String getLocalTimeZone() {
+	    return FacesContext.getCurrentInstance().getExternalContext().getInitParameter( "FIXED_LOCAL_TIMEZONE" );
 	}
 }

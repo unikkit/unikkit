@@ -109,13 +109,13 @@
 						closable="false" collapsed="false">
 						<h:panelGrid columns="2" styleClass="panelGrid"
 							columnClasses="width40">
-							<h:outputLabel value="iHealth"></h:outputLabel>
-							<div class="progressbar progressbar-green">
+							<h:outputLabel value="iHealth (#{studentDetailsBean.iHealth} % )"></h:outputLabel>
+							<div class="progressbar #{studentDetailsBean.iHealthStyleClass}">
 								<div class="progressbar-inner"></div>
 							</div>
 							<h:outputLabel value="Arrears"></h:outputLabel>
-							<h:outputLabel
-								value="#{studentDetailsBean.arrears}"></h:outputLabel>
+							<h:outputText id="arrearsTxt"
+								value="#{studentDetailsBean.arrears}"></h:outputText>
 
 							<h:outputLabel value="Arrears History"></h:outputLabel>
 							<h:outputLabel
@@ -150,18 +150,19 @@
 					</p:panel>
 				</h:panelGrid>
 			</h:panelGrid>
-			
-			<!-- Begin: Student Results -->
-			<p:panel id="resultsPnl" header="Results" toggleable="true"
-					closable="false" toggleSpeed="500" collapsed="false">
-			<!-- <ui:include src="studentResults.xhtml"></ui:include> -->
-			<!-- End: Student Results -->
-			</p:panel>
 			<h:panelGroup>
 				<p:commandButton id="saveBtn" value="Save" action="#{studentDetailsBean.saveStudentDetails}" update="@form"></p:commandButton>
 				<p:spacer width="4" />
 				<p:commandButton id="cancelBtn" value="Cancel" action="#{studentDetailsBean.cancelStudentDetails}"></p:commandButton>
 			</h:panelGroup>
+			<br/>
+			<!-- Begin: Student Results -->
+			<p:panel id="resultsPnl" header="Results" toggleable="true"
+					closable="false" toggleSpeed="500" collapsed="false">
+			<ui:include src="studentResults.xhtml"></ui:include>
+			<!-- End: Student Results -->
+			</p:panel>
+			
 		</h:form>
 	</ui:define>
 </ui:composition>

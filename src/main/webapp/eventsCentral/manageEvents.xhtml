@@ -13,7 +13,7 @@
 			<br />
 			<br />
 			<p:growl id="messages" showDetail="true" />
-			<p:schedule widgetVar="schedulerWdgt" value="#{manageEventsBean.eventModel}" >
+			<p:schedule widgetVar="schedulerWdgt" value="#{manageEventsBean.eventModel}" timeZone="#{menuBean.localTimeZone}">
 				<p:ajax event="dateSelect"
 					listener="#{manageEventsBean.onDateSelect}" update="eventDetails"
 					oncomplete="eventDialog.show()" />

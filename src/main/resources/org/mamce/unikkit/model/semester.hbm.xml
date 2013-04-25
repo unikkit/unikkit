@@ -25,7 +25,7 @@
 		</property>
 
 		<set name="subjects" table="tbl_sem_subject" inverse="false"
-			lazy="true" fetch="select" cascade="all">
+			lazy="false" fetch="select" cascade="all">
 			<key>
 				<column name="semester_id" not-null="true" />
 			</key>

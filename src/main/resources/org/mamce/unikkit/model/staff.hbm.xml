@@ -69,7 +69,7 @@
 		</property>
 		
 		<many-to-one name="role" class="org.mamce.unikkit.model.role.Role" fetch="select">
-            <column name="role_id" not-null="true" />
+            <column name="role_id" />
         </many-to-one>
         
 		<set name="interests" table="tbl_staff_interest" order-by="interest"

@@ -9,6 +9,7 @@ public interface Constants {
 	String DT_FORMAT_DD_MMM_YYYY = "dd MMM yyyy";
 	String PROP_KEY_ROLL_NUM_PATTERN = "rollnumber.pattern";
 	String PROP_KEY_STAFF_NUM_PATTERN = "staff.number.pattern";
+	String GRADE_X = "X";
 	int ZERO = 0;
 	long UNSAVED_ID = -1;
 }

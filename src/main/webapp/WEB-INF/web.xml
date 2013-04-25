@@ -29,6 +29,11 @@
     <param-value>false</param-value>
 </context-param>
 
+<context-param>
+    <param-name>FIXED_LOCAL_TIMEZONE</param-name>
+    <param-value>GMT+05:30</param-value>
+</context-param>
+
   <!-- Session config -->
  	 <session-config>
     	<session-timeout>30</session-timeout>

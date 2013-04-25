@@ -4,13 +4,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
+import org.mamce.unikkit.common.util.FacesUtils;
 import org.mamce.unikkit.exception.UnikkImporterException;
 import org.mamce.unikkit.exception.UnikkResourceException;
 import org.mamce.unikkit.img.ImageUploader;
@@ -82,9 +81,7 @@ public class ImportStaffsBean extends BaseBean {
 			LOGGER.error("Error while importing staff informations", e);
 		}
 
-		FacesMessage msg = new FacesMessage("Staff Data Imported successfully!");
-		FacesContext.getCurrentInstance().addMessage(null, msg); 
-		System.out.println("Upload ended");
+		FacesUtils.addInfoMessage("Staff Data Imported successfully!");
 	}
 	
 }

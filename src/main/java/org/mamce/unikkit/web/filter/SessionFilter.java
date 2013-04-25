@@ -46,7 +46,7 @@ public class SessionFilter implements Filter {
 		User user = (User) httpSession.getAttribute(Constants.USER_SESSION_KEY);
 		
 		if (user == null) {
-			httpSession.removeAttribute(Constants.USER_MENU_MODEL);
+			//httpSession.removeAttribute(Constants.USER_MENU_MODEL);
 			httpResponse.sendRedirect(httpRequest.getContextPath()
 					+ "/login.jsf");
 		} else {

@@ -15,34 +15,42 @@
 		<h:outputText value="D: 50 - 40" styleClass="legend"/>
 		<h:outputText value="X: less than 40" styleClass="legend"/>
 	</p:panelGrid>
-	<p:tabView id="studentResultsTabView" var="grade"
-		value="#{studentCentralBean.grades}">
+	<p:tabView id="studentResultsTabView" var="semesterView"
+		value="#{studentDetailsBean.semesterView}">
 
-		<p:tab id="semesterTab" title="Sem # #{semester.code}">
-			<p:dataTable var="subject"
-				value="#{result.subjects}" id="subjectDT"
+		<p:tab id="semesterTab" title="#{semesterView.semesterName}">
+			<p:dataTable var="grade"
+				value="#{semesterView.grades}" id="subjectDT"
 				editable="true" styleClass="width50">
 
-				<!-- <p:ajax event="rowEdit" listener="#{tableBean.onEdit}"
-							update=":form:messages" />
-						<p:ajax event="rowEditCancel" listener="#{tableBean.onCancel}"
-							update=":form:messages" /> -->
+				<p:ajax event="rowEdit" listener="#{studentDetailsBean.onResultRowEditSave}"
+							update="subjectDT,:studentDetailsForm:currentAcademicPnl"/>
+				<p:ajax event="rowEditCancel" listener="#{studentDetailsBean.onRowEditCancel}"
+					/>
 
 				<p:column headerText="Code" style="width:2%;">
-					<h:outputText value="#{subject.code}" />
+					<h:outputText value="#{grade.subject.code}" />
 				</p:column>
 				
 				<p:column headerText="Code" styleClass="width50">
-					<h:outputText value="#{subject.name}" />
+					<h:outputText value="#{grade.subject.name}" />
 				</p:column>
 				
 				<p:column headerText="Grade" styleClass="width10">
 					<p:cellEditor>
 						<f:facet name="output">
-							<h:outputText value="#{subject.grade}" />
+							<h:outputText value="#{grade.grade}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{subject.grade}" style="width:100%" />
+							<h:selectOneMenu id="gradeDD"
+								value="#{grade.grade}">
+								<f:selectItem itemLabel="S" itemValue="S" />
+								<f:selectItem itemLabel="A" itemValue="A" />
+								<f:selectItem itemLabel="B" itemValue="B" />
+								<f:selectItem itemLabel="C" itemValue="C" />
+								<f:selectItem itemLabel="D" itemValue="D" />
+								<f:selectItem itemLabel="X" itemValue="X" />
+							</h:selectOneMenu>
 						</f:facet>
 					</p:cellEditor>
 				</p:column>

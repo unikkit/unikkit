@@ -1,13 +1,19 @@
 package org.mamce.unikkit.web.bean;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -17,11 +23,15 @@ import org.mamce.unikkit.common.util.UnikkUtils;
 import org.mamce.unikkit.model.student.Grade;
 import org.mamce.unikkit.model.student.Semester;
 import org.mamce.unikkit.model.student.Student;
+import org.mamce.unikkit.model.student.Subject;
+import org.mamce.unikkit.student.grade.manager.GradeManager;
 import org.mamce.unikkit.student.manager.StudentManager;
 import org.mamce.unikkit.student.semester.manager.SemesterManager;
+import org.mamce.unikkit.web.bean.model.SemesterView;
+import org.primefaces.event.RowEditEvent;
 
 @ManagedBean
-@RequestScoped
+@ApplicationScoped
 public class StudentDetailsBean extends BaseBean {
 
 	/**
@@ -35,6 +45,9 @@ public class StudentDetailsBean extends BaseBean {
 	
 	@ManagedProperty(value=MP_SEMESTER_MANAGER)
 	private SemesterManager semesterManager;
+	
+	@ManagedProperty(value=MP_GRADE_MANAGER)
+	private GradeManager gradeManager;
 	
 	private Student selectedStudent;
 	
@@ -54,16 +67,21 @@ public class StudentDetailsBean extends BaseBean {
 	private String country;
 	private int phoneNumber;
 	private String parentName;
+	private int totalSubject;
 	private int arrears;
 	private int arrearsHistory;
 	private int tenthYop;
 	private int twelthYop;
 	private int diplamoYop;
+	private int totalGradeEntered;
+	private int iHealth;
 	private String tenthGpa;
 	private String twelthGpa;
 	private String diplamoGpa;
 	private String updatedBy;
+	private String iHealthStyleClass;
 	private List<Semester> semesters;
+	List<SemesterView> semesterView = new ArrayList<>();
 	
 	/**
 	 * @return the studentManager
@@ -91,6 +109,20 @@ public class StudentDetailsBean extends BaseBean {
 	 */
 	public void setSemesterManager(SemesterManager semesterManager) {
 		this.semesterManager = semesterManager;
+	}
+
+	/**
+	 * @return the gradeManager
+	 */
+	public GradeManager getGradeManager() {
+		return gradeManager;
+	}
+
+	/**
+	 * @param gradeManager the gradeManager to set
+	 */
+	public void setGradeManager(GradeManager gradeManager) {
+		this.gradeManager = gradeManager;
 	}
 
 	/**
@@ -332,6 +364,20 @@ public class StudentDetailsBean extends BaseBean {
 	}
 
 	/**
+	 * @return the totalSubject
+	 */
+	public int getTotalSubject() {
+		return totalSubject;
+	}
+
+	/**
+	 * @param totalSubject the totalSubject to set
+	 */
+	public void setTotalSubject(int totalSubject) {
+		this.totalSubject = totalSubject;
+	}
+
+	/**
 	 * @return the arrears
 	 */
 	public int getArrears() {
@@ -402,6 +448,34 @@ public class StudentDetailsBean extends BaseBean {
 	}
 
 	/**
+	 * @return the totalGradeEntered
+	 */
+	public int getTotalGradeEntered() {
+		return totalGradeEntered;
+	}
+
+	/**
+	 * @param totalGradeEntered the totalGradeEntered to set
+	 */
+	public void setTotalGradeEntered(int totalGradeEntered) {
+		this.totalGradeEntered = totalGradeEntered;
+	}
+
+	/**
+	 * @return the iHealth
+	 */
+	public int getiHealth() {
+		return iHealth;
+	}
+
+	/**
+	 * @param iHealth the iHealth to set
+	 */
+	public void setiHealth(int iHealth) {
+		this.iHealth = iHealth;
+	}
+
+	/**
 	 * @return the tenthGpa
 	 */
 	public String getTenthGpa() {
@@ -458,6 +532,20 @@ public class StudentDetailsBean extends BaseBean {
 	}
 
 	/**
+	 * @return the iHealthStyleClass
+	 */
+	public String getiHealthStyleClass() {
+		return iHealthStyleClass;
+	}
+
+	/**
+	 * @param iHealthStyleClass the iHealthStyleClass to set
+	 */
+	public void setiHealthStyleClass(String iHealthStyleClass) {
+		this.iHealthStyleClass = iHealthStyleClass;
+	}
+
+	/**
 	 * @return the semesters
 	 */
 	public List<Semester> getSemesters() {
@@ -469,6 +557,20 @@ public class StudentDetailsBean extends BaseBean {
 	 */
 	public void setSemesters(List<Semester> semesters) {
 		this.semesters = semesters;
+	}
+
+	/**
+	 * @return the semesterView
+	 */
+	public List<SemesterView> getSemesterView() {
+		return semesterView;
+	}
+
+	/**
+	 * @param semesterView the semesterView to set
+	 */
+	public void setSemesterView(List<SemesterView> semesterView) {
+		this.semesterView = semesterView;
 	}
 
 	public String studentDetails() {
@@ -518,10 +620,19 @@ public class StudentDetailsBean extends BaseBean {
 	}
 	
 	private void populateForm(Student student) {
+		if(student.getGrades() == null || student.getGrades().isEmpty()) {
+			seedStudentGrade(student);
+			groupAndPopulateGrade(student);
+		} else {
+			groupAndPopulateGrade(student);
+		}
+		
+		calculateTotalArrears();
+		
 		setAddress1(student.getAddress1());
 		setAddress2(student.getAddress2());
-		setArrears(student.getArrears());
-		setArrearsHistory(student.getArrearsHistory());
+//		setArrears(student.getArrears());
+//		setArrearsHistory(student.getArrearsHistory());
 		setBatch(student.getBatch());
 		setCity(student.getCity());
 		setCollege(student.getCollege());
@@ -542,32 +653,6 @@ public class StudentDetailsBean extends BaseBean {
 		setTwelthGpa(student.getTwelthGpa());
 		setUpdatedBy(student.getUpdateBy());
 		
-		setSemesters(semesterManager.findAllSemesters());
-		
-		Set<Grade> studentGrade = student.getGrades();
-		
-		List<Grade> semGrade = new ArrayList<>();
-		
-		if(studentGrade != null && !studentGrade.isEmpty()) {
-			List<Semester> semesters = semesterManager.findAllSemesters();
-			long previousId = -1;
-			
-			if(semesters != null) {
-				for (Semester semester : semesters) {
-					if(semester != null) {
-						long currentId = semester.getId();
-						
-						if(previousId < 0) previousId = currentId;
-						
-						if(currentId != previousId) {
-							
-						}
-						
-						
-					}
-				}
-			}
-		}
 	}
 	
 	private void populateModel(Student student) {
@@ -623,5 +708,155 @@ public class StudentDetailsBean extends BaseBean {
 		setUpdatedBy(StringUtils.EMPTY);
 		
 		//setSemesters(semesterManager.findAllSemesters());
+	}
+	
+	private void seedStudentGrade(Student student) {
+		Set<Grade> grades = new HashSet<>();
+		try {
+			semesters = semesterManager.findAllSemesters();
+			
+			if(semesters != null && !semesters.isEmpty()) {
+				for (Semester semester : semesters) {
+					if(semester != null) {
+						Set<Subject> subjects = semester.getSubjects();
+						
+						if(subjects != null && !subjects.isEmpty()) {
+							for (Subject subject : subjects) {
+								if(subject != null && student !=null) {
+									Grade grade = new Grade();
+									grade.setSemester(semester);
+									grade.setSubject(subject);
+									grade.setStudent(student);
+									grades.add(grade);
+								}
+							}
+						}
+					}
+				}
+			}
+			student.setGrades(grades);
+			studentManager.saveStudent(student);
+		} catch (Exception e) {
+			LOGGER.error("Error while seeding new student grades", e);
+		}
+		
+	}
+	
+	private void groupAndPopulateGrade(Student student) {
+		semesterView = new ArrayList<>();
+		if(student != null) {
+			Map<Semester, List<Grade>> gradeGroup = new HashMap<>();
+
+			Set<Grade> grades = student.getGrades();
+
+			if(grades != null) {
+				for (Grade grade : grades) {
+					if(grade != null) {
+						if (gradeGroup.containsKey(grade.getSemester())) {
+							gradeGroup.get(grade.getSemester()).add(grade);
+						} else {
+							List<Grade> newGroup = new ArrayList<>();
+							newGroup.add(grade);
+							gradeGroup.put(grade.getSemester(), newGroup);
+						}
+					}
+				}
+			}
+			System.out.println("Group of grades"+gradeGroup);
+			
+			if(gradeGroup != null && gradeGroup.entrySet() != null) {
+				for (Iterator<Entry<Semester, List<Grade>>> iterator = gradeGroup.entrySet().iterator(); iterator.hasNext();) {
+					Entry<Semester, List<Grade>> entry = (Entry) iterator.next();
+					SemesterView view = new SemesterView();
+					Semester semester = entry.getKey();
+					view.setSemesterId(String.valueOf(semester.getId()));
+					view.setSemesterName(semester.getName());
+					view.setGrades(entry.getValue());
+					
+					semesterView.add(view);
+					System.out.println(semesterView);
+				}
+			}
+			Collections.sort(semesterView, SemesterView.semesterViewComparator);
+		}
+	}
+	
+	private void calculateTotalArrears() {
+		totalSubject = 0;
+		arrears = 0;
+		totalGradeEntered = 0;
+		if(semesterView != null && !semesterView.isEmpty()) {
+			for (SemesterView sem : semesterView) {
+				List<Grade> grades = sem.getGrades();
+				
+				for (Grade grade : grades) {
+					if(StringUtils.isNotBlank(grade.getGrade())) {
+						totalGradeEntered++;
+					}
+					totalSubject++;
+					
+					if(grade.isArrear()) {
+						arrears++;
+					}
+				}
+			}
+		}
+		arrearsHistory = arrears;
+		calculateIHealth();
+	}
+	
+	private void calculateIHealth() {
+		double percent = 0;
+		percent = (totalGradeEntered - arrears);
+		
+		if(totalGradeEntered - arrears == 0) {
+			iHealthStyleClass = "progressbar-green";
+			return;
+		}
+		
+		percent = percent / totalGradeEntered;
+		iHealth = Double.valueOf(percent * 100).intValue();
+		
+		if(iHealth > 90) {
+			iHealthStyleClass = "progressbar-green";
+		} else if(iHealth < 90 &&  iHealth > 70) {
+			iHealthStyleClass = "progressbar-blue";
+		} else if(iHealth < 70 &&  iHealth > 50) {
+			iHealthStyleClass = "progressbar-yellow";
+		} else if(iHealth < 50) {
+			iHealthStyleClass = "progressbar-red";
+		}
+	}
+	
+	/**
+	 * @param event
+	 */
+	public void onResultRowEditSave(RowEditEvent event) {
+		Grade editedSubjectGrade = (Grade) event.getObject();
+		
+		if(editedSubjectGrade != null) {
+			Grade freshGrade = gradeManager.findGradeById(editedSubjectGrade.getId());
+			if(freshGrade == null) {
+				LOGGER.error("Student grade details could not be found.");
+				FacesUtils.addErrorMessage("Student grade details could not be found.");
+				return;
+			}
+
+			if(freshGrade != null) {
+				freshGrade.setGrade(editedSubjectGrade.getGrade());
+				
+				calculateTotalArrears();
+				gradeManager.saveGrade(freshGrade);
+				LOGGER.info("Grade updated!");
+				FacesUtils.addInfoMessage("Grade updated!");
+			}
+		}
+	}
+	
+	/**
+	 * @param event
+	 */
+	public void onRowEditCancel(RowEditEvent event) {
+		// RK: Do nothing... :)
 	}
 }
