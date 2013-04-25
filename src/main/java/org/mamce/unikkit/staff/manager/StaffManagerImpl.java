@@ -62,4 +62,14 @@ public class StaffManagerImpl implements StaffManager {
 		return count;
 	}
 
+	@Override
+	public long findTotalMaleStaffs() {
+		return staffDao.findTotalMaleStaffs();
+	}
+
+	@Override
+	public long findTotalFemaleStaffs() {
+		return staffDao.findTotalFemaleStaffs();
+	}
+
 }

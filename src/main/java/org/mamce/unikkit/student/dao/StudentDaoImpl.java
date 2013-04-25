@@ -44,4 +44,16 @@ public class StudentDaoImpl extends UnikkITDaoSupport<Student> implements Studen
 		
 		return count.intValue();
 	}
+
+	@Override
+	public List<Object> findTotalBoysByBatch() {
+		String queryString = "select count(id), batch from Student where gender Like 'M%' group by batch";
+		return getHibernateTemplate().find(queryString);
+	}
+
+	@Override
+	public List<Object> findTotalGirlsByBatch() {
+		String queryString = "select count(id), batch from Student where gender Like 'F%' group by batch";
+		return getHibernateTemplate().find(queryString);
+	}
 }

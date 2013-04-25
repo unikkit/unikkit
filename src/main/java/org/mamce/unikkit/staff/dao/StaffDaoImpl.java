@@ -67,4 +67,20 @@ public class StaffDaoImpl extends UnikkITDaoSupport<Staff> implements StaffDao {
 		
 		return count.intValue();
 	}
+
+	@Override
+	public long findTotalMaleStaffs() {
+		String queryString = "select count(id) from Staff where gender ='M'";
+		
+		Number count = (Number) getHibernateTemplate().find(queryString).get(0);
+		return count.longValue();
+	}
+
+	@Override
+	public long findTotalFemaleStaffs() {
+		String queryString = "select count(id) from Staff where gender ='F'";
+		
+		Number count = (Number) getHibernateTemplate().find(queryString).get(0);
+		return count.longValue();
+	}
 }

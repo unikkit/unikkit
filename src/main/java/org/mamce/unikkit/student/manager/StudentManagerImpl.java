@@ -55,6 +55,16 @@ public class StudentManagerImpl implements StudentManager {
 		}
 		return count;
 	}
+
+	@Override
+	public List<Object> findTotalBoysByBatch() {
+		return studentDao.findTotalBoysByBatch();
+	}
+
+	@Override
+	public List<Object> findTotalGirlsByBatch() {
+		return studentDao.findTotalGirlsByBatch();
+	}
 	
 
 }

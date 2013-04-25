@@ -11,4 +11,6 @@ public interface StudentDao {
 	int findTotalStudentsByBatch(int batch, String department);
 	void saveStudent(Student student);
 	void saveAllStudent(List<Student> students);
+	List<Object> findTotalBoysByBatch();
+	List<Object> findTotalGirlsByBatch();
 }

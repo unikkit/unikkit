@@ -11,4 +11,6 @@ public interface StudentManager {
 	List<Student> findAllStudents();
 	Student findStudentById(long id);
 	int findTotalStudentsByBatch(int batch, String department);
+	List<Object> findTotalBoysByBatch();
+	List<Object> findTotalGirlsByBatch();
 }

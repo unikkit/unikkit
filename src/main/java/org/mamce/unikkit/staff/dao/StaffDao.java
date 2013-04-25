@@ -13,4 +13,6 @@ public interface StaffDao {
 	void saveAllStaff(List<Staff> staffs);
 	List<Staff> findStaffs(Set<String> staffIds);
 	int findTotalStaffByDepartment(String department);
+	long findTotalMaleStaffs();
+	long findTotalFemaleStaffs();
 }

@@ -1,5 +1,6 @@
 package org.mamce.unikkit.web.bean;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -12,6 +13,8 @@ import org.mamce.unikkit.event.manager.EventManager;
 import org.mamce.unikkit.model.event.Event;
 import org.mamce.unikkit.model.quote.Quote;
 import org.mamce.unikkit.quote.manager.QuoteManager;
+import org.mamce.unikkit.staff.manager.StaffManager;
+import org.mamce.unikkit.student.manager.StudentManager;
 import org.primefaces.event.DashboardReorderEvent;
 import org.primefaces.model.DashboardColumn;
 import org.primefaces.model.DashboardModel;
@@ -40,6 +43,12 @@ public class DashboardBean extends BaseBean {
 	
 	@ManagedProperty(value=MP_QUOTE_MANAGER)
 	private QuoteManager quoteManager;
+	
+	@ManagedProperty(value=MP_STAFF_MANAGER)
+	private StaffManager staffManager;
+	
+	@ManagedProperty(value=MP_STUDENT_MANAGER)
+	private StudentManager studentManager;
 	
 	private Event selectedEvent;
 	
@@ -71,6 +80,34 @@ public class DashboardBean extends BaseBean {
 	 */
 	public void setQuoteManager(QuoteManager quoteManager) {
 		this.quoteManager = quoteManager;
+	}
+
+	/**
+	 * @return the staffManager
+	 */
+	public StaffManager getStaffManager() {
+		return staffManager;
+	}
+
+	/**
+	 * @param staffManager the staffManager to set
+	 */
+	public void setStaffManager(StaffManager staffManager) {
+		this.staffManager = staffManager;
+	}
+
+	/**
+	 * @return the studentManager
+	 */
+	public StudentManager getStudentManager() {
+		return studentManager;
+	}
+
+	/**
+	 * @param studentManager the studentManager to set
+	 */
+	public void setStudentManager(StudentManager studentManager) {
+		this.studentManager = studentManager;
 	}
 
 	/**
@@ -136,22 +173,28 @@ public class DashboardBean extends BaseBean {
 
 		ChartSeries boys = new ChartSeries();  
 		boys.setLabel("Boys");  
+		List<Object> totalBoysByBatch = studentManager.findTotalBoysByBatch();
+		if(totalBoysByBatch != null && !totalBoysByBatch.isEmpty()) {
+			for (Iterator iterator = totalBoysByBatch.iterator(); iterator
+					.hasNext();) {
+				Object[] row = (Object[]) iterator.next();
+				boys.set(String.valueOf((Integer) row[1]), (Long) row[0]);
 
-		boys.set("2004", 120);  
-		boys.set("2005", 100);  
-		boys.set("2006", 44);  
-		boys.set("2007", 150);  
-		boys.set("2008", 25);  
+			}
+		}
 
 		ChartSeries girls = new ChartSeries();  
 		girls.setLabel("Girls");  
+		List<Object> totalGirlsByBatch = studentManager.findTotalGirlsByBatch();
+		
+		if(totalGirlsByBatch != null && !totalGirlsByBatch.isEmpty()) {
+			for (Iterator iterator = totalGirlsByBatch.iterator(); iterator
+					.hasNext();) {
+				Object[] row = (Object[]) iterator.next();
+				girls.set(String.valueOf((Integer) row[1]), (Long) row[0]);
 
-		girls.set("2004", 52);  
-		girls.set("2005", 60);  
-		girls.set("2006", 110);  
-		girls.set("2007", 135);  
-		girls.set("2008", 120);  
-
+			}
+		}
 		studentStats.addSeries(boys);  
 		studentStats.addSeries(girls); 
 		
@@ -161,10 +204,8 @@ public class DashboardBean extends BaseBean {
 	public PieChartModel getStaffStats() {
 		PieChartModel staffStats = new PieChartModel();  
 		  
-        staffStats.set("Brand 1", 540);  
-        staffStats.set("Brand 2", 325);  
-        staffStats.set("Brand 3", 702);  
-        staffStats.set("Brand 4", 421); 
+        staffStats.set("Male Staff", staffManager.findTotalMaleStaffs());
+        staffStats.set("Female Staff", staffManager.findTotalMaleStaffs());  
         
         return staffStats;
 	}

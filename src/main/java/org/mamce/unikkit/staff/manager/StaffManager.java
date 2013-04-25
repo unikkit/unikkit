@@ -17,4 +17,6 @@ public interface StaffManager {
 	Staff findStaffById(long id);
 	List<Staff> findStaffs(Set<String> staffId);
 	int findTotalStaffByDepartment(String department);
+	long findTotalMaleStaffs();
+	long findTotalFemaleStaffs();
 }
